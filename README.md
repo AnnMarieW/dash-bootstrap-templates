@@ -1,55 +1,82 @@
 # Dash Bootstrap Templates
 
-Dash Bootstrap Templates is a collection of Plotly figure templates that
-are customized for Bootstrap themes.
-
+`dash-bootstrap-templates` provides a collection of Plotly figure templates customized for Bootstrap themes. 
 This library has templates for each of the 22 Bootstrap/Bootswatch themes available in the
-[Dash BootstrapComponents Library](https://dash-bootstrap-components.opensource.faculty.ai/)
+[Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/).
+
+## Quickstart
+
+```python
+
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+import plotly.express as px
+import dash_bootstrap_components as dbc
+
+from dash_bootstrap_templates import load_figure_template
+
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+load_figure_template("bootstrap")
 
 
-## Background
-
-One of the nice features in [Dash Labs]() is how it creates the Bootstrap figure templates. 
-In the demo apps below, the figure on the left is using these templates.  As you can see, it 
-creates graphs with colorways and fonts that are consistent with your selected Bootstrap theme.
-In Dash Labs, these templates are created on-the-fly by setting figure_template=True, 
-in certain layout templates.   
-
-This library makes these figure templates available for use
-in a Dash app the same way as any other built-in Plotly figure templated.   It does this by
-using the Dash Labs algorithms to generate the 22 most common Bootstrap figure
-templates and saves them in a json format.   The load_figure_template() function reads the json
-file, adds it to plotly.io and sets it as the default template for an app.
-
-Here are the advantages of this method rather than creating the templates on-the-fly:
-
-- It makes these templates available for use in any app using Dash or any of the Dash Labs layout
-  templates. Currently, these are available only in a few of the Dash Labs layout templates.
--  Since the templates are not create on-the-fly, it increases app performance and 
-   eliminates the risk that a template fails to build.
--  It eliminates runtime dependency of tinycss2 and spectra. In Dash Labs those are required because
-   the templates are created on-the-fly.  In this library the templates are already created and just
-   need to be added with `load_figure_template()` 
+df = px.data.gapminder().query("continent != 'Asia'")  # remove Asia for visibility
+fig = px.line(df, x="year", y="lifeExp", color="continent", line_group="country")
 
 
-## Demo Apps
-### Dash Bootstrap Figure Template vs. The Plotly default
+app.layout = dbc.Container(
+    [
+        html.H1("Dash Bootstrap Template Demo", className="bg-primary text-white p-2"),
+        dbc.Row(dbc.Col(dcc.Graph(figure=fig))),
+    ],
+    fluid=True,
+)
 
-#### demo_minty.py  [See the code](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_minty.py)
+if __name__ == "__main__":
+    app.run_server(debug=True)
+```
+![image](https://user-images.githubusercontent.com/72614349/115889093-7c7a1000-a408-11eb-8bff-7773327016e8.png)
+
+
+
+
+### Demo Apps
+In the three demo apps below,
+each graph on the left uses a Bootstrap figure template.  The graphs on the right uses the standard `'plotly'` 
+default figure template. Note that the Bootstrap figure templates have colorways and fonts consistent
+with the app's Bootstrap theme.
+
+
+
+### Dash Bootstrap Figure Template vs. The Plotly Default Teplate
+
+####  See the code for [demo_minty.py](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_minty.py)
 ![image](https://user-images.githubusercontent.com/72614349/115800602-d4286500-a38f-11eb-90d3-b6c96f5367ae.png)
 
 ---
 ---
-#### demo_superhero.py  [See the code](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_superhero.py)
+#### See the code for [demo_superhero.py](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_superhero.py)
 ![image](https://user-images.githubusercontent.com/72614349/115800753-1a7dc400-a390-11eb-941d-3fe1de842ce6.png)
 
 ---
 ---
 
-#### demo_sketchy.py [See the code](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_sketchy.py)
+#### See the code fore [demo_sketchy.py](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_sketchy.py)
 ![image](https://user-images.githubusercontent.com/72614349/115800865-45681800-a390-11eb-9e69-2b6ea0c7538c.png)
 
 
+
+## Background
+
+[Dash Labs](https://community.plotly.com/t/introducing-dash-labs/52087) is a new library that explores cutting edge technology and extends what’s possible to do with Dash. 
+One innovative new feature creates figure templates based on Bootstrap themes. Some Dash Labs layout templates are Bootstrap-themed.  Those can, at your option, generate figure templates at runtime.
+
+`dash-bootstrap-templates` makes Dash Labs' figure templates available for any version of Dash. It uses Dash Labs' 
+algorithms to generate the 22 most common Bootstrap figure
+templates and saves them in json format.   `load_figure_template()` reads the json
+file, adds it to `plotly.io` and sets it as the default figure template for an app.  See more 
+information about  Plotly
+figure themplates [here](https://plotly.com/python/templates/).
 
 
 ## Available Themes

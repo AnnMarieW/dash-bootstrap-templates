@@ -17,7 +17,7 @@ import plotly.express as px
 import dash_bootstrap_components as dbc
 
 
-# Change the stylesheet and figure template here:
+#Change the stylesheet and figure template here:
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SUPERHERO])
 load_figure_template("superhero")
 
@@ -33,7 +33,7 @@ dropdown = dcc.Dropdown(
 checklist = dbc.Checklist(
     id="continents",
     options=[{"label": i, "value": i} for i in df.continent.unique()],
-    value=df.continent.unique(),
+    value=df.continent.unique()[3:],
     inline=True,
 )
 
@@ -44,7 +44,7 @@ range_slider = dcc.RangeSlider(
     max=years[-1],
     step=5,
     marks={int(i): str(i) for i in years},
-    value=[years[0], years[-1]],
+    value=[1982, years[-1]],
 )
 
 buttons = html.Div(

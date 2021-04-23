@@ -40,7 +40,8 @@ if __name__ == "__main__":
 
 
 
-### Demo Apps
+## Demo Apps
+### See the code [here](/home/amward/PycharmProjects/dash-bootstrap-templates/demo_app.py)
 In the three demo apps below,
 each graph on the left uses a Bootstrap figure template.  The graphs on the right uses the standard `'plotly'` 
 default figure template. Note that the Bootstrap figure templates have colorways and fonts consistent
@@ -50,18 +51,19 @@ with the app's Bootstrap theme.
 
 ### Dash Bootstrap Figure Template vs. The Plotly Default Template
 
-####  See the code for [demo_minty.py](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_minty.py)
+### Minty
+
 ![image](https://user-images.githubusercontent.com/72614349/115800602-d4286500-a38f-11eb-90d3-b6c96f5367ae.png)
 
 ---
 ---
-#### See the code for [demo_superhero.py](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_superhero.py)
+
+### Superhero
 ![image](https://user-images.githubusercontent.com/72614349/115800753-1a7dc400-a390-11eb-941d-3fe1de842ce6.png)
 
 ---
 ---
-
-#### See the code fore [demo_sketchy.py](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_sketchy.py)
+### Sketchy
 ![image](https://user-images.githubusercontent.com/72614349/115800865-45681800-a390-11eb-9e69-2b6ea0c7538c.png)
 
 

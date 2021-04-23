@@ -18,8 +18,18 @@ import dash_bootstrap_components as dbc
 
 
 # Change the stylesheet and figure template here:
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SKETCHY])
-load_figure_template("sketchy")
+theme = "minty"
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MINTY])
+load_figure_template("minty")
+#
+# theme='sketchy'
+# app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SKETCHY])
+# load_figure_template("sketchy")
+#
+# theme='superhero'
+# app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SUPERHERO])
+# load_figure_template("superhero")
+
 
 df = px.data.gapminder()
 
@@ -29,6 +39,7 @@ dropdown = dcc.Dropdown(
     value="gdpPercap",
     clearable=False,
 )
+
 
 checklist = dbc.Checklist(
     id="continents",
@@ -46,6 +57,7 @@ range_slider = dcc.RangeSlider(
     marks={int(i): str(i) for i in years},
     value=[1982, years[-1]],
 )
+
 
 buttons = html.Div(
     [
@@ -111,7 +123,7 @@ def update_charts(indicator, continents, years):
         x="year",
         y=indicator,
         color="country",
-        title="template='sketchy'",
+        title=f"template='{theme}'",
     )
 
     fig2 = px.line(

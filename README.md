@@ -48,7 +48,7 @@ with the app's Bootstrap theme.
 
 
 
-### Dash Bootstrap Figure Template vs. The Plotly Default Teplate
+### Dash Bootstrap Figure Template vs. The Plotly Default Template
 
 ####  See the code for [demo_minty.py](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_minty.py)
 ![image](https://user-images.githubusercontent.com/72614349/115800602-d4286500-a38f-11eb-90d3-b6c96f5367ae.png)
@@ -76,7 +76,7 @@ algorithms to generate the 22 most common Bootstrap figure
 templates and saves them in json format.   `load_figure_template()` reads the json
 file, adds it to `plotly.io` and sets it as the default figure template for an app.  See more 
 information about  Plotly
-figure themplates [here](https://plotly.com/python/templates/).
+figure templates [here](https://plotly.com/python/templates/).
 
 
 ## Available Themes

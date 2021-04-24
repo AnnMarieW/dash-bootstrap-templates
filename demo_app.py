@@ -17,18 +17,21 @@ import plotly.express as px
 import dash_bootstrap_components as dbc
 
 
-# Change the stylesheet and figure template here:
-theme = "minty"
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MINTY])
-load_figure_template("minty")
+#Change the stylesheet and figure template here:
 #
-# theme='sketchy'
-# app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SKETCHY])
-# load_figure_template("sketchy")
+# theme = "minty"
+# app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MINTY])
+# load_figure_template("minty")
+
 #
-# theme='superhero'
-# app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SUPERHERO])
-# load_figure_template("superhero")
+# theme='cyborg'
+# app = dash.Dash(__name__, external_stylesheets=[dbc.themes.CYBORG])
+# load_figure_template("cyborg")
+
+#
+theme='superhero'
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SUPERHERO])
+load_figure_template("superhero")
 
 
 df = px.data.gapminder()
@@ -44,7 +47,7 @@ dropdown = dcc.Dropdown(
 checklist = dbc.Checklist(
     id="continents",
     options=[{"label": i, "value": i} for i in df.continent.unique()],
-    value=df.continent.unique()[3:],
+    value=df.continent.unique()[1:],
     inline=True,
 )
 
@@ -118,11 +121,13 @@ def update_charts(indicator, continents, years):
         return {}, {}
 
     dff = df[df.year.between(years[0], years[1])]
+
     fig1 = px.line(
         dff[dff.continent.isin(continents)],
         x="year",
         y=indicator,
-        color="country",
+        color="continent",
+        line_group="country",
         title=f"template='{theme}'",
     )
 
@@ -130,7 +135,8 @@ def update_charts(indicator, continents, years):
         dff[dff.continent.isin(continents)],
         x="year",
         y=indicator,
-        color="country",
+        color="continent",
+        line_group="country",
         template="plotly",
         title="template='plotly'",
     )

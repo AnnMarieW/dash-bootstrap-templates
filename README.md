@@ -1,7 +1,7 @@
 # Dash Bootstrap Templates
 
 `dash-bootstrap-templates` provides a collection of Plotly figure templates customized for Bootstrap themes. 
-This library has templates for each of the 22 Bootstrap/Bootswatch themes available in the
+This library has a template for each of the 22 Bootstrap/Bootswatch themes available in the
 [Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/).
 
 ## Quickstart
@@ -41,31 +41,28 @@ if __name__ == "__main__":
 
 
 ## Demo Apps
-### See the code [here](/home/amward/PycharmProjects/dash-bootstrap-templates/demo_app.py)
-In the three demo apps below,
-each graph on the left uses a Bootstrap figure template.  The graphs on the right uses the standard `'plotly'` 
-default figure template. Note that the Bootstrap figure templates have colorways and fonts consistent
+
+In the three demo apps below [(code here)](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_app.py),
+each graph on the left uses a Bootstrap figure template.  The corresponding graph on the right uses the  `'plotly'` 
+default figure template. Note that Bootstrap figure templates have colorways and fonts consistent
 with the app's Bootstrap theme.
 
 
 
-### Dash Bootstrap Figure Template vs. The Plotly Default Template
+### Dash Bootstrap Template Compared To Plotly Default Template
 
 ### Minty
-
-![image](https://user-images.githubusercontent.com/72614349/115800602-d4286500-a38f-11eb-90d3-b6c96f5367ae.png)
-
+![image](https://user-images.githubusercontent.com/72614349/115973397-82a3e580-a509-11eb-8145-21907353248d.png)
 ---
 ---
 
 ### Superhero
-![image](https://user-images.githubusercontent.com/72614349/115800753-1a7dc400-a390-11eb-941d-3fe1de842ce6.png)
+![image](https://user-images.githubusercontent.com/72614349/115973461-01008780-a50a-11eb-8435-a9824fe7ce50.png)
 
 ---
 ---
-### Sketchy
-![image](https://user-images.githubusercontent.com/72614349/115800865-45681800-a390-11eb-9e69-2b6ea0c7538c.png)
-
+### Cyborg
+![image](https://user-images.githubusercontent.com/72614349/115973437-ce568f00-a509-11eb-8086-5570479be7ef.png)
 
 
 ## Background
@@ -83,7 +80,7 @@ figure templates [here](https://plotly.com/python/templates/).
 
 ## Available Themes
 
-This library has figure templates for the following Bootstrap/Bootswatch themes:
+This library provis a figure template for the following Bootstrap/Bootswatch themes:
 
 valid_themes = [
     "bootstrap",

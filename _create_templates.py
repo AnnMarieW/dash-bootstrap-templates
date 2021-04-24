@@ -314,6 +314,23 @@ def get_role_colors(rule_props):
     return role_colors
 
 
+def get_colorscale(color):
+    color1=spectra.html(color)
+    color2=spectra.html(color).brighten(40)
+    scale = np.linspace(0, 1, 11)
+    theme_swatches = spectra.range([color1, color2], 11)
+    return [[k,v.hexcode] for k,v in zip(scale,theme_swatches)]
+
+
+def get_template(bg_color):
+    # spectra.lab(L, a, b)   L is lightness from 0 t0 100
+    lightness =spectra.html(bg_color).to("lab").values[0]
+    if lightness < 50:
+        return copy.deepcopy(pio.templates["plotly_dark"])
+    else:
+        return copy.deepcopy(pio.templates["plotly_white"])
+
+
 def build_plotly_template_from_bootstrap_css_text(css_text):
 
     # Parse css text
@@ -348,14 +365,17 @@ def build_plotly_template_from_bootstrap_css_text(css_text):
     colorway = separate_colorway(colorway)
     print("colorway", colorway)
 
+    colorscale = get_colorscale(role_colors["primary"])
+
     # Build grid color
     gridcolor = make_grid_color(plot_bgcolor, font_color, 0.08)
 
     # Make template
-    template = copy.deepcopy(pio.templates["plotly_dark"])
+    template = get_template(paper_bgcolor)
 
     layout = template.layout
     layout.colorway = colorway
+    layout.colorscale.sequential = colorscale
     layout.piecolorway = colorway
     layout.paper_bgcolor = paper_bgcolor
     layout.plot_bgcolor = plot_bgcolor

@@ -7,6 +7,24 @@ try:
 except ImportError:
     # if using Python 3.8 or lower import from the backport
     from importlib_resources import files
+
+try:
+    from importlib.metadata import (
+        PackageNotFoundError,
+        version,
+    )
+except ModuleNotFoundError:
+    # if using Python 3.7, import from the backport
+    from importlib_metadata import (
+        PackageNotFoundError,
+        version,
+    )
+
+try:
+    __version__ = version("dash_bootstrap_templates")
+except PackageNotFoundError:
+    # package is not installed
+    pass
 """
 Use this function to make the bootstrap figure templates available in your Dash app
 """

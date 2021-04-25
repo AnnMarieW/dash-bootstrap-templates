@@ -94,7 +94,7 @@ controls = dbc.Card(
 
 app.layout = dbc.Container(
     [
-        html.H1("Dash Bootstrap Template Demo", className="bg-primary text-white p-2"),
+        html.H1("Dash Bootstrap Template vs Plolty Default Template", className="bg-primary text-white p-2"),
         dbc.Row(
             [
                 dbc.Col(dcc.Graph(id="line_chart1"), lg=6),
@@ -121,9 +121,9 @@ def update_charts(indicator, continents, years):
         return {}, {}
 
     dff = df[df.year.between(years[0], years[1])]
-
+    dff = dff[dff.continent.isin(continents)]
     fig1 = px.line(
-        dff[dff.continent.isin(continents)],
+        dff,
         x="year",
         y=indicator,
         color="continent",
@@ -132,7 +132,7 @@ def update_charts(indicator, continents, years):
     )
 
     fig2 = px.line(
-        dff[dff.continent.isin(continents)],
+        dff,
         x="year",
         y=indicator,
         color="continent",

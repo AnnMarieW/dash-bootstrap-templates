@@ -314,9 +314,17 @@ def get_role_colors(rule_props):
     return role_colors
 
 
-def get_colorscale(color):
-    color1=spectra.html(color)
-    color2=spectra.html(color).brighten(40)
+def get_colorscale(color_a, color_b):
+
+    # A range between 'primary' and 'warning'
+    # color1=spectra.html(color_a)
+    # color2=spectra.html(color_b).brighten(20)
+
+
+    # A range of primary colors
+    color1 = spectra.html(color_a).brighten(-20)
+    color2 = spectra.html(color_a).brighten(40)
+
     scale = np.linspace(0, 1, 11)
     theme_swatches = spectra.range([color1, color2], 11)
     return [[k,v.hexcode] for k,v in zip(scale,theme_swatches)]
@@ -365,7 +373,7 @@ def build_plotly_template_from_bootstrap_css_text(css_text):
     colorway = separate_colorway(colorway)
     print("colorway", colorway)
 
-    colorscale = get_colorscale(role_colors["primary"])
+    colorscale = get_colorscale(role_colors["primary"], role_colors["warning"])
 
     # Build grid color
     gridcolor = make_grid_color(plot_bgcolor, font_color, 0.08)
@@ -388,6 +396,9 @@ def build_plotly_template_from_bootstrap_css_text(css_text):
     layout.xaxis.zerolinecolor = gridcolor
     layout.yaxis.zerolinecolor = gridcolor
     layout.margin = dict(l=0, r=0, b=0)
+    layout.geo.bgcolor = plot_bgcolor
+    layout.geo.lakecolor = plot_bgcolor
+    layout.geo.landcolor = plot_bgcolor
 
     template.data.scatter = (go.Scatter(marker_line_color=plot_bgcolor),)
     template.data.scattergl = (go.Scattergl(marker_line_color=plot_bgcolor),)

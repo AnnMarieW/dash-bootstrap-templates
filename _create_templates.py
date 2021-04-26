@@ -430,10 +430,9 @@ def try_build_plotly_template_from_bootstrap_css_path(css_url):
 Generate Templates
 """
 
-
 # set relative path
 PATH = pathlib.Path(__file__).parent
-TEMPLATES_PATH = PATH.joinpath("./templates").resolve()
+TEMPLATES_PATH = PATH.joinpath("./src/dash_bootstrap_templates/templates").resolve()
 
 
 # Creates all templates and save them as json files

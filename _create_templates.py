@@ -316,14 +316,14 @@ def get_role_colors(rule_props):
 
 def get_colorscale(color_a, color_b):
 
-    # A range between 'primary' and 'warning'
-    # color1=spectra.html(color_a)
-    # color2=spectra.html(color_b).brighten(20)
+   # A range between 'primary' and 'warning'
+    color1=spectra.html(color_a)
+    color2=spectra.html(color_b).brighten(20)
 
 
     # A range of primary colors
-    color1 = spectra.html(color_a).brighten(-20)
-    color2 = spectra.html(color_a).brighten(40)
+    # color1 = spectra.html(color_a).brighten(-20)
+    # color2 = spectra.html(color_a).brighten(40)
 
     scale = np.linspace(0, 1, 11)
     theme_swatches = spectra.range([color1, color2], 11)
@@ -373,7 +373,7 @@ def build_plotly_template_from_bootstrap_css_text(css_text):
     colorway = separate_colorway(colorway)
     print("colorway", colorway)
 
-    colorscale = get_colorscale(role_colors["primary"], role_colors["warning"])
+    colorscale = get_colorscale(role_colors["primary"], role_colors["danger"])
 
     # Build grid color
     gridcolor = make_grid_color(plot_bgcolor, font_color, 0.08)

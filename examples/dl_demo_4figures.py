@@ -19,21 +19,21 @@ import dash_bootstrap_components as dbc
 Change theme here
 """
 
-#Current dbc template themes
-# tpl = dl.templates.dbc.DbcSidebar(
-#     title="Dash Bootstrap Template Demo",
-#     sidebar_columns=3,
-#     theme=dbc.themes.FLATLY,                       # change theme here
-#     figure_template=True
-# )
-
-#New dbc template themes
+#Current dash-labs figure templates
 tpl = dl.templates.dbc.DbcSidebar(
     title="Dash Bootstrap Template Demo",
     sidebar_columns=3,
-    theme=dbc.themes.FLATLY                        # change theme here
+    theme=dbc.themes.FLATLY,                       # change theme here
+    figure_template=True
 )
-load_figure_template("flatly")                     # and here
+#
+# Templates from the dash-bootstrap-templates library
+# tpl = dl.templates.dbc.DbcSidebar(
+#     title="Dash Bootstrap Template Demo",
+#     sidebar_columns=3,
+#     theme=dbc.themes.FLATLY                        # change theme here
+# )
+# load_figure_template("flatly")                     # and here
 
 
 """

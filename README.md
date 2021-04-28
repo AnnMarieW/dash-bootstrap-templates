@@ -5,6 +5,9 @@ This library has a template for each of the 22 Bootstrap/Bootswatch themes avail
 [Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/).
 
 ## Quickstart
+```python"
+pip install dash-bootstrap-templates
+```
 
 ```python
 
@@ -106,3 +109,7 @@ valid_themes = [
     "solar",
     "superhero",
 ]
+
+### Contributors
+Special thanks to @tcbegley for [the pull request](https://github.com/AnnMarieW/dash-bootstrap-templates/pull/2) to
+set up this library to publish to PyPI

@@ -4,6 +4,7 @@
 This library has a template for each of the 22 Bootstrap/Bootswatch themes available in the
 [Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/).
 
+##  See a live demo at [Dash Bootstrap Theme Explorer](https://hellodash.pythonanywhere.com/dash_bootstrap_templates)
 ## Quickstart
 ```python"
 pip install dash-bootstrap-templates

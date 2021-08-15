@@ -331,7 +331,7 @@ def get_colorscale(color_a, color_b):
 
 
 def get_template(bg_color):
-    # spectra.lab(L, a, b)   L is lightness from 0 t0 100
+    # spectra.lab(L, a, b)   L is lightness from 0 to 100
     lightness =spectra.html(bg_color).to("lab").values[0]
     if lightness < 50:
         return copy.deepcopy(pio.templates["plotly_dark"])

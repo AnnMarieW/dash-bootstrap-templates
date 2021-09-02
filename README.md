@@ -44,35 +44,31 @@ if __name__ == "__main__":
 
 
 
-## Demo Apps
+## Demo App 2 - 4 Graphs Updated
 
-In the three demo apps below [(code here)](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/demo_app.py),
-each graph on the left uses a Bootstrap figure template.  The corresponding graph on the right uses the  `'plotly'` 
-default figure template. Note that Bootstrap figure templates have colorways and fonts consistent
-with the app's Bootstrap theme.
+This demo [(code here)](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/examples/demo_4_graphs.py),
+shows how all 4 graphs are updated with one line of code.  Use `load_figure_template()` to load the Bootstrap themed 
+figure template that matches the theme in the `external_style_sheets`.
+
+![figure_template2](https://user-images.githubusercontent.com/72614349/129459807-30c22ffe-7a8c-44b9-9555-6cfd50ec355b.png)
 
 
 
-### Dash Bootstrap Template Compared To Plotly Default Template
+## Demo App 3 - Theme Switcher
 
-### Minty
-![image](https://user-images.githubusercontent.com/72614349/115973397-82a3e580-a509-11eb-8145-21907353248d.png)
----
----
+This demo [(code here)](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/examples/theme_switcher.py),
+shows an app with a toggle switch to change between two themes. The dash-bootstrap-templates library makes it easy to update all
+the figures in the app when the theme changes with the toggle.  To see other CSS that may be necessary when switching themes see the 
+Dash Bootstrap Theme Explorer App [live demo here.](https://hellodash.pythonanywhere.com/theme_explorer)
 
-### Superhero
-![image](https://user-images.githubusercontent.com/72614349/115973461-01008780-a50a-11eb-8435-a9824fe7ce50.png)
+![theme_switch_toggle](https://user-images.githubusercontent.com/72614349/131913051-700ddad2-e3ae-4c6f-a6e8-f40f8fe845fb.gif)
 
----
----
-### Cyborg
-![image](https://user-images.githubusercontent.com/72614349/115973437-ce568f00-a509-11eb-8086-5570479be7ef.png)
 
 
 ## Background
 
-[Dash Labs](https://community.plotly.com/t/introducing-dash-labs/52087) is a new library that explores cutting edge technology and extends what’s possible to do with Dash. 
-One innovative new feature creates figure templates based on Bootstrap themes. Some Dash Labs layout templates are Bootstrap-themed.  Those can, at your option, generate figure templates at runtime.
+[Dash Labs](https://community.plotly.com/t/introducing-dash-labs/52087) is a new Plotly library that explores cutting edge technology and extends what’s possible to do with Dash. 
+One innovative experimental feature creates figure templates based on Bootstrap themes. Some Dash Labs layout templates are Bootstrap-themed.  Those can, at your option, generate figure templates at runtime.
 
 `dash-bootstrap-templates` makes Dash Labs' figure templates available for any version of Dash. It uses Dash Labs' 
 algorithms to generate the 22 most common Bootstrap figure

@@ -1,18 +1,13 @@
 """
 This is a minimal example of a theme switcher clientside callback with a toggle switch.
-Note - this is the version for dash-bootstrap-components V0.13.  and Dash V 1.21
-
-See theme_switcher_v1.py for dbc version>=1.0 and Dash V2
+Note - this is the version for dash-bootstrap-components V1.0.  and Dash V2.0
 
 The Bootstrap themed templates are from the dash-bootstrap-templates library.
 See more information at https://github.com/AnnMarieW/dash-bootstrap-templates
     pip install dash-bootstrap-templates.
 """
 
-import dash
-import dash_html_components as html
-import dash_core_components as dcc
-from dash.dependencies import Input, Output
+from dash import Dash, dcc, html, Input, Output
 import pandas as pd
 import plotly.express as px
 
@@ -22,8 +17,11 @@ from dash_bootstrap_templates import load_figure_template
 # This adds the "bootstrap" and "cyborg" themed templates  to the Plolty figure templates
 load_figure_template(["bootstrap", "cyborg"])
 
-FONT_AWESOME = "https://use.fontawesome.com/releases/v5.10.2/css/all.css"
-app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP, FONT_AWESOME])
+
+app = Dash(
+    __name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME]
+)
+
 
 df = pd.DataFrame(
     {
@@ -36,14 +34,7 @@ df = pd.DataFrame(
 toggle = html.Div(
     [
         html.Span(className="fa fa-moon"),
-        dbc.Checklist(
-            options=[{"value": 1}],
-            value=[1],
-            id="theme",
-            switch=True,
-            className="d-inline-block ml-2",
-            inputStyle={"height": 30, "width": 30},
-        ),
+        dbc.Switch(value=True, id="theme", className="d-inline-block ml-2",),
         html.Span(className="fa fa-sun"),
     ],
     className="d-inline-block",
@@ -82,21 +73,24 @@ app.layout = dbc.Container(
     Output("graph", "figure"), Input("theme", "value"),
 )
 def update_graph_theme(value):
-    template = "bootstrap" if value == [1] else "cyborg"
+    template = "bootstrap" if value else "cyborg"
     return px.bar(
         df, x="Fruit", y="Amount", color="City", barmode="group", template=template
     )
 
 
+# To find the urls for the themes in the clientside callback:
+# print(dbc.themes.BOOTSTRAP)
+# print(dbc.themes.CYBORG)
+
 app.clientside_callback(
     """
-    function(theme) {
+    function(themeToggle) {
         //  To use different themes,  change these links:
-        const theme1 = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        const theme2 = "https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cyborg/bootstrap.min.css"
-
-        const stylesheet = document.querySelector('link[rel=stylesheet][href^="https://stackpath"]')        
-        var themeLink = (theme.length == 1) ? theme1 : theme2;
+        const theme1 = "https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+        const theme2 = "https://cdn.jsdelivr.net/npm/bootswatch@5.1.0/dist/cyborg/bootstrap.min.css"
+        const stylesheet = document.querySelector('link[rel=stylesheet][href^="https://cdn.jsdelivr"]')        
+        var themeLink = themeToggle ? theme1 : theme2;
         stylesheet.href = themeLink
     }
     """,

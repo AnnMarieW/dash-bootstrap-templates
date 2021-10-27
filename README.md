@@ -56,7 +56,8 @@ figure template that matches the theme in the `external_style_sheets`.
 
 ## Demo App 3 - Theme Switcher
 
-This demo [(code here)](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/examples/theme_switcher.py),
+This demo [(code here for dbc V0.13)](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/examples/theme_switcher.py),
+and [(code here for dbc V1.0)](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/examples/theme_switcher_v1.py),
 shows an app with a toggle switch to change between two themes. The dash-bootstrap-templates library makes it easy to update all
 the figures in the app when the theme changes with the toggle.  To see other CSS that may be necessary when switching themes see the 
 Dash Bootstrap Theme Explorer App [live demo here.](https://hellodash.pythonanywhere.com/theme_explorer)

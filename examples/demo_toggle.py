@@ -14,7 +14,7 @@ from dash import Dash, dcc, html, Input, Output
 import pandas as pd
 import plotly.express as px
 import dash_bootstrap_components as dbc
-from aio import ThemeSwitchAIO
+from dash_bootstrap_templates import ThemeSwitchAIO
 
 # select the Bootstrap stylesheet2 and figure template2 for the theme toggle here:
 template_theme1 = "sketchy"

@@ -11,7 +11,7 @@ from dash import Dash, dcc, html, Input, Output
 import pandas as pd
 import plotly.express as px
 import dash_bootstrap_components as dbc
-from aio import ThemeChangerAIO, template_from_url
+from dash_bootstrap_templates import ThemeChangerAIO, template_from_url
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP, dbc.icons.FONT_AWESOME ])
 

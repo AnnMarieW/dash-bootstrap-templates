@@ -9,29 +9,17 @@ The app shows two graphs, the Bootstrap theme template vs the built-in default '
 
 from dash_bootstrap_templates import load_figure_template
 
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output
+from dash import Dash, dcc, html, Input, Output
 import plotly.express as px
 import dash_bootstrap_components as dbc
 
+# select the Bootstrap stylesheet and figure template for the theme here:
+template_theme = "vapor"
+url_theme = dbc.themes.VAPOR
+#-----------------------------
 
-#Change the stylesheet and figure template here:
-#
-# theme = "minty"
-# app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MINTY])
-# load_figure_template("minty")
-
-#
-# theme='cyborg'
-# app = dash.Dash(__name__, external_stylesheets=[dbc.themes.CYBORG])
-# load_figure_template("cyborg")
-
-#
-theme='superhero'
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SUPERHERO])
-load_figure_template("superhero")
+app = Dash(__name__, external_stylesheets=[url_theme])
+load_figure_template(template_theme)
 
 
 df = px.data.gapminder()
@@ -81,20 +69,21 @@ controls = dbc.Card(
     [
         dbc.Row(
             [
-                dbc.Col(
-                    dbc.FormGroup([dbc.Label("Select indicator (y-axis)"), dropdown])
-                ),
-                dbc.Col(dbc.FormGroup([dbc.Label("Select continents"), checklist,])),
+                dbc.Col([dbc.Label("Select indicator (y-axis)"), dropdown]),
+                dbc.Col([dbc.Label("Select continents"), checklist,]),
             ]
         ),
-        dbc.FormGroup([dbc.Label("Select years"), range_slider, buttons,]),
+        dbc.Row([dbc.Label("Select years"), range_slider, buttons,]),
     ],
     className="m-4 px-2",
 )
 
 app.layout = dbc.Container(
     [
-        html.H1("Dash Bootstrap Template vs Plolty Default Template", className="bg-primary text-white p-2"),
+        html.H1(
+            "Dash Bootstrap Template vs Plolty Default Template",
+            className="bg-primary text-white p-2",
+        ),
         dbc.Row(
             [
                 dbc.Col(dcc.Graph(id="line_chart1"), lg=6),
@@ -105,6 +94,7 @@ app.layout = dbc.Container(
         html.Hr(),
     ],
     id="layout_container",
+    className="dbc",
     fluid=True,
 )
 
@@ -128,7 +118,7 @@ def update_charts(indicator, continents, years):
         y=indicator,
         color="continent",
         line_group="country",
-        title=f"template='{theme}'",
+        title=f"template='{template_theme}'",
     )
 
     fig2 = px.line(
@@ -145,22 +135,3 @@ def update_charts(indicator, continents, years):
 
 if __name__ == "__main__":
     app.run_server(debug=True)
-
-
-"""
-Note:  For dark themed apps, add the following the css file in the assets folder.  This 
-       styles the dropdown menu items to make them visible in both light and dark theme apps.
-       See more info here: https://dash.plotly.com/external-resources
-
-
-.VirtualizedSelectOption {
-    background-color: white;
-    color: black;
-}
-
-.VirtualizedSelectFocusedOption {
-    background-color: lightgrey;
-    color: black;
-}
-
-"""

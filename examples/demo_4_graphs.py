@@ -2,10 +2,7 @@
 Apply Bootstrap theme to figures with one line of code! See more info at dash-bootstrap-templates GitHub
 pip install dash-bootstrap-templates
 """
-
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import Dash, dcc, html
 import plotly.express as px
 import dash_bootstrap_components as dbc
 
@@ -13,9 +10,9 @@ from dash_bootstrap_templates import load_figure_template
 
 # This loads the "cyborg" themed figure template from dash-bootstrap-templates library,
 # adds it to plotly.io and makes it the default figure template.
-load_figure_template("cyborg")
+load_figure_template("vapor")
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.CYBORG])
+app = Dash(__name__, external_stylesheets=[dbc.themes.VAPOR])
 
 df = px.data.gapminder()
 

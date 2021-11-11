@@ -5,15 +5,13 @@ It loads the Bootstrap theme template, adds it to plotly.io and makes it the def
 
 """
 
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import Dash, dcc, html
 import plotly.express as px
 import dash_bootstrap_components as dbc
 
 from dash_bootstrap_templates import load_figure_template
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 load_figure_template("bootstrap")
 
 

@@ -2,7 +2,7 @@
 """
 This is a pre-processing step that generates Plotly figure templates for the
 Bootstrap/Bootswatch themes that are available in the dash-bootstrap-components
-library.  It's based on the dash-labs figure templates here:  https://github.com/plotly/dash-labs
+library.  It's based on the dash-labs figure templates here:  https://github.com/plotly/dash-labs v0.4.0
 
 This will be run periodically to refresh the templates if there are changes to Bootstrap themes.
 
@@ -42,6 +42,10 @@ dbc_themes_url = {
     "SLATE": dbc.themes.SLATE,
     "SOLAR": dbc.themes.SOLAR,
     "SUPERHERO": dbc.themes.SUPERHERO,
+    "QUARTZ": dbc.themes.QUARTZ,
+     "MORPH": dbc.themes.MORPH,
+     "VAPOR": dbc.themes.VAPOR,
+     "ZEPHYR": dbc.themes.ZEPHYR,
 }
 
 
@@ -281,13 +285,8 @@ def parse_rules_from_bootstrap_css(css_text):
 
 # Get title font color
 def get_font(rule_props):
-    color = "#000"
-    family = "sans-serif"
-
-    for el in ["html", "body", "h1"]:
-        color = rule_props.get(el, {}).get("color", color)
-        family = rule_props.get(el, {}).get("font-family", family)
-
+    color = rule_props.get(":root", {}).get("--bs-body-color", "#000")
+    family = rule_props.get(":root", {}).get("--bs-font-sans-serif", "sans-serif")
     return color, family
 
 
@@ -307,7 +306,7 @@ def get_role_colors(rule_props):
     # Override with role colors for current theme
     for prop, val in rule_props[":root"].items():
         if prop.startswith("--"):
-            maybe_color = prop.lstrip("-")
+            maybe_color = prop.lstrip("--bs-")
             if maybe_color in role_colors:
                 role_colors[maybe_color] = val
 
@@ -351,7 +350,7 @@ def build_plotly_template_from_bootstrap_css_text(css_text):
     font_color, font_family = get_font(rule_props)
 
     # Get background color
-    plot_bgcolor = rule_props["body"].get("background-color", "#fff")
+    plot_bgcolor = rule_props[":root"].get("--bs-body-bg", "#fff")
     paper_bgcolor = rule_props[".card"].get("background-color", plot_bgcolor)
 
     blended = maybe_blend(plot_bgcolor, paper_bgcolor)

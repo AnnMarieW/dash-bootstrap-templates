@@ -4,7 +4,13 @@ V1.0.0 is based on based on `dash` V2.0.0 and `dash-bootstrap-components` V1.0.0
 Boostrap V5 stylesheets.
 
 ### Added
- - "QUARTZ", "MORPH", "VAPOR", "ZEPHYR" themes
+ - added "QUARTZ", "MORPH", "VAPOR", "ZEPHYR" themes
+ - added 2 All-In-One components to switch themes. 
+   - `ThemeSwitchAIO` toggles between two themes
+   - `ThemeChangerAIO` opens a Offcanvas component to select any of the 26 themes
+   - `template_from_url` helper function to get the figure template name for the selected theme
+ - added `dbc.css` which minimally styles `dash-core-components` and the `DataTable` with  the selected Bootstrap theme
+ - added examples of the2 AIO components that switch themes.
 
 ## Changes
  - updated `_create_templates.py` to generate figure templates based on Boostrap V5 stylesheets

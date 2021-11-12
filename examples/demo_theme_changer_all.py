@@ -1,5 +1,5 @@
 """
-This is a minimal example of a theme switcher clientside callback with a toggle switch.
+This is a minimal example of the ThemeChangerAIO component
 Note - this is the version for dash-bootstrap-components V1.0.  and Dash V2.0
 
 The Bootstrap themed templates are from the dash-bootstrap-templates library.
@@ -13,7 +13,7 @@ import plotly.express as px
 import dash_bootstrap_components as dbc
 from dash_bootstrap_templates import ThemeChangerAIO, template_from_url
 
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.BOOTSTRAP, dbc.icons.FONT_AWESOME ])
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 
 df = pd.DataFrame(
@@ -24,7 +24,7 @@ df = pd.DataFrame(
     }
 )
 header = html.H4(
-    "ThemeSwitchAIO Demo", className="bg-primary text-white p-4 mb-2 text-center"
+    "ThemeChangerAIO Demo", className="bg-primary text-white p-4 mb-2 text-center"
 )
 buttons = html.Div(
     [
@@ -42,20 +42,14 @@ buttons = html.Div(
 )
 
 graph = html.Div(dcc.Graph(id="graph"), className="m-4")
-icon = html.Div(["FA", html.I(className = "bi bi-sun")])
-icon_fa = html.Div(["BS",html.I(className = "fa fa-sun")])
 
-"""
-===============================================================================
-Layout
-"""
 app.layout = dbc.Container(
     [
         header,
         dbc.Row(
             [
-                dbc.Col(ThemeChangerAIO(aio_id="theme", radio_props={"value":dbc.themes.VAPOR}), width=2,),
-                dbc.Col([buttons, graph, icon, icon_fa],),
+                dbc.Col(ThemeChangerAIO(aio_id="theme", radio_props={"value":dbc.themes.FLATLY}), width=2,),
+                dbc.Col([buttons, graph],width=10),
             ]
         ),
     ],

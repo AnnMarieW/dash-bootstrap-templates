@@ -2,7 +2,7 @@
 
 
 `dash-bootstrap-templates` provides a collection of Plotly figure templates customized for Bootstrap themes. 
-This library has a template for each of the 26 Bootstrap/Bootswatch themes available in the
+There is a template for each of the 26 Bootstrap/Bootswatch themes available in the
 [Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/).
 
 
@@ -59,7 +59,7 @@ figure template that matches the theme in the `external_style_sheets`.
 
 ## Demo Apps Theme Switchers
 
-This library has two [All-in-One](https://dash.plotly.com/all-in-one-components) components to automatically change themes. 
+`dash-bootstrap-templates` has two [All-in-One](https://dash.plotly.com/all-in-one-components) components to automatically change themes. 
 The `ThemeSwitchAIO` has a switch with icons on the left and right, which is ideal for toggling between a light and a dark theme. 
 The `ThemeChangerAIO` has a button that opens an `dbc.Offcanvas` component which shows all the available themes.
 

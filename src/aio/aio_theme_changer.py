@@ -116,8 +116,6 @@ class ThemeChangerAIO(html.Div):
             offcanvas_props["title"] = "Select a Theme"
         if "is_open" not in offcanvas_props:
             offcanvas_props["is_open"] = False
-        if "backdrop" not in offcanvas_props:
-            offcanvas_props["backdrop"] = False
         if "style" not in offcanvas_props:
             offcanvas_props["style"] = {"width": 235}
 

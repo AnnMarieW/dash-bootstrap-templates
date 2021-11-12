@@ -377,6 +377,10 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   display: none;
 }
 
+/* --------- dbc input with form-control -------*/
+.dbc .form-control {
+  color: var(--bs-body-color)
+}
 
 /* ---------  dcc tabs -------------------------
 *  Note - To style tabs here, it's necessary to use `!important` to override  the default style.

@@ -2,10 +2,15 @@
 
 
 `dash-bootstrap-templates` provides a collection of Plotly figure templates customized for Bootstrap themes. 
-This library has a template for each of the 28 Bootstrap/Bootswatch themes available in the
+This library has a template for each of the 26 Bootstrap/Bootswatch themes available in the
 [Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/).
 
-##  See a live demo at [Dash Bootstrap Theme Explorer](https://hellodash.pythonanywhere.com/dash_bootstrap_templates)
+
+This library also has two [All-in-One](https://dash.plotly.com/all-in-one-components) components to automatically change themes. 
+-  `ThemeSwitchAIO` toggles between two themes. 
+-  `ThemeChangerAIO` allows the user to select one of the 26 Bootstrap themes.
+
+
 ## Quickstart
 ```python"
 pip install dash-bootstrap-templates
@@ -60,7 +65,7 @@ The `ThemeChangerAIO` has a button that opens an `dbc.Offcanvas` component which
 
 Note the All-in-One component switches the Bootstrap stylesheet for the app and sets the default figure template
 for the theme, however, figures must be updated in a callback in order to render with the new template.
-See the callback below for an example.  The `template_from_url` is a helper function that gets the template name
+See the callback below for an example.  The `template_from_url` is a helper function that returns the template name
 based on the theme url.  For example `template_from_ur(dbc.themes.SLATE)` returns `"slate"`
 
 

@@ -2,15 +2,10 @@
  *  This stylesheet defines the dbc class to help improve they style of  Dash components
  *  when using a Bootstrap stylesheet
  *
- *  Tips
- *    - For dcc.Input use className='form-control'  This styles the dcc.Input like dbc.Input
- *     -To change the style of dcc.Tab or dcc.Tabs within the component, delete the tabs section from this class.
- *
  */
 
 
-
-/* --------- dropdown ------------------------------------------ */
+/* --------- dropdown ---- */
 
 
 /* input box */

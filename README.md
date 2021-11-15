@@ -6,9 +6,9 @@ There is a template for each of the 26 Bootstrap/Bootswatch themes available in 
 [Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/).
 
 
-This library also has two [All-in-One](https://dash.plotly.com/all-in-one-components) components to automatically change themes. 
+This library also has two [All-in-One](https://dash.plotly.com/all-in-one-components) components to change themes. 
 -  `ThemeSwitchAIO` toggles between two themes. 
--  `ThemeChangerAIO` allows the user to select one of the 26 Bootstrap themes.
+-  `ThemeChangerAIO` select from multiple themes.
 
 
 ## Quickstart
@@ -52,19 +52,18 @@ if __name__ == "__main__":
 ## Demo App 2 - 4 Graphs Updated
 
 This demo [(code here)](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/examples/demo_4_graphs.py),
-shows how all 4 graphs are updated with one line of code.  Use `load_figure_template()` to load the Bootstrap themed 
-figure template that matches the theme in the `external_style_sheets`.
+shows how the theme is applied to all 4 graphs.
 
 ![figure_template2](https://user-images.githubusercontent.com/72614349/129459807-30c22ffe-7a8c-44b9-9555-6cfd50ec355b.png)
 
 ## Demo Apps Theme Switchers
 
-`dash-bootstrap-templates` has two [All-in-One](https://dash.plotly.com/all-in-one-components) components to automatically change themes. 
+`dash-bootstrap-templates` has two [All-in-One](https://dash.plotly.com/all-in-one-components) components to change themes. 
 The `ThemeSwitchAIO` has a switch with icons on the left and right, which is ideal for toggling between a light and a dark theme. 
-The `ThemeChangerAIO` has a button that opens an `dbc.Offcanvas` component which shows all the available themes.
+The `ThemeChangerAIO` has a button that opens an `dbc.Offcanvas` component which by default shows all the available themes.
 
 Note the All-in-One component switches the Bootstrap stylesheet for the app and sets the default figure template
-for the theme, however, figures must be updated in a callback in order to render with the new template.
+for the theme, however, figures must be updated in a callback in order to render the figure with the new template.
 See the callback below for an example.  The `template_from_url` is a helper function that returns the template name
 based on the theme url.  For example `template_from_ur(dbc.themes.SLATE)` returns `"slate"`
 
@@ -155,15 +154,14 @@ icons [here](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/exa
 
 ## Background
 
-[Dash Labs](https://community.plotly.com/t/introducing-dash-labs/52087) is Plotly library that explores cutting edge technology and extends what’s possible to do with Dash. 
-One innovative experimental feature creates figure templates based on Bootstrap themes. Some Dash Labs layout templates are Bootstrap-themed.  Those can, at your option, generate figure templates at runtime.
+[Dash Labs](https://community.plotly.com/t/introducing-dash-labs/52087) is Plotly library that explores new features for future releases of Dash. 
+In Dash Labs V0.4.0, there was a cool feature where Bootstrap themed figure templates were created "on the fly". This was a
+part of the layout templates project that is no longer being developed.    
 
-`dash-bootstrap-templates` makes Dash Labs' figure templates available for use in your Dash app. It uses Dash Labs' 
-algorithms to generate the 26 most common Bootstrap figure
-templates and saves them in json format.   `load_figure_template()` reads the json
-file, adds it to `plotly.io` and sets it as the default figure template for an app.  See more 
-information about  Plotly
-figure templates [here](https://plotly.com/python/templates/).
+Even though these cool Bootstrap themed figure templates will not be included in Dash, the `dash-bootstrap-templates` 
+them available to you. The figure templates are created using the Dash Labs' algorithms and saved in json format.  When 
+you use `load_figure_template()` in your app, it loads the json file, adds it to `plotly.io` and sets it as the default figure template for an app.  See more 
+information about  Plotly figure templates [here](https://plotly.com/python/templates/).
 
 
 ## Available Themes
@@ -200,5 +198,4 @@ valid_themes = [
 ]
 
 ### Contributors
-Special thanks to @tcbegley for [the pull request](https://github.com/AnnMarieW/dash-bootstrap-templates/pull/2) to
-set up this library to publish to PyPI
+Special thanks to @tcbegley and @emilhe for their help with this project.

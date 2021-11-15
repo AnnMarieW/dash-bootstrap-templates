@@ -24,13 +24,13 @@ jobs:
       - name: Build package
         run: python -m build --sdist --wheel --outdir dist/
 
-      - name: Publish dash-bootstrap-templates to TestPyPI
+#      - name: Publish dash-bootstrap-templates to TestPyPI
+#        uses: pypa/gh-action-pypi-publish@v1.4.2
+#        with:
+#          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+#          repository_url: https://test.pypi.org/legacy/
+
+      - name: Publish dash-bootstrap-templates to PyPI
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
-
-       - name: Publish dash-bootstrap-templates to PyPI
-         uses: pypa/gh-action-pypi-publish@v1.4.2
-         with:
-           password: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.PYPI_API_TOKEN }}

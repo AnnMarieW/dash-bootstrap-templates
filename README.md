@@ -158,7 +158,7 @@ icons [here](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/exa
 In Dash Labs V0.4.0, there was a cool feature where Bootstrap themed figure templates were created "on the fly". This was a
 part of the layout templates project that is no longer being developed.    
 
-Even though these cool Bootstrap themed figure templates will not be included in Dash, the `dash-bootstrap-templates` 
+Even though these Bootstrap themed figure templates will not be included in Dash, the `dash-bootstrap-templates` makes
 them available to you. The figure templates are created using the Dash Labs' algorithms and saved in json format.  When 
 you use `load_figure_template()` in your app, it loads the json file, adds it to `plotly.io` and sets it as the default figure template for an app.  See more 
 information about  Plotly figure templates [here](https://plotly.com/python/templates/).

@@ -1,4 +1,3 @@
-
 from dash import html, dcc, Input, Output, State, callback, clientside_callback, MATCH
 import dash_bootstrap_components as dbc
 import uuid
@@ -11,6 +10,7 @@ dbc_themes_url = {
 url_dbc_themes = dict(map(reversed, dbc_themes_url.items()))
 dbc_themes_lowercase = [t.lower() for t in dbc_themes_url.keys()]
 dbc_dark_themes = ["cyborg", "darkly", "slate", "solar", "superhero", "vapor"]
+
 
 def template_from_url(url):
     """ returns the name of the plotly template for the Bootstrap stylesheet url"""
@@ -43,11 +43,7 @@ class ThemeChangerAIO(html.Div):
     ids = ids
 
     def __init__(
-        self,
-        radio_props={},
-        button_props={},
-        offcanvas_props={},
-        aio_id=None,
+        self, radio_props={}, button_props={}, offcanvas_props={}, aio_id=None,
     ):
 
         """ThemeChangerAIO is an All-in-One component  composed  of a parent `html.Div` with
@@ -64,7 +60,7 @@ class ThemeChangerAIO(html.Div):
         - param: `radio_props` A dictionary of properties passed into the dbc.RadioItems component. The default `value` is `dbc.themes.BOOTSTRAP`
         - param: `button_props`  A dictionary of properties passed into the dbc.Button component.
         - param: `offcanvas_props`. A dictionary of properties passed into the dbc.Offcanvas component
-        - param: `aio_id` The All-in-One component ID used to generate components's dictionary IDs.
+        - param: `aio_id` The All-in-One component ID used to generate components' dictionary IDs.
 
         The All-in-One component dictionary IDs are available as:
 
@@ -96,7 +92,6 @@ class ThemeChangerAIO(html.Div):
                 if option["label"].lower() in dbc_dark_themes:
                     option["label_id"] = "theme-switch-label-dark"
 
-
         button_props = button_props.copy()
         if "children" not in button_props:
             button_props["children"] = "Change Theme"
@@ -123,7 +118,11 @@ class ThemeChangerAIO(html.Div):
             [
                 dbc.Button(id=self.ids.button(aio_id), **button_props),
                 dbc.Offcanvas(id=self.ids.offcanvas(aio_id), **offcanvas_props),
-                html.Div(id=self.ids.dummy_div(aio_id)),
+                html.Div(
+                    id=self.ids.dummy_div(aio_id),
+                    children=radio_props["value"],
+                    hidden=True,
+                ),
             ]
         )
 
@@ -137,7 +136,6 @@ class ThemeChangerAIO(html.Div):
             return not is_open
         return is_open
 
-
     clientside_callback(
         """
         function switcher(url) {
@@ -148,38 +146,43 @@ class ThemeChangerAIO(html.Div):
           stylesheets[stylesheets.length - 1].href = url;
         }
         """,
-        Output(ids.dummy_div(MATCH), "children"),
+        Output(ids.dummy_div(MATCH), "key"),
         Input(ids.radio(MATCH), "value"),
     )
 
     # This callback is used to bundle custom CSS with the AIO component
-    # The Input and Output can be any dummy property. The Input is used to trigger the
-    # callback when the app starts. The clientside function adds the css to a <style>
+    # and to add a stylesheet so that the theme switcher will work even if there is a
+    # Bootstrap stylesheet in the assets folder.
+    # This only runs once when the app starts. The clientside function adds the css to a <style>
     # element and appends it to the <head>.  Dash requires callbacks to have an Output
     # even if there is nothing to update.
     #
     clientside_callback(
         """
-        function() {
+        function(url) {
             var style = document.createElement('style')
             const aio_css = `
               #theme-switch-label-dark {
               background-color: black;
               color: white;
               width: 100px
-            }
-            
+            }            
             #theme-switch-label {
               background-color: white;
               color: black;
-              width: 100px
-            `
-            
+              width: 100px            
+            `            
             style.innerText = aio_css            
             document.head.appendChild(style)
+            
+            // initialize theme
+            var link = document.createElement("link");            
+            link.type = "text/css";
+            link.rel = "stylesheet";
+            link.href = url;
+            document.head.appendChild(link);
         }
         """,
         Output(ids.dummy_div(MATCH), "role"),
-        Input(ids.dummy_div(MATCH), "role")
+        Input(ids.dummy_div(MATCH), "children"),
     )
-

@@ -1,5 +1,3 @@
-
-
 from dash import html, dcc, Input, Output, State, callback, clientside_callback, MATCH
 import dash_bootstrap_components as dbc
 import uuid
@@ -30,12 +28,13 @@ class ThemeSwitchAIO(html.Div):
             "subcomponent": "dummy_div",
             "aio_id": aio_id,
         }
+
     ids = ids
 
     def __init__(
         self,
-        themes = [dbc.themes.CYBORG, dbc.themes.BOOTSTRAP],
-        icons = {"left" :"fa fa-moon", "right" :"fa fa-sun"},
+        themes=[dbc.themes.CYBORG, dbc.themes.BOOTSTRAP],
+        icons={"left": "fa fa-moon", "right": "fa fa-sun"},
         switch_props={},
         aio_id=None,
     ):
@@ -47,13 +46,13 @@ class ThemeSwitchAIO(html.Div):
         - `html.Div` is used as the `Output` of the clientside callbacks.
 
         The ThemeSwitchAIO component updates the stylesheet when triggered by changes to the `value` of `switch` or when
-        the themes are updated in the "`store`" componenet.  The themes in the switch may be updated in a callback
+        the themes are updated in the "`store`" component.  The themes in the switch may be updated in a callback
         by changing the theme urls in the "`store`" component.
 
         - param: `themes` A list of two urls for the external stylesheets. The default is `[dbc.themes.CYBORG, dbc.themes.BOOTSTRAP]`.
         - param: `icons`  A dict of the icons to the left and right of the switch. The default is
           `{"left" :"fa fa-moon", "right" :"fa fa-sun"}`.
-        - param: `aio_id` The All-in-One component ID used to generate components's dictionary IDs.
+        - param: `aio_id` The All-in-One component ID used to generate components' dictionary IDs.
 
         The All-in-One component dictionary IDs are available as
 
@@ -71,7 +70,7 @@ class ThemeSwitchAIO(html.Div):
         if "value" not in switch_props:
             switch_props["value"] = True
         if "className" not in switch_props:
-            switch_props['className'] = "d-inline-block ms-1"
+            switch_props["className"] = "d-inline-block ms-1"
 
         super().__init__(
             [
@@ -81,8 +80,6 @@ class ThemeSwitchAIO(html.Div):
                         dbc.Switch(id=self.ids.switch(aio_id), **switch_props),
                         dbc.Label(className=icons["right"]),
                     ],
-
-
                 ),
                 dcc.Store(id=self.ids.store(aio_id), data=themes),
                 html.Div(id=self.ids.dummy_div(aio_id)),
@@ -105,18 +102,19 @@ class ThemeSwitchAIO(html.Div):
         Input(ids.store(MATCH), "data"),
     )
 
-    # This callback is used to do the initial load of the default light and dark
-    # stylesheets and the default icons for the toggle switch.
-    # Both the Input and the Output use dummy props.  This callback just needs to run once
+    # This callback is used to do the initial load of the
+    # stylesheet and the default icons for the toggle switch.
+    # This callback just needs to run once
     # when the app starts.  Dash requires callbacks to have an Output
     # even if there is nothing to update.
     #
     clientside_callback(
         """       
-        function() {
-            console.log("initialize")
+        function(switchUrls) {
+            console.log("initialize", switchUrls[0])
             let urls = [
-                "https://use.fontawesome.com/releases/v5.15.4/css/all.css",                
+                "https://use.fontawesome.com/releases/v5.15.4/css/all.css",   
+                switchUrls[0]      
             ];
             for (const url of urls) {                
                 var link = document.createElement("link");
@@ -130,5 +128,5 @@ class ThemeSwitchAIO(html.Div):
         }
         """,
         Output(ids.dummy_div(MATCH), "role"),
-        Input(ids.dummy_div(MATCH), "role")
+        Input(ids.store(MATCH), "data"),
     )

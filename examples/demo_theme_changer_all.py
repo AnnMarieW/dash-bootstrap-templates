@@ -1,10 +1,14 @@
 """
-This is a minimal example of the ThemeChangerAIO component
-Note - this is the version for dash-bootstrap-components V1.0.  and Dash V2.0
+This is a minimal example of changing themes with the ThemeChangerAIO component
+Note - this requires dash-bootstrap-components>=1.0.0 and dash>=2.0
+    pip install dash-bootstrap-templates=1.0.0.
 
-The Bootstrap themed templates are from the dash-bootstrap-templates library.
-See more information at https://github.com/AnnMarieW/dash-bootstrap-templates
-    pip install dash-bootstrap-templates.
+The ThemeChangerAIO component updates the Plotly default figure template when the
+theme changes, but the figures must be updated in a callback in order to render with the new template.
+
+This example demos:
+ - how to update the figure for the new theme in a callback
+ - using the dbc class which helps improve the style when the themes are switched. See the dbc.css file in the dash-bootstrap-templates library.
 """
 
 from dash import Dash, dcc, html, Input, Output
@@ -13,7 +17,10 @@ import plotly.express as px
 import dash_bootstrap_components as dbc
 from dash_bootstrap_templates import ThemeChangerAIO, template_from_url
 
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+dbc_css = (
+    "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates@V1.0.1/dbc.min.css"
+)
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc_css])
 
 
 df = pd.DataFrame(
@@ -48,12 +55,17 @@ app.layout = dbc.Container(
         header,
         dbc.Row(
             [
-                dbc.Col(ThemeChangerAIO(aio_id="theme", radio_props={"value":dbc.themes.FLATLY}), width=2,),
-                dbc.Col([buttons, graph],width=10),
+                dbc.Col(
+                    ThemeChangerAIO(
+                        aio_id="theme", radio_props={"value": dbc.themes.FLATLY}
+                    ),
+                    width=2,
+                ),
+                dbc.Col([buttons, graph], width=10),
             ]
         ),
     ],
-    className="m-4",
+    className="m-4 dbc",
     fluid=True,
 )
 
@@ -63,7 +75,12 @@ app.layout = dbc.Container(
 )
 def update_graph_theme(theme):
     return px.bar(
-        df, x="Fruit", y="Amount", color="City", barmode="group", template=template_from_url(theme)
+        df,
+        x="Fruit",
+        y="Amount",
+        color="City",
+        barmode="group",
+        template=template_from_url(theme),
     )
 
 

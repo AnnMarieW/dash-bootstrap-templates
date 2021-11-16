@@ -16,7 +16,7 @@ import dash_bootstrap_components as dbc
 # select the Bootstrap stylesheet and figure template for the theme here:
 template_theme = "vapor"
 url_theme = dbc.themes.VAPOR
-#-----------------------------
+# -----------------------------
 
 app = Dash(__name__, external_stylesheets=[url_theme])
 load_figure_template(template_theme)

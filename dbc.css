@@ -372,9 +372,15 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   display: none;
 }
 
-/* --------- dbc input with form-control -------*/
+
+/* makes text readable when inputs in forms are used with dark themes */
 .dbc .form-control {
   color: var(--bs-body-color)
+}
+
+/* fixes font in heading in theme switcher */
+.dbc h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6  {
+	font-family: inherit;
 }
 
 /* ---------  dcc tabs -------------------------

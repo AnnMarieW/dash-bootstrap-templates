@@ -1,16 +1,17 @@
 """
-This is a minimal example of a theme switcher clientside callback with a toggle switch.
-Note - this is the version for dash-bootstrap-components V1.0.  and Dash V2.0
-See more information at https://github.com/AnnMarieW/dash-bootstrap-templates
+
+This is a minimal example of changing themes with the ThemeSwitchAIO component
+Note - this requires dash-bootstrap-components>=1.0.0 and dash>=2.0
     pip install dash-bootstrap-templates=1.0.0.
 
 The ThemeSwitchAIO component updates the Plotly default figure template when the
 theme changes, but the figures must be updated in a callback in order to render with the new template.
-See the callback below for an example.
 
-This example shows how to use different icons to the left and right of the toggle switch.
-The default stylesheet for the icons is dbc.icons.FONTAWSOME, but you can use any icon stylesheet.  This example
-uses the Boostrap icons.
+This example demos:
+ - how to update the figure for the new theme in a callback
+ - how to use different icons to the left and right of the toggle switch.
+ - using the Bootstrap icons rather than the default FontAwesome icons.
+ - using the dbc class which helps improve the style when the themes are switched. See the dbc.css file in the dash-bootstrap-templates library.
 """
 
 from dash import Dash, dcc, html, Input, Output
@@ -26,9 +27,11 @@ template_theme2 = "vapor"
 url_theme1 = dbc.themes.QUARTZ
 url_theme2 = dbc.themes.VAPOR
 
-# note: using two themes stylesheets reduces the flicker when the theme changes.
-#       This also loads the Bootstrap icons.
-app = Dash(__name__, external_stylesheets=[url_theme1, dbc.icons.BOOTSTRAP])
+
+dbc_css = (
+    "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates@V1.0.1/dbc.min.css"
+)
+app = Dash(__name__, external_stylesheets=[url_theme1, dbc_css])
 
 df = pd.DataFrame(
     {
@@ -66,7 +69,7 @@ app.layout = dbc.Container(
                     header,
                     ThemeSwitchAIO(
                         aio_id="theme",
-                        icons={"left":"bi bi-moon", "right":"bi bi-sun"},
+                        icons={"left": "bi bi-moon", "right": "bi bi-sun"},
                         themes=[url_theme1, url_theme2],
                     ),
                     buttons,
@@ -85,7 +88,9 @@ app.layout = dbc.Container(
 )
 def update_graph_theme(toggle):
     template = template_theme1 if toggle else template_theme2
-    return px.bar(df, x="Fruit", y="Amount", color="City", barmode="group", template=template)
+    return px.bar(
+        df, x="Fruit", y="Amount", color="City", barmode="group", template=template
+    )
 
 
 if __name__ == "__main__":

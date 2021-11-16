@@ -81,7 +81,11 @@ import plotly.express as px
 import dash_bootstrap_components as dbc
 from dash_bootstrap_templates import ThemeChangerAIO, template_from_url
 
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+dbc_css = (
+    "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates@V1.0.1/dbc.min.css"
+)
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc_css])
 
 
 df = pd.DataFrame(
@@ -120,7 +124,7 @@ app.layout = dbc.Container(
             ]
         ),
     ],
-    className="m-4",
+    className="m-4 dbc",
     fluid=True,
 )
 

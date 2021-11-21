@@ -1,8 +1,6 @@
 /*
- *  This stylesheet defines the dbc class to help improve they style of  Dash components
- *  when using a Bootstrap stylesheet
- *
- */
+ *  The dbc class improves the style of Dash components with Bootstrap V5
+*/
 
 
 /* --------- dropdown ---- */
@@ -78,11 +76,6 @@
   background-color: var(--bs-body-bg) !important;
 }
 
-/* makes False position on dbc.Switch the primary color
-.dbc .form-switch .form-check-input:checked {
-  background-color: var(--bs-primary) !important;
-}
-*/
 
 /* ---------------------------------------
  * Datatable
@@ -130,14 +123,14 @@
 
 
 /* table details */
-body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
+body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
   border-color: rgba(100, 100, 100, 0.4) !important;
 }
 
 /* table header */
-body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
+body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
   border-color: rgba(100, 100, 100, 0.4) !important;

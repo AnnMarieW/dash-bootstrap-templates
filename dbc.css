@@ -197,16 +197,14 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 }
 
 
+/*---- Sliders ----------------- */
 
-/*------------------------------------
- * Sliders - makes the slider the "primary color"
- */
 .dbc .rc-slider-track {
-  background-color: var(--bs-primary);
+  background-color: rgba(var(--bs-primary-rgb), 0.50);
 }
 
 .dbc .rc-slider-handle {
-  border: solid 3px var(--bs-primary);
+  border: solid 1px var(--bs-primary);
   background-color: var(--bs-body-bg);
 }
 
@@ -233,16 +231,6 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
   border-color: var(--bs-primary);
 }
 
-/* label color */
-.dbc .rc-slider-mark-text {
-  color: var(--bs-body-color)
-}
-
-/* Makes the active label color different than default label color */
-.dbc .rc-slider-mark-text.rc-slider-mark-text-active {
-  font-weight: 800
-}
-
 
 /* ------------ datepickers -----------------------*/
 
@@ -266,12 +254,10 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 
 .dbc .DateRangePickerInput {
   background-color: var(--bs-body-bg);
-
 }
 
 .dbc .DateRangePickerInput_arrow {
   background-color: var(--bs-body-bg);
-
 }
 
 .dbc .DateRangePickerInput_arrow svg {
@@ -339,7 +325,6 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
   background: var(--bs-primary);
   border: 1px var(--bs-primary);
   color: white;
-
 }
 
 .dbc .CalendarDay__hovered_span {
@@ -364,17 +349,35 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 .dbc .DayPickerKeyboardShortcuts_show__bottomRight {
   display: none;
 }
+/* --------- end calendar ---------------------*/
 
-
-/* makes text readable when inputs in forms are used with dark themes */
+/* makes text in forms visible with dark themes */
 .dbc .form-control {
   color: var(--bs-body-color)
 }
 
-/* fixes font in heading in theme switcher */
+/* fixes font in headings with theme switcher */
 .dbc h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6  {
 	font-family: inherit;
 }
+
+/* makes close button in offcanvas visible in all themes */
+.offcanvas-header .btn-close {
+  background-color: rgba(var(--bs-primary-rgb), 0.2) !important;
+}
+
+
+/* styles code in dcc.Markdown with the GitHub Dark Dimmed theme */
+.dbc pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark Dimmed
+  Description: Dark dimmed theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+  Colors taken from GitHub's CSS
+*/
+.dbc .hljs{color:#adbac7;background:#22272e}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#f47067}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#dcbdfb}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-variable{color:#6cb6ff}.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#96d0ff}.hljs-built_in,.hljs-symbol{color:#f69d50}.hljs-code,.hljs-comment,.hljs-formula{color:#768390}.hljs-name,.hljs-quote,.hljs-selector-pseudo,.hljs-selector-tag{color:#8ddb8c}.hljs-subst{color:#adbac7}.hljs-section{color:#316dca;font-weight:700}.hljs-bullet{color:#eac55f}.hljs-emphasis{color:#adbac7;font-style:italic}.hljs-strong{color:#adbac7;font-weight:700}.hljs-addition{color:#b4f1b4;background-color:#1b4721}.hljs-deletion{color:#ffd8d3;background-color:#78191b}
+
 
 /* ---------  dcc tabs -------------------------
 *  Note - To style tabs here, it's necessary to use `!important` to override  the default style.
@@ -389,12 +392,10 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
     background-color: var(--bs-body-bg) !important;
     color: var(--bs-body-body) !important;
 }
-
 .dbc .tab--selected {
-    border-top: 4px solid var(--bs-primary) !important;
+    border-top: 4px solid rgba(var(--bs-primary-rgb), 0.50) !important;
     background-color: var(--bs-body-bg) !important;
     color: var(--bs-body-body) !important;
 }
-
 /* ------------------------------------------*/
 

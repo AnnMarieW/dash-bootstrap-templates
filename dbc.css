@@ -1,9 +1,12 @@
 /*
- *  The dbc class improves the style of Dash components with Bootstrap V5
+Defines the .dbc class
+  Description: The dbc class improves the style of Dash components when using Bootstrap V5 themes
+  Author: @AnnMarieW
+  Updated: 2021-11-29
 */
 
 
-/* --------- dropdown ---- */
+/* --------- dcc dropdown ---- */
 
 
 /* input box */
@@ -17,18 +20,15 @@
   color: var(--bs-body-color) !important;
 }
 
-
 .dbc .Select input {
   color: var(--bs-body-color);
 }
-
 
 /* dropdown menu options */
 .dbc .VirtualizedSelectOption {
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
 }
-
 
 /* dropdown menu hover effect */
 .dbc .VirtualizedSelectFocusedOption {
@@ -44,14 +44,12 @@
   box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.2);
 }
 
-
 /* primary  this colors the input box text and x  of multi */
 .dbc .Select--multi .Select-value {
   color: var(--bs-body-color);
   background-color: rgba(var(--bs-primary-rgb), 0.2);
   border-color: rgba(var(--bs-primary-rgb), 0.6) !important;
 }
-
 
 /* ---------------------------------------
  * textarea
@@ -61,8 +59,6 @@
   color: var(--bs-body-color) !important;
   border-color: rgba(100, 100, 100, 0.4) !important;
 }
-
-
 
 /* Use this classname for dcc.Input */
 .dbc input:not([type=radio]):not([type=checkbox]) {
@@ -398,4 +394,3 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
     color: var(--bs-body-body) !important;
 }
 /* ------------------------------------------*/
-

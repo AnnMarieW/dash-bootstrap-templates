@@ -1,6 +1,11 @@
+## 1.0.2
+
+### Changes
+ - updated the dbc.css to improve style when switching themes.
+
 
 ## 1.0.0
-V1.0.0 is based on based on `dash` V2.0.0 and `dash-bootstrap-components` V1.0.0 which uses
+V1.0.0 is based on `dash` V2.0.0 and `dash-bootstrap-components` V1.0.0 which uses
 Boostrap V5 stylesheets.
 
 ### Added
@@ -12,7 +17,7 @@ Boostrap V5 stylesheets.
  - added `dbc.css` which minimally styles `dash-core-components` and the `DataTable` with  the selected Bootstrap theme
  - added examples of the2 AIO components that switch themes.
 
-## Changes
+### Changes
  - updated `_create_templates.py` to generate figure templates based on Boostrap V5 stylesheets
 
 

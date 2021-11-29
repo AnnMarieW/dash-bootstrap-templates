@@ -1,5 +1,7 @@
 # Dash Bootstrap Templates
 
+####See these features live at : https://hellodash.pythonanywhere.com/theme_explorer
+
 
 `dash-bootstrap-templates` library provides: 
 
@@ -22,44 +24,105 @@ pip install dash-bootstrap-templates
 ```
 
 ```python
+"""
+A sample of 8 of the 26 Bootstrap themed Plotly figure templates available
+in the dash-bootstrap-template library
 
-from dash import Dash, dcc, html
-import plotly.express as px
+"""
+from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
-
 from dash_bootstrap_templates import load_figure_template
+import plotly.express as px
+
+df = px.data.gapminder()
+
+templates = [
+    "bootstrap",
+    "minty",
+    "pulse",
+    "flatly",
+    "quartz",
+    "cyborg",
+    "darkly",
+    "vapor",
+]
+
+load_figure_template(templates)
+
+figures = [
+    px.scatter(
+        df.query("year==2007"),
+        x="gdpPercap",
+        y="lifeExp",
+        size="pop",
+        color="continent",
+        log_x=True,
+        size_max=60,
+        template=template,
+        title="Gapminder 2007: '%s' theme" % template,
+    )
+    for template in templates
+]
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-load_figure_template("bootstrap")
 
-
-df = px.data.gapminder().query("continent != 'Asia'")  # remove Asia for visibility
-fig = px.line(df, x="year", y="lifeExp", color="continent", line_group="country")
-
-
-app.layout = dbc.Container(
-    [
-        html.H1("Dash Bootstrap Template Demo", className="bg-primary text-white p-2"),
-        dbc.Row(dbc.Col(dcc.Graph(figure=fig))),
-    ],
-    fluid=True,
-)
-
+app.layout = dbc.Container([dcc.Graph(figure=fig, className="m-4") for fig in figures])
 
 if __name__ == "__main__":
     app.run_server(debug=True)
-
 ```
-![image](https://user-images.githubusercontent.com/72614349/115889093-7c7a1000-a408-11eb-8bff-7773327016e8.png)
+
+![image](https://user-images.githubusercontent.com/72614349/143956424-9e172c03-139e-4126-bed5-b1800ad7e17a.png)
+![image](https://user-images.githubusercontent.com/72614349/143956545-769a00f8-92a3-44aa-8718-bdbb32b2464e.png)
+![image](https://user-images.githubusercontent.com/72614349/143956649-32b620c7-231a-4de6-ad3a-8fb0863da2a4.png)
+![image](https://user-images.githubusercontent.com/72614349/143956713-7fdbed38-6799-472b-87ba-d863481c6525.png)
 
 
-
-## Demo App 2 - 4 Graphs Updated
-
-This demo [(code here)](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/examples/demo_4_graphs.py),
-shows how the theme is applied to all 4 graphs.
 
 ![figure_template2](https://user-images.githubusercontent.com/72614349/129459807-30c22ffe-7a8c-44b9-9555-6cfd50ec355b.png)
+
+## dbc.css  stylesheet
+
+The `dash-core-components`, the Dash `DataTable` and Plotly figures are not automatically styled with a Bootstrap theme.
+An easy way to make your Dash components look better with a Bootstrap theme is to use the stylesheet from
+ the [dash-bootstrap-templates](https://github.com/AnnMarieW/dash-bootstrap-templates) library. This stylesheet defines the "dbc" class.
+
+Adding `className="dbc"` minimally styles Dash components with your selected Bootstrap theme:
+- Makes the text readable in both light and dark themes.
+- Uses the font from the Bootstrap theme's font-family.
+- Changes the accent color to the theme's primary color
+
+
+You can add the dbc class as an external stylesheet like this:
+```
+dbc_css = ("https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates@V1.0.2/dbc.min.css")
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc_css])
+
+```
+You can also add the stylesheet to your assets folder. If you would like to modify it, you can find a more human readable stylesheet here:  "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates@V1.0.2/dbc.css"
+
+This stylesheet is from version V1.0.2. Check the dash-bootstrap-templates library for the latest updates.
+
+
+Add  `className="dbc"` to the outer container of the app or a component like this:
+```
+app.layout = dbc.Container(
+    [
+        ...
+    ],
+    fluid=True,
+    className="dbc"
+)
+```
+
+## That's it!  
+
+Simply adding `className="dbc"` will make Dash Core Components and the DataTable look better with **ALL** themes included in the `dash-bootstrap-components` library.
+
+If you have suggestion for improvements or if you find a bug, please let us know on the [issue tracker](https://github.com/AnnMarieW/dash-bootstrap-templates/issues)
+
+**Requires `dash-bootstrap-components>=V1.0.0`**
+
 
 ## Theme Switcher Components
 
@@ -71,6 +134,8 @@ Note the All-in-One component switches the Bootstrap stylesheet for the app and 
 for the theme, however, figures must be updated in a callback in order to render the figure with the new template.
 See the callback below for an example.  The `template_from_url` is a helper function that returns the template name
 based on the theme url.  For example `template_from_ur(dbc.themes.SLATE)` returns `"slate"`
+
+
 
 ## ThemeChangerAIO Quickstart
 ```python

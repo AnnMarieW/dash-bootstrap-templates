@@ -1,6 +1,6 @@
 # Dash Bootstrap Templates
 
-####See these features live at : https://hellodash.pythonanywhere.com/theme_explorer
+#### See these features live at : https://hellodash.pythonanywhere.com/theme_explorer
 
 
 `dash-bootstrap-templates` library provides: 
@@ -115,9 +115,7 @@ app.layout = dbc.Container(
 )
 ```
 
-## That's it!  
-
-Simply adding `className="dbc"` will make Dash Core Components and the DataTable look better with **ALL** themes included in the `dash-bootstrap-components` library.
+**That's it!** Simply adding `className="dbc"` will make Dash Core Components and the DataTable look better with **ALL** themes included in the `dash-bootstrap-components` library.
 
 If you have suggestion for improvements or if you find a bug, please let us know on the [issue tracker](https://github.com/AnnMarieW/dash-bootstrap-templates/issues)
 

@@ -94,9 +94,13 @@ class ThemeSwitchAIO(html.Div):
             `link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootswatch@5"],
             link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootstrap@5"]`
           );
-          stylesheets.forEach(function(part, index) {         
-            part.href = themeLink;
-          }); 
+          // The delay in updating the stylesheet reduces the flash when changing themes
+          stylesheets[stylesheets.length - 1].href = themeLink          
+          setTimeout(function() {
+            for (let i = 0; i < stylesheets.length -1; i++) {
+              stylesheets[i].href = themeLink;
+            }
+          }, 500);   
         }
         """,
         Output(ids.dummy_div(MATCH), "children"),

@@ -94,7 +94,9 @@ class ThemeSwitchAIO(html.Div):
             `link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootswatch@5"],
             link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootstrap@5"]`
           );
-          stylesheets[stylesheets.length - 1].href = themeLink;
+          stylesheets.forEach(function(part, index) {         
+            part.href = themeLink;
+          }); 
         }
         """,
         Output(ids.dummy_div(MATCH), "children"),

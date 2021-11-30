@@ -22,7 +22,7 @@
 ```python"
 pip install dash-bootstrap-templates
 ```
-
+> Learn more about Plotly figure templates and themes at: https://plotly.com/python/templates/
 ```python
 """
 A sample of 8 of the 26 Bootstrap themed Plotly figure templates available
@@ -116,6 +116,7 @@ app.layout = dbc.Container(
 ```
 
 **That's it!** Simply adding `className="dbc"` will make Dash Core Components and the DataTable look better with **ALL** themes included in the `dash-bootstrap-components` library.
+> See a live deomo at: https://hellodash.pythonanywhere.com/about_dbc_css
 
 If you have suggestion for improvements or if you find a bug, please let us know on the [issue tracker](https://github.com/AnnMarieW/dash-bootstrap-templates/issues)
 
@@ -123,6 +124,8 @@ If you have suggestion for improvements or if you find a bug, please let us know
 
 
 ## Theme Switcher Components
+
+> See a live demo at https://hellodash.pythonanywhere.com/theme_change_components
 
 `dash-bootstrap-templates` has two [All-in-One](https://dash.plotly.com/all-in-one-components) components to change themes. 
 The `ThemeSwitchAIO` is a switch with icons on the left and right, which is ideal for toggling between a light and a dark theme. 

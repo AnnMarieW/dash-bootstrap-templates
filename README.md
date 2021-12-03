@@ -89,7 +89,7 @@ An easy way to make your Dash components look better with a Bootstrap theme is t
 
 Adding `className="dbc"` minimally styles Dash components with your selected Bootstrap theme:
 - Makes the text readable in both light and dark themes.
-- Uses the font from the Bootstrap theme's font-family.
+- Uses theme's font-family.
 - Changes the accent color to the theme's primary color
 
 
@@ -99,9 +99,6 @@ dbc_css = ("https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates@V1.0.
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc_css])
 
 ```
-You can also add the stylesheet to your assets folder. If you would like to modify it, you can find a more human readable stylesheet here:  "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates@V1.0.2/dbc.css"
-
-This stylesheet is from version V1.0.2. Check the dash-bootstrap-templates library for the latest updates.
 
 
 Add  `className="dbc"` to the outer container of the app or a component like this:
@@ -116,7 +113,7 @@ app.layout = dbc.Container(
 ```
 
 **That's it!** Simply adding `className="dbc"` will make Dash Core Components and the DataTable look better with **ALL** themes included in the `dash-bootstrap-components` library.
-> See a live deomo at: https://hellodash.pythonanywhere.com/about_dbc_css
+> See a live demo at: https://hellodash.pythonanywhere.com/about_dbc_css
 
 If you have suggestion for improvements or if you find a bug, please let us know on the [issue tracker](https://github.com/AnnMarieW/dash-bootstrap-templates/issues)
 

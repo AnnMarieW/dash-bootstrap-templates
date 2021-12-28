@@ -12,7 +12,7 @@ Defines the .dbc class
 /* input box */
 .dbc .Select-control {
   background-color: var(--bs-body-bg) !important;
-  border: solid rgba(100, 100, 100, 0.4) 2px !important;
+  border: solid rgba(100, 100, 100, 0.4) 1px !important;
 }
 
 /* changes the text color of input box */

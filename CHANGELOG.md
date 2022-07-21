@@ -1,3 +1,7 @@
+## 1.0.3
+### Fixed
+ - Fixed the theme switch when it starts in dark mode.  closes [#8](https://github.com/AnnMarieW/dash-bootstrap-templates/issues/8)
+
 ## 1.0.2
 
 ### Changes

@@ -1,6 +1,11 @@
-## 1.0.3
+## 1.0.6  Jul 21, 2022
 ### Fixed
- - Fixed the theme switch when it starts in dark mode.  closes [#8](https://github.com/AnnMarieW/dash-bootstrap-templates/issues/8)
+ - Fixed the theme switch component when it starts in dark mode.  closes [#8](https://github.com/AnnMarieW/dash-bootstrap-templates/issues/8)
+
+
+## 1.0.5 Feb 14, 2022
+### Fixed
+- relaxed install versions
 
 ## 1.0.2
 

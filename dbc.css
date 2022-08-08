@@ -2,7 +2,7 @@
 Defines the .dbc class
   Description: The dbc class improves the style of Dash components when using Bootstrap V5 themes
   Author: @AnnMarieW
-  Updated: 2021-12-28
+  Updated: 2022-08-08
 */
 
 
@@ -125,6 +125,15 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
   border-color: rgba(100, 100, 100, 0.4) !important;
 }
 
+/* on hover highlight entire row
+.dash-spreadsheet tr:hover td.dash-cell {
+            border-color: rgba(100, 100, 100, 0.4) !important;
+            border-width: 0.5px !important;
+            background-color: rgba(var(--bs-primary-rgb), 0.2) !important;
+
+         }
+*/
+
 /* table header */
 body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
   background-color: var(--bs-body-bg);
@@ -144,7 +153,11 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 /* tooltips  */
 .dbc .dash-table-tooltip {
   background-color: var(--bs-gray-500) !important;
-  color: var(--bs-body-color)
+  color: var(--bs-body-color);
+  width: fit-content;
+  /* max and min width are both set to 300px in the dash stylesheet. Override them with your own definitions. */
+  max-width: 300px;
+  min-width: unset;
 }
 
 /* pagination */

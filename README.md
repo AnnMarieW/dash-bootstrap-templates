@@ -12,7 +12,10 @@
   - `ThemeSwitchAIO` toggles between two themes. 
   - `ThemeChangerAIO` select from multiple themes.
 
-- **The dbc.css stylesheet** which styles Dash Core Components and the Dash DataTable with a Bootstrap theme.
+- **The dbc.css stylesheet** which styles Dash Core Components and the Dash DataTable with a Bootstrap theme. 
+   - [![](https://data.jsdelivr.com/v1/package/gh/AnnMarieW/dash-bootstrap-templates/badge?style=rounded)](https://www.jsdelivr.com/package/gh/AnnMarieW/dash-bootstrap-templates)
+
+
 
 > Note:  The `ThemeSwitchAIO` and `ThemeChangerAIO` components  and the `dbc.css` stylesheet requires  Dash Bootstrap Components>=V1.0.0.  It will only
 > work with the themes included in Dash Bootstrap Components>=V1.0.0.

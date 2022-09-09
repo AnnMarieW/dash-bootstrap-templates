@@ -2,7 +2,7 @@
 Defines the .dbc class
   Description: The dbc class improves the style of Dash components when using Bootstrap V5 themes
   Author: @AnnMarieW
-  Updated: 2022-08-26
+  Updated: 2022-09-08
 */
 
 
@@ -332,9 +332,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 }
 
 .dbc .CalendarDay__blocked_out_of_range {
-  background: var(--bs-primary);
-  border: 1px var(--bs-primary);
-  color: white;
+  opacity: .5;
 }
 
 .dbc .CalendarDay__hovered_span {

@@ -394,14 +394,16 @@ def build_plotly_template_from_bootstrap_css_text(css_text):
     layout.yaxis.gridwidth = 0.5
     layout.xaxis.zerolinecolor = gridcolor
     layout.yaxis.zerolinecolor = gridcolor
-    layout.margin = dict(l=0, r=0, b=0)
     layout.geo.bgcolor = plot_bgcolor
     layout.geo.lakecolor = plot_bgcolor
     layout.geo.landcolor = plot_bgcolor
+    layout.hoverlabel.font.family = font_family
+    layout.annotationdefaults.font.color = font_color
 
     template.data.scatter = (go.Scatter(marker_line_color=plot_bgcolor),)
     template.data.scattergl = (go.Scattergl(marker_line_color=plot_bgcolor),)
 
+    print(template)
     return template
 
 

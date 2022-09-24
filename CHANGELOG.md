@@ -1,3 +1,9 @@
+## 1.0.7  Sept 25, 2022
+### Fixed
+ - Fixed hover template font  closes [#9](https://github.com/AnnMarieW/dash-bootstrap-templates/issues/9)
+ - Fixed margins - made margins the same as the Plotly default templates.
+
+
 ## 1.0.6  Jul 21, 2022
 ### Fixed
  - Fixed the theme switch component when it starts in dark mode.  closes [#8](https://github.com/AnnMarieW/dash-bootstrap-templates/issues/8)

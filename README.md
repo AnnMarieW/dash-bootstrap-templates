@@ -19,6 +19,9 @@
 
 > Note:  The `ThemeSwitchAIO` and `ThemeChangerAIO` components  and the `dbc.css` stylesheet requires  Dash Bootstrap Components>=V1.0.0.  It will only
 > work with the themes included in Dash Bootstrap Components>=V1.0.0.
+> 
+> The Bootstsrap themed Plotly figure templates can be used with any Plotly figure.  It does not require Dash or
+> the Dash Bootstrap Components library.
 
 
 ## Figure Template Quickstart

@@ -20,7 +20,7 @@
 > Note:  The `ThemeSwitchAIO` and `ThemeChangerAIO` components  and the `dbc.css` stylesheet requires  Dash Bootstrap Components>=V1.0.0.  It will only
 > work with the themes included in Dash Bootstrap Components>=V1.0.0.
 > 
-> The Bootstsrap themed Plotly figure templates can be used with any Plotly figure.  It does not require Dash or
+> The Bootstrap themed Plotly figure templates can be used with any Plotly figure.  It does not require Dash or
 > the Dash Bootstrap Components library.
 
 
@@ -245,35 +245,34 @@ information about  Plotly figure templates [here](https://plotly.com/python/temp
 
 This library provides a figure template for the following Bootstrap/Bootswatch themes:
 
-valid_themes = [
-    "bootstrap",
-    "cerulean",
-    "cosmo",
-    "flatly",
-    "journal",
-    "litera",
-    "lumen",
-    "lux",
-    "materia",
-    "minty",
-    "pulse",
-    "sandstone",
-    "simplex",
-    "sketchy",
-    "spacelab",
-    "united",
-    "yeti",
-    "cyborg",
-    "darkly",
-    "slate",
-    "solar",
-    "superhero",
-    "morph",
-    "quartz",
-    "vapor"
-    "zephyr"
+templates = [
+"bootstrap",
+"cerulean",
+"cosmo",
+"cyborg",
+"darkly",
+"flatly",
+"journal",
+"litera",
+"lumen",
+"lux",
+"materia",
+"minty",
+"morph",
+"pulse",
+"quartz",
+"sandstone",
+"simplex",
+"sketchy",
+"slate",
+"solar",
+"spacelab",
+"superhero",
+"united",
+"vapor",
+"yeti",
+"zephyr"
 ]
-
 
 ## ThemeChangerAIO Reference
 **ThemeChangerAIO** is an All-in-One component  composed  of a parent `html.Div` with
@@ -311,7 +310,8 @@ The ThemeSwitchAIO component updates the stylesheet when triggered by changes to
 the themes are updated in the "`store`" component.  The themes in the switch may be updated in a callback
 by changing the theme urls in the "`store`" component.
 
-- param: `themes` A list of two urls for the external stylesheets. The default is `[dbc.themes.CYBORG, dbc.themes.BOOTSTRAP]`.
+- param: `switch_props` A dictionary of properties passed into the dbc.Switch component.
+- param: `themes` A list of two urls for the external stylesheets. 
 - param: `icons`  A dict of the icons to the left and right of the switch. The default is  
   `{"left" :"fa fa-moon", "right" :"fa fa-sun"}`.
 - param: `aio_id` The All-in-One component ID used to generate component's dictionary IDs.

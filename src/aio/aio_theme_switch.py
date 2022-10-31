@@ -49,7 +49,8 @@ class ThemeSwitchAIO(html.Div):
         the themes are updated in the "`store`" component.  The themes in the switch may be updated in a callback
         by changing the theme urls in the "`store`" component.
 
-        - param: `themes` A list of two urls for the external stylesheets. The default is `[dbc.themes.CYBORG, dbc.themes.BOOTSTRAP]`.
+        - param: `switch_props` A dictionary of properties passed into the dbc.Switch component.
+        - param: `themes` A list of two urls for the external stylesheets.
         - param: `icons`  A dict of the icons to the left and right of the switch. The default is
           `{"left" :"fa fa-moon", "right" :"fa fa-sun"}`.
         - param: `aio_id` The All-in-One component ID used to generate components' dictionary IDs.

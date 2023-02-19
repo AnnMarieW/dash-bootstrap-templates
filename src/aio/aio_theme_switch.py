@@ -60,15 +60,12 @@ class ThemeSwitchAIO(html.Div):
         - ThemeSwitchAIO.ids.switch(aio_id)
         - ThemeSwitchAIO.ids.store(aio_id)
         """
-        # from src.dash_bootstrap_templates import load_figure_template
-        #
-        # load_figure_template(dbc_themes_lowercase)
 
         if aio_id is None:
             aio_id = str(uuid.uuid4())
 
         if themes is None:
-            themes = [dbc.themes.CYBORG, dbc.themes.BOOTSTRAP]
+            themes = [dbc.themes.BOOTSTRAP, dbc.themes.CYBORG]
         if icons is None:
             icons = {"left": "fa fa-moon", "right": "fa fa-sun"}
 

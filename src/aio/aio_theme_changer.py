@@ -68,7 +68,7 @@ class ThemeChangerAIO(html.Div):
         - ThemeChangerAIO.ids.offcanvas(aio_id)
         - ThemeChangerAIO.ids.button(aio_id)
         """
-        from src.dash_bootstrap_templates import load_figure_template
+        from dash_bootstrap_templates import load_figure_template
 
         load_figure_template(dbc_themes_lowercase)
 

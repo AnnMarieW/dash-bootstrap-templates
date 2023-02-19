@@ -1,5 +1,5 @@
 from dash import Dash, dcc, html
-from src.aio.aio_theme_switch import ThemeSwitchAIO
+from dash_bootstrap_templates import ThemeSwitchAIO
 import dash_bootstrap_components as dbc
 
 app = Dash(__name__)

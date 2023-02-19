@@ -95,15 +95,18 @@ class ThemeSwitchAIO(html.Div):
             
           var themeLink = theme_switch ? url[0] : url[1];
           var oldThemeLink = theme_switch ? url[1]: url[0];
-          var testString = "link[rel='stylesheet'][href^='" + oldThemeLink + "'],"
-            testString += "link[rel='stylesheet'][href^='" + themeLink + "'],"
-            testString += "link[rel='stylesheet'][data-href^='" + oldThemeLink + "'],"
-            testString += "link[rel='stylesheet'][data-href^='" + themeLink + "']"
+          var testString = "link[rel='stylesheet'][href*='" + oldThemeLink + "'],"
+            testString += "link[rel='stylesheet'][href*='" + themeLink + "'],"
+            testString += "link[rel='stylesheet'][data-href*='" + oldThemeLink + "'],"
+            testString += "link[rel='stylesheet'][data-href*='" + themeLink + "']"
           var stylesheets = document.querySelectorAll(testString);
           // The delay in updating the stylesheet reduces the flash when changing themes       
           setTimeout(function() {
             if (stylesheets) {
                 for (let i = 0; i < stylesheets.length; i++) {
+                    if (!stylesheets[i].getAttribute('data-href')) {
+                        stylesheets[i].setAttribute('data-href', '')
+                    }
                     if (stylesheets[i].href.includes(themeLink) || stylesheets[i].getAttribute('data-href').includes(themeLink)) {
                         if (stylesheets[i]['data-href']) {
                             stylesheets[i].href = stylesheets[i]['data-href'];
@@ -125,7 +128,7 @@ class ThemeSwitchAIO(html.Div):
                 };
             }
             // Test if theme was applied, if not add stylesheet
-            var stylesheet = document.querySelectorAll('link[href^="'+ themeLink + '"]')
+            var stylesheet = document.querySelectorAll('link[rel="stylesheet"][href*="'+ themeLink + '"]')
             if (stylesheet.length == 0) {
                 var newLink = document.createElement('link');
                 newLink.rel = 'stylesheet';

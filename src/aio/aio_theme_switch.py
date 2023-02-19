@@ -60,9 +60,9 @@ class ThemeSwitchAIO(html.Div):
         - ThemeSwitchAIO.ids.switch(aio_id)
         - ThemeSwitchAIO.ids.store(aio_id)
         """
-        from dash_bootstrap_templates import load_figure_template
-
-        load_figure_template(dbc_themes_lowercase)
+        # from src.dash_bootstrap_templates import load_figure_template
+        #
+        # load_figure_template(dbc_themes_lowercase)
 
         if aio_id is None:
             aio_id = str(uuid.uuid4())
@@ -95,16 +95,48 @@ class ThemeSwitchAIO(html.Div):
     clientside_callback(
         """
         function toggle(theme_switch, url) {
+            
           var themeLink = theme_switch ? url[0] : url[1];
-          var stylesheets = document.querySelectorAll(
-            `link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootswatch@5"],
-            link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootstrap@5"]`
-          );
-          // The delay in updating the stylesheet reduces the flash when changing themes
-          stylesheets[stylesheets.length - 1].href = themeLink          
+          var oldThemeLink = theme_switch ? url[1]: url[0];
+          var testString = "link[rel='stylesheet'][href^='" + oldThemeLink + "'],"
+            testString += "link[rel='stylesheet'][href^='" + themeLink + "'],"
+            testString += "link[rel='stylesheet'][data-href^='" + oldThemeLink + "'],"
+            testString += "link[rel='stylesheet'][data-href^='" + themeLink + "']"
+          var stylesheets = document.querySelectorAll(testString);
+          // The delay in updating the stylesheet reduces the flash when changing themes       
           setTimeout(function() {
-            for (let i = 0; i < stylesheets.length -1; i++) {
-              stylesheets[i].href = themeLink;
+            if (stylesheets) {
+                for (let i = 0; i < stylesheets.length; i++) {
+                    if (stylesheets[i].href.includes(themeLink) || stylesheets[i].getAttribute('data-href').includes(themeLink)) {
+                        if (stylesheets[i]['data-href']) {
+                            stylesheets[i].href = stylesheets[i]['data-href'];
+                        } else {
+                            stylesheets[i].href = themeLink;
+                        }
+                        stylesheets[i].setAttribute('data-href', '')
+                    }
+                    else if (stylesheets[i].href.includes(oldThemeLink) || stylesheets[i].getAttribute('data-href').includes(oldThemeLink)) {
+                        setTimeout(function () {
+                        if (stylesheets[i]['href']) {
+                            stylesheets[i].setAttribute('data-href', stylesheets[i]['href']);
+                        } else {
+                            stylesheets[i].setAttribute('data-href', oldThemeLink)
+                        }
+                        stylesheets[i]['href'] = ''
+                        }, 200)
+                    }
+                };
+            }
+            // Test if theme was applied, if not add stylesheet
+            console.log(themeLink)
+            var stylesheet = document.querySelectorAll('link[href^="'+ themeLink + '"]')
+            console.log(stylesheet)
+            if (stylesheet.length == 0) {
+                var newLink = document.createElement('link');
+                newLink.rel = 'stylesheet';
+                newLink.href = themeLink;
+                newLink.setAttribute('data-href', '');
+                document.head.appendChild(newLink);
             }
           }, 500);   
         }
@@ -122,11 +154,9 @@ class ThemeSwitchAIO(html.Div):
     #
     clientside_callback(
         """
-        function(theme_switch, theme_urls) {            
-            var themeLink = theme_switch ? theme_urls[0] : theme_urls[1];
+        function(id) {            
             let urls = [
                 "https://use.fontawesome.com/releases/v5.15.4/css/all.css",
-                themeLink
             ];
             for (const url of urls) {
                 var link = document.createElement("link");
@@ -140,6 +170,5 @@ class ThemeSwitchAIO(html.Div):
         }
         """,
         Output(ids.dummy_div(MATCH), "role"),
-        Input(ids.switch(MATCH), "value"),
-        Input(ids.store(MATCH), "data"),
+        Input(ids.dummy_div(MATCH), "role"),
     )

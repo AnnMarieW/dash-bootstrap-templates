@@ -125,9 +125,7 @@ class ThemeSwitchAIO(html.Div):
                 };
             }
             // Test if theme was applied, if not add stylesheet
-            console.log(themeLink)
             var stylesheet = document.querySelectorAll('link[href^="'+ themeLink + '"]')
-            console.log(stylesheet)
             if (stylesheet.length == 0) {
                 var newLink = document.createElement('link');
                 newLink.rel = 'stylesheet';

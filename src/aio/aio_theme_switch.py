@@ -92,7 +92,7 @@ class ThemeSwitchAIO(html.Div):
     clientside_callback(
         """
         function toggle(theme_switch, url) {
-            
+          // save variables and variable paths to stylesheets
           var themeLink = theme_switch ? url[0] : url[1];
           var oldThemeLink = theme_switch ? url[1]: url[0];
           var testString = "link[rel='stylesheet'][href*='" + oldThemeLink + "'],"
@@ -100,8 +100,9 @@ class ThemeSwitchAIO(html.Div):
             testString += "link[rel='stylesheet'][data-href*='" + oldThemeLink + "'],"
             testString += "link[rel='stylesheet'][data-href*='" + themeLink + "']"
           var stylesheets = document.querySelectorAll(testString);
-          // The delay in updating the stylesheet reduces the flash when changing themes       
+               
           setTimeout(function() {
+            // If stylesheets are found, then loop through and update old to data-href and new to href from data-href
             if (stylesheets) {
                 for (let i = 0; i < stylesheets.length; i++) {
                     if (!stylesheets[i].getAttribute('data-href')) {

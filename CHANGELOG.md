@@ -1,3 +1,13 @@
+
+## 1.0.8 Feb 21, 2023
+### Fixed and Added New Features  
+
+- Pull Request  [#14](https://github.com/AnnMarieW/dash-bootstrap-templates/pull/14).  Thanks @BSd3v for the contribution!
+- Fixed `ThemeSwitchAIO` so it doesn't load multiple stylesheets when toggling.
+- Add support for `ThemeSwitchAIO` to work with stylesheets in the assets folder.
+- Removed restriction for `ThemeSwitchAIO` of only working with the themes in the dash-bootstrap-components library.
+
+
 ## 1.0.7  Sept 25, 2022
 ### Fixed
  - Fixed hover template font  closes [#9](https://github.com/AnnMarieW/dash-bootstrap-templates/issues/9)

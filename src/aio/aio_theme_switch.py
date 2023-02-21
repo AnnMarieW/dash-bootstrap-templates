@@ -50,7 +50,7 @@ class ThemeSwitchAIO(html.Div):
         by changing the theme urls in the "`store`" component.
 
         - param: `switch_props` A dictionary of properties passed into the dbc.Switch component.
-        - param: `themes` A list of two urls for the external stylesheets.
+        - param: `themes` A list of two urls for the external stylesheets or pathnames to files.
         - param: `icons`  A dict of the icons to the left and right of the switch. The default is
           `{"left" :"fa fa-moon", "right" :"fa fa-sun"}`.
         - param: `aio_id` The All-in-One component ID used to generate components' dictionary IDs.
@@ -60,6 +60,10 @@ class ThemeSwitchAIO(html.Div):
         - ThemeSwitchAIO.ids.switch(aio_id)
         - ThemeSwitchAIO.ids.store(aio_id)
         """
+
+        from dash_bootstrap_templates import load_figure_template
+
+        load_figure_template(dbc_themes_lowercase)
 
         if aio_id is None:
             aio_id = str(uuid.uuid4())
@@ -150,7 +154,7 @@ class ThemeSwitchAIO(html.Div):
     )
 
     # This callback is used to do the initial load of the
-    # stylesheet and the default icons for the toggle switch.
+    # default icons for the toggle switch.
     # This callback just needs to run once
     # when the app starts.  Dash requires callbacks to have an Output
     # even if there is nothing to update.

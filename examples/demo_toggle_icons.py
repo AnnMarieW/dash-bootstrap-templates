@@ -31,7 +31,7 @@ url_theme2 = dbc.themes.VAPOR
 dbc_css = (
     "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates@V1.0.1/dbc.min.css"
 )
-app = Dash(__name__, external_stylesheets=[url_theme1, dbc_css])
+app = Dash(__name__, external_stylesheets=[url_theme1, dbc_css, dbc.icons.BOOTSTRAP])
 
 df = pd.DataFrame(
     {

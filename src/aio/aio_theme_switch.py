@@ -60,15 +60,12 @@ class ThemeSwitchAIO(html.Div):
         - ThemeSwitchAIO.ids.switch(aio_id)
         - ThemeSwitchAIO.ids.store(aio_id)
         """
-        from dash_bootstrap_templates import load_figure_template
-
-        load_figure_template(dbc_themes_lowercase)
 
         if aio_id is None:
             aio_id = str(uuid.uuid4())
 
         if themes is None:
-            themes = [dbc.themes.CYBORG, dbc.themes.BOOTSTRAP]
+            themes = [dbc.themes.BOOTSTRAP, dbc.themes.CYBORG]
         if icons is None:
             icons = {"left": "fa fa-moon", "right": "fa fa-sun"}
 
@@ -95,18 +92,56 @@ class ThemeSwitchAIO(html.Div):
     clientside_callback(
         """
         function toggle(theme_switch, url) {
+          // save variables and variable paths of target and old stylesheets
           var themeLink = theme_switch ? url[0] : url[1];
-          var stylesheets = document.querySelectorAll(
-            `link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootswatch@5"],
-            link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootstrap@5"]`
-          );
-          // The delay in updating the stylesheet reduces the flash when changing themes
-          stylesheets[stylesheets.length - 1].href = themeLink          
+          var oldThemeLink = theme_switch ? url[1]: url[0];
+          var testString = "link[rel='stylesheet'][href*='" + oldThemeLink + "'],"
+            testString += "link[rel='stylesheet'][href*='" + themeLink + "'],"
+            testString += "link[rel='stylesheet'][data-href*='" + oldThemeLink + "'],"
+            testString += "link[rel='stylesheet'][data-href*='" + themeLink + "']"
+            
+          // Find style sheets matching the targets listed above
+          var stylesheets = document.querySelectorAll(testString);
+               
           setTimeout(function() {
-            for (let i = 0; i < stylesheets.length -1; i++) {
-              stylesheets[i].href = themeLink;
+            // If stylesheets are found, then loop through and update old to data-href and new to href from data-href
+            // data-href  is a temporary holding spot to save the old theme link.
+            // This prevents the screen from flashing when the theme changes.
+            if (stylesheets) {
+                for (let i = 0; i < stylesheets.length; i++) {
+                    if (!stylesheets[i].getAttribute('data-href')) {
+                        stylesheets[i].setAttribute('data-href', '')
+                    }
+                    if (stylesheets[i].href.includes(themeLink) || stylesheets[i].getAttribute('data-href').includes(themeLink)) {
+                        if (stylesheets[i]['data-href']) {
+                            stylesheets[i].href = stylesheets[i]['data-href'];
+                        } else {
+                            stylesheets[i].href = themeLink;
+                        }
+                        stylesheets[i].setAttribute('data-href', '')
+                    }
+                    else if (stylesheets[i].href.includes(oldThemeLink) || stylesheets[i].getAttribute('data-href').includes(oldThemeLink)) {
+                        setTimeout(function () {
+                        if (stylesheets[i]['href']) {
+                            stylesheets[i].setAttribute('data-href', stylesheets[i]['href']);
+                        } else {
+                            stylesheets[i].setAttribute('data-href', oldThemeLink)
+                        }
+                        stylesheets[i]['href'] = ''
+                        }, 100)
+                    }
+                };
             }
-          }, 500);   
+            // Test if theme was applied, if not add stylesheet
+            var stylesheet = document.querySelectorAll('link[rel="stylesheet"][href*="'+ themeLink + '"]')
+            if (stylesheet.length == 0) {
+                var newLink = document.createElement('link');
+                newLink.rel = 'stylesheet';
+                newLink.href = themeLink;
+                newLink.setAttribute('data-href', '');
+                document.head.appendChild(newLink);
+            }
+          }, 100);   
         }
         """,
         Output(ids.dummy_div(MATCH), "children"),
@@ -122,24 +157,18 @@ class ThemeSwitchAIO(html.Div):
     #
     clientside_callback(
         """
-        function(theme_switch, theme_urls) {            
-            var themeLink = theme_switch ? theme_urls[0] : theme_urls[1];
-            let urls = [
-                "https://use.fontawesome.com/releases/v5.15.4/css/all.css",
-                themeLink
-            ];
-            for (const url of urls) {
-                var link = document.createElement("link");
+        // apply font awesome defaults
+        function(id) {            
+            let url = "https://use.fontawesome.com/releases/v5.15.4/css/all.css";
+            var link = document.createElement("link");
 
-                link.type = "text/css";
-                link.rel = "stylesheet";
-                link.href = url;
+            link.type = "text/css";
+            link.rel = "stylesheet";
+            link.href = url;
 
-                document.head.appendChild(link);
-            }
+            document.head.appendChild(link);
         }
         """,
         Output(ids.dummy_div(MATCH), "role"),
-        Input(ids.switch(MATCH), "value"),
-        Input(ids.store(MATCH), "data"),
+        Input(ids.dummy_div(MATCH), "role"),
     )

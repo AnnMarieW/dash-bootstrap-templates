@@ -65,5 +65,4 @@ def load_figure_template(themes="bootstrap"):
         read_template(themes)
         pio.templates.default = themes
 
-from aio.aio_theme_changer import ThemeChangerAIO, template_from_url
-from aio.aio_theme_switch import ThemeSwitchAIO
+from aio import ThemeSwitchAIO, ThemeChangerAIO, template_from_url

@@ -17,10 +17,14 @@
 
 
 
-> Note:  The `ThemeSwitchAIO` and `ThemeChangerAIO` components  and the `dbc.css` stylesheet requires  Dash Bootstrap Components>=V1.0.0.  It will only
+> **Usage Notes**:
+>  - The `ThemeChangerAIO` component  and the `dbc.css` stylesheet requires  Dash Bootstrap Components>=V1.0.0.  It will only
 > work with the themes included in Dash Bootstrap Components>=V1.0.0.
 > 
-> The Bootstrap themed Plotly figure templates can be used with any Plotly figure.  It does not require Dash or
+>  - As of V1.0.8, the themes in the `ThemeSwitchAIO` component can be specified as a pathname or a URL.  This allows for working
+> off-line and with custom stylesheets.
+> 
+> - The Bootstrap themed Plotly figure templates can be used with any Plotly figure.  It does not require Dash or
 > the Dash Bootstrap Components library.
 
 
@@ -311,7 +315,7 @@ the themes are updated in the "`store`" component.  The themes in the switch may
 by changing the theme urls in the "`store`" component.
 
 - param: `switch_props` A dictionary of properties passed into the dbc.Switch component.
-- param: `themes` A list of two urls for the external stylesheets. 
+- param: `themes` A list of two urls for the external stylesheets or pathnames to files.
 - param: `icons`  A dict of the icons to the left and right of the switch. The default is  
   `{"left" :"fa fa-moon", "right" :"fa fa-sun"}`.
 - param: `aio_id` The All-in-One component ID used to generate component's dictionary IDs.

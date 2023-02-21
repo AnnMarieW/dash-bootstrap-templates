@@ -92,17 +92,21 @@ class ThemeSwitchAIO(html.Div):
     clientside_callback(
         """
         function toggle(theme_switch, url) {
-          // save variables and variable paths to stylesheets
+          // save variables and variable paths of target and old stylesheets
           var themeLink = theme_switch ? url[0] : url[1];
           var oldThemeLink = theme_switch ? url[1]: url[0];
           var testString = "link[rel='stylesheet'][href*='" + oldThemeLink + "'],"
             testString += "link[rel='stylesheet'][href*='" + themeLink + "'],"
             testString += "link[rel='stylesheet'][data-href*='" + oldThemeLink + "'],"
             testString += "link[rel='stylesheet'][data-href*='" + themeLink + "']"
+            
+          // Find style sheets matching the targets listed above
           var stylesheets = document.querySelectorAll(testString);
                
           setTimeout(function() {
             // If stylesheets are found, then loop through and update old to data-href and new to href from data-href
+            // data-href  is a temporary holding spot to save the old theme link.
+            // This prevents the screen from flashing when the theme changes.
             if (stylesheets) {
                 for (let i = 0; i < stylesheets.length; i++) {
                     if (!stylesheets[i].getAttribute('data-href')) {
@@ -124,7 +128,7 @@ class ThemeSwitchAIO(html.Div):
                             stylesheets[i].setAttribute('data-href', oldThemeLink)
                         }
                         stylesheets[i]['href'] = ''
-                        }, 200)
+                        }, 100)
                     }
                 };
             }
@@ -137,7 +141,7 @@ class ThemeSwitchAIO(html.Div):
                 newLink.setAttribute('data-href', '');
                 document.head.appendChild(newLink);
             }
-          }, 500);   
+          }, 100);   
         }
         """,
         Output(ids.dummy_div(MATCH), "children"),
@@ -153,19 +157,16 @@ class ThemeSwitchAIO(html.Div):
     #
     clientside_callback(
         """
+        // apply font awesome defaults
         function(id) {            
-            let urls = [
-                "https://use.fontawesome.com/releases/v5.15.4/css/all.css",
-            ];
-            for (const url of urls) {
-                var link = document.createElement("link");
+            let url = "https://use.fontawesome.com/releases/v5.15.4/css/all.css";
+            var link = document.createElement("link");
 
-                link.type = "text/css";
-                link.rel = "stylesheet";
-                link.href = url;
+            link.type = "text/css";
+            link.rel = "stylesheet";
+            link.href = url;
 
-                document.head.appendChild(link);
-            }
+            document.head.appendChild(link);
         }
         """,
         Output(ids.dummy_div(MATCH), "role"),

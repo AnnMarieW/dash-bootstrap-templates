@@ -2,8 +2,31 @@
 Defines the .dbc class
   Description: The dbc class improves the style of Dash components when using Bootstrap V5 themes
   Author: @AnnMarieW
-  Updated: 2022-09-08
+  Updated: 2023-09-11
 */
+
+
+/* ------------- dash ag grid -------*/
+.dbc-ag-grid .ag-theme-alpine {
+  --ag-alpine-active-color: var(--bs-primary);
+  --ag-selected-row-background-color: rgba(var(--bs-primary-rgb), 0.3);
+  --ag-row-hover-color: rgba(var(--bs-primary-rgb), 0.1);
+  --ag-column-hover-color: rgba(var(--bs-primary-rgb), 0.1);
+  --ag-input-focus-border-color: rgba(var(--bs-primary-rgb), 0.4);
+  --ag-range-selection-background-color: rgba(var(--bs-primary-rgb), 0.2);
+  --ag-range-selection-background-color-2: rgba(var(--bs-primary-rgb), 0.36);
+  --ag-range-selection-background-color-3: rgba(var(--bs-primary-rgb), 0.49);
+  --ag-range-selection-background-color-4: rgba(var(--bs-primary-rgb), 0.59);
+  --ag-background-color: var(--bs-body-bg);
+  --ag-foreground-color: var(--bs-body-color);
+  --ag-border-color:  rgba(173,181,189, 0.40);
+  --ag-header-background-color:  rgba(173,181,189, 0.20);
+  --ag-odd-row-background-color:  rgba(173,181,189, 0.05);
+  --ag-control-panel-background-color: var(--bs-body-bg);
+  --ag-subheader-background-color:  var(--bs-body-bg);
+  --ag-invalid-color: var(--bs-form-invalid-color);
+  --ag-font-family: var(--bs-font-family);
+  --ag-tooltip-background-color: var(--bs-gray-400);
 
 
 /* --------- dcc dropdown ---- */

@@ -1,4 +1,10 @@
 
+
+## Sept 11, 2023
+
+Updated the dbc.css file to add the `dbc-ag-grid` class to apply Bootstrap theme to Dash AG Grid
+
+
 ## 1.0.8 Feb 21, 2023
 ### Fixed and Added New Features  
 

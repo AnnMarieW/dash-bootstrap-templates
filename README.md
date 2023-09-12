@@ -12,7 +12,7 @@
   - `ThemeSwitchAIO` toggles between two themes. 
   - `ThemeChangerAIO` select from multiple themes.
 
-- **The dbc.css stylesheet** which styles Dash Core Components and the Dash DataTable with a Bootstrap theme. 
+- **The dbc.css stylesheet** which styles Dash AG Grid, Dash Core Components and the Dash DataTable with a Bootstrap theme. 
    - [![](https://data.jsdelivr.com/v1/package/gh/AnnMarieW/dash-bootstrap-templates/badge?style=rounded)](https://www.jsdelivr.com/package/gh/AnnMarieW/dash-bootstrap-templates)
 
 
@@ -93,11 +93,11 @@ if __name__ == "__main__":
 
 ## dbc.css  stylesheet
 
-The `dash-core-components`, the Dash `DataTable` and Plotly figures are not automatically styled with a Bootstrap theme.
+The  `dash-ag-grid`, `dash-core-components`, the Dash `DataTable` and Plotly figures are not automatically styled with a Bootstrap theme.
 An easy way to make your Dash components look better with a Bootstrap theme is to use the stylesheet from
  the [dash-bootstrap-templates](https://github.com/AnnMarieW/dash-bootstrap-templates) library. This stylesheet defines the "dbc" class.
 
-Adding `className="dbc"` minimally styles Dash components with your selected Bootstrap theme:
+Adding `className="dbc dbc-ag-grid"` minimally styles Dash components with your selected Bootstrap theme:
 - Makes the text readable in both light and dark themes.
 - Uses theme's font-family.
 - Changes the accent color to the theme's primary color
@@ -111,23 +111,26 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc_css])
 ```
 
 
-Add  `className="dbc"` to the outer container of the app or a component like this:
+Add  `className="dbc dbc-ag-grid"` to the outer container of the app or a component like this:
 ```
 app.layout = dbc.Container(
     [
         ...
     ],
     fluid=True,
-    className="dbc"
+    className="dbc dbc-ag-grid"
 )
 ```
 
-**That's it!** Simply adding `className="dbc"` will make Dash Core Components and the DataTable look better with **ALL** themes included in the `dash-bootstrap-components` library.
-> See a live demo at: https://hellodash.pythonanywhere.com/about_dbc_css
+**That's it!** Simply adding `className="dbc dbc-ag-grid"` will make Dash AG Grid,  Dash Core Components and the DataTable look better with **ALL** themes included in the `dash-bootstrap-components` library.
+> See a live demo at: https://hellodash.pythonanywhere.com/adding-themes/dcc-components
+
 
 If you have suggestion for improvements or if you find a bug, please let us know on the [issue tracker](https://github.com/AnnMarieW/dash-bootstrap-templates/issues)
 
 **Requires `dash-bootstrap-components>=V1.0.0`**
+
+
 
 
 ## Theme Switcher Components
@@ -230,7 +233,12 @@ icons [here](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/exa
 
 ![theme_toggle](https://user-images.githubusercontent.com/72614349/141466191-13709102-a2fb-45b5-a984-383d3e6ab373.gif)
 
+Here is an example of the theme change component to show different Bootstrap themes with Dash AG Grid:
 
+
+See live demo https://hellodash.pythonanywhere.com/adding-themes/ag-grid
+
+![ag-grid-dbc-theme](https://github.com/AnnMarieW/dash-bootstrap-templates/assets/72614349/10bd25fc-1e01-4ba9-ac38-d18a14d7ef4f)
 
 
 ## Background

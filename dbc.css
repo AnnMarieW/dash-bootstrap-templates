@@ -2,7 +2,7 @@
 Defines the .dbc class
   Description: The dbc class improves the style of Dash components when using Bootstrap V5 themes
   Author: @AnnMarieW
-  Updated: 2023-09-11
+  Updated: 2023-09-12
 */
 
 
@@ -20,6 +20,8 @@ Defines the .dbc class
   --ag-background-color: var(--bs-body-bg);
   --ag-foreground-color: var(--bs-body-color);
   --ag-border-color:  rgba(173,181,189, 0.40);
+  --ag-cell-horizontal-border:  rgba(173,181,189, 0.20);
+  --ag-secondary-border-color:  rgba(173,181,189, 0.20);
   --ag-header-background-color:  rgba(173,181,189, 0.20);
   --ag-odd-row-background-color:  rgba(173,181,189, 0.05);
   --ag-control-panel-background-color: var(--bs-body-bg);

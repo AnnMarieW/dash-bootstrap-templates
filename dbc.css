@@ -2,7 +2,7 @@
 Defines the .dbc class
   Description: The dbc class improves the style of Dash components when using Bootstrap V5 themes
   Author: @AnnMarieW
-  Updated: 2023-09-12
+  Updated: 2023-09-13
 */
 
 
@@ -29,7 +29,7 @@ Defines the .dbc class
   --ag-invalid-color: var(--bs-form-invalid-color);
   --ag-font-family: var(--bs-font-family);
   --ag-tooltip-background-color: var(--bs-gray-400);
-
+}
 
 /* --------- dcc dropdown ---- */
 

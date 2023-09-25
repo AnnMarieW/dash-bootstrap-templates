@@ -70,7 +70,7 @@ class ThemeChangerAIO(html.Div):
         """
         from dash_bootstrap_templates import load_figure_template
 
-        load_figure_template(dbc_themes_lowercase)
+        load_figure_template("all")
 
         if aio_id is None:
             aio_id = str(uuid.uuid4())

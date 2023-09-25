@@ -25,9 +25,40 @@ try:
 except PackageNotFoundError:
     # package is not installed
     pass
+
+
 """
 Use this function to make the bootstrap figure templates available in your Dash app
 """
+
+dbc_templates = [
+    "bootstrap",
+    "cerulean",
+    "cosmo",
+    "cyborg",
+    "darkly",
+    "flatly",
+    "journal",
+    "litera",
+    "lumen",
+    "lux",
+    "materia",
+    "minty",
+    "morph",
+    "pulse",
+    "quartz",
+    "sandstone",
+    "simplex",
+    "sketchy",
+    "slate",
+    "solar",
+    "spacelab",
+    "superhero",
+    "united",
+    "vapor",
+    "yeti",
+    "zephyr"
+]
 
 
 def read_template(theme):
@@ -49,8 +80,8 @@ def load_figure_template(themes="bootstrap"):
 
     Keyword arguments:
     themes -- may be a string or list of strings. (Default "bootstrap")
-              The string is the lowercase name of a Bootstrap theme
-              built in _create_templates.py
+              - The string is the lowercase name of a Bootstrap theme
+              "all" will load all 52 themes.
 
     The plotly.io.templates.default will be the first theme if
     themes is a list. If the themes attribute is invalid, the
@@ -60,6 +91,13 @@ def load_figure_template(themes="bootstrap"):
         for theme in themes:
             read_template(theme)
         pio.templates.default = themes[0]
+
+    elif themes == "all":
+        for theme in dbc_templates:
+            read_template(theme)
+            read_template(theme + "_dark")
+        pio.templates.default = "bootstrap"
+
 
     else:
         read_template(themes)

@@ -18,6 +18,16 @@ import numpy as np
 import dash_bootstrap_components as dbc
 
 
+def patch_asscalar(a):
+    """
+    workaround for using deprecated asscalar in colormath
+    https://github.com/gtaylor/python-colormath/issues/104
+    """
+    return a.item()
+
+setattr(np, "asscalar", patch_asscalar)
+
+
 # The following Bootstrap themes will be generated:
 dbc_themes_url = {
     "BOOTSTRAP": dbc.themes.BOOTSTRAP,
@@ -249,7 +259,7 @@ From /templates/dbc.py
 """
 
 
-def parse_rules_from_bootstrap_css(css_text):
+def parse_rules_from_bootstrap_css(css_text, color_mode):
     import tinycss2
 
     tinycss_parsed = tinycss2.parse_stylesheet(css_text)
@@ -279,6 +289,12 @@ def parse_rules_from_bootstrap_css(css_text):
                 prop_key = prop_pair[0]
                 prop_value = prop_pair[1].replace("!important", "").strip()
                 rule_props[selector][prop_key] = prop_value
+
+    if color_mode == "dark":
+        try:
+            rule_props[":root"].update(rule_props["[data-bs-theme=dark]"])
+        except KeyError:
+            pass
 
     return rule_props
 
@@ -338,10 +354,10 @@ def get_template(bg_color):
         return copy.deepcopy(pio.templates["plotly_white"])
 
 
-def build_plotly_template_from_bootstrap_css_text(css_text):
+def build_plotly_template_from_bootstrap_css_text(css_text, color_mode):
 
     # Parse css text
-    rule_props = parse_rules_from_bootstrap_css(css_text)
+    rule_props = parse_rules_from_bootstrap_css(css_text, color_mode)
 
     # Initialize role_colors with default values
     role_colors = get_role_colors(rule_props)
@@ -370,7 +386,7 @@ def build_plotly_template_from_bootstrap_css_text(css_text):
     ]
     colorway = [role_colors[r] for r in colorway_roles]
     colorway = separate_colorway(colorway)
-    print("colorway", colorway)
+
 
     colorscale = get_colorscale(role_colors["primary"], role_colors["danger"])
 
@@ -403,11 +419,10 @@ def build_plotly_template_from_bootstrap_css_text(css_text):
     template.data.scatter = (go.Scatter(marker_line_color=plot_bgcolor),)
     template.data.scattergl = (go.Scattergl(marker_line_color=plot_bgcolor),)
 
-    print(template)
     return template
 
 
-def try_build_plotly_template_from_bootstrap_css_path(css_url):
+def try_build_plotly_template_from_bootstrap_css_path(css_url, color_mode="light"):
     import requests
     from urllib.parse import urlparse
 
@@ -423,7 +438,7 @@ def try_build_plotly_template_from_bootstrap_css_path(css_url):
         with open(parse_result.path, "rt") as f:
             css_text = f.read()
 
-    return build_plotly_template_from_bootstrap_css_text(css_text)
+    return build_plotly_template_from_bootstrap_css_text(css_text, color_mode)
 
 
 """
@@ -437,9 +452,23 @@ TEMPLATES_PATH = PATH.joinpath("./src/dash_bootstrap_templates/templates").resol
 
 
 # Creates all templates and save them as json files
+print("Generating light templates...")
+
+# light color mode
 for theme, url in dbc_themes_url.items():
     dbc_template = try_build_plotly_template_from_bootstrap_css_path(url)
     with open(TEMPLATES_PATH.joinpath(f"{theme.lower()}.json"), "w") as f:
         json.dump(dbc_template, f, cls=PlotlyJSONEncoder)
 
-print("Bootstrap figure templates saved as json files")
+print("Light Bootstrap figure templates saved as json files")
+print("Generating dark templates...")
+
+
+# dark color mode
+for theme, url in dbc_themes_url.items():
+    dbc_template = try_build_plotly_template_from_bootstrap_css_path(url, color_mode="dark")
+    template_name = theme.lower() + "_dark.json"
+    with open(TEMPLATES_PATH.joinpath(template_name), "w") as f:
+        json.dump(dbc_template, f, cls=PlotlyJSONEncoder)
+
+print("Dark Bootstrap figure templates saved as json files")

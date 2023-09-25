@@ -5,12 +5,17 @@
 
 `dash-bootstrap-templates` library provides: 
 
-- **Bootstrap themed Plotly figure templates**. You will find a Plotly template for each of the 26 Bootstrap/Bootswatch themes available in the
-[Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/). These templates will automatically style your figures with Bootstrap theme colors and fonts.
+- **52 Bootstrap themed Plotly figure templates** 
+  - You will find a Plotly template for each of the 26 Bootstrap/Bootswatch themes available in the [Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/). These templates will automatically style your figures with Bootstrap theme colors and fonts.
+  - As of V1.1 a dark mode is available for each theme.  This is ideal for use with the [Bootstrap Color Modes](https://getbootstrap.com/docs/5.3/customize/color-modes/) available as of Bootstrap 5.3.0
+
 
 - **Two  [All-in-One](https://dash.plotly.com/all-in-one-components) components** to change themes in a Dash app.
-  - `ThemeSwitchAIO` toggles between two themes. 
+  - `ThemeSwitchAIO` toggles between two themes.
   - `ThemeChangerAIO` select from multiple themes.
+  
+- **Examples of a Color Mode Switch** to toggle between a light and dark theme.
+
 
 - **The dbc.css stylesheet** which styles Dash AG Grid, Dash Core Components and the Dash DataTable with a Bootstrap theme. 
    - [![](https://data.jsdelivr.com/v1/package/gh/AnnMarieW/dash-bootstrap-templates/badge?style=rounded)](https://www.jsdelivr.com/package/gh/AnnMarieW/dash-bootstrap-templates)
@@ -26,6 +31,9 @@
 > 
 > - The Bootstrap themed Plotly figure templates can be used with any Plotly figure.  It does not require Dash or
 > the Dash Bootstrap Components library.
+
+<br>
+<br>
 
 
 ## Figure Template Quickstart
@@ -91,6 +99,9 @@ if __name__ == "__main__":
 
 ![figure_template2](https://user-images.githubusercontent.com/72614349/129459807-30c22ffe-7a8c-44b9-9555-6cfd50ec355b.png)
 
+<br>
+<br>
+
 ## dbc.css  stylesheet
 
 The  `dash-ag-grid`, `dash-core-components`, the Dash `DataTable` and Plotly figures are not automatically styled with a Bootstrap theme.
@@ -146,6 +157,9 @@ for the theme, however, figures must be updated in a callback in order to render
 See the callback below for an example.  The `template_from_url` is a helper function that returns the template name
 based on the theme url.  For example `template_from_ur(dbc.themes.SLATE)` returns `"slate"`
 
+
+<br>
+<br>
 
 
 ## ThemeChangerAIO Quickstart
@@ -233,12 +247,106 @@ icons [here](https://github.com/AnnMarieW/dash-bootstrap-templates/blob/main/exa
 
 ![theme_toggle](https://user-images.githubusercontent.com/72614349/141466191-13709102-a2fb-45b5-a984-383d3e6ab373.gif)
 
+
+
+<br>
+<br>
+
+
+## Color Mode Switch
+__Requires dash-bootstrap-components>=1.5.0__
+
+This is the recommended way to switch between a light and a dark mode using  [Bootstrap Color modes](https://getbootstrap.com/docs/5.3/customize/color-modes/) 
+available in Bootstrap 5.3.0.
+
+
+![color-mode-templates](https://github.com/AnnMarieW/dash-bootstrap-templates/assets/72614349/86c56043-08e0-4b8a-a473-13e2ef89533a)
+
+
+
+
+```python
+from dash import Dash, html, dcc, Input, Output, clientside_callback, callback
+import plotly.express as px
+import dash_bootstrap_components as dbc
+
+from dash_bootstrap_templates import load_figure_template
+load_figure_template(["minty", "minty_dark"])
+
+
+df = px.data.gapminder()
+
+app = Dash(__name__, external_stylesheets=[dbc.themes.MINTY, dbc.icons.FONT_AWESOME])
+
+color_mode_switch =  html.Span(
+    [
+        dbc.Label(className="fa fa-moon", html_for="switch"),
+        dbc.Switch( id="switch", value=False, className="d-inline-block ms-1", persistence=True),
+        dbc.Label(className="fa fa-sun", html_for="switch"),
+    ]
+)
+
+app.layout = dbc.Container(
+    [
+        html.Div(["Bootstrap Light Dark Color Modes Demo"], className="bg-primary text-white h3 p-2"),
+        color_mode_switch,
+        dcc.Graph(id="graph", className="border"),
+    ]
+
+)
+
+@callback(
+    Output("graph", "figure"),
+    Input("switch", "value"),
+)
+def update_figure_template(switch_on):
+    template = "minty" if switch_on else "minty_dark"
+    fig = px.scatter(
+        df.query("year==2007"),
+        x="gdpPercap",
+        y="lifeExp",
+        size="pop",
+        color="continent",
+        log_x=True,
+        size_max=60,
+        template=template,
+    )
+    return fig
+
+
+
+clientside_callback(
+    """
+    (switchOn) => {
+       switchOn
+         ? document.documentElement.setAttribute('data-bs-theme', 'light')
+         : document.documentElement.setAttribute('data-bs-theme', 'dark')
+       return window.dash_clientside.no_update
+    }
+    """,
+    Output("switch", "id"),
+    Input("switch", "value"),
+)
+
+
+if __name__ == "__main__":
+    app.run_server(debug=True)
+```
+
+<br>
+<br>
+
+## Dash AG Grid with a Bootstrap theme
+
 Here is an example of the theme change component to show different Bootstrap themes with Dash AG Grid:
 
 
 See live demo https://hellodash.pythonanywhere.com/adding-themes/ag-grid
 
 ![ag-grid-dbc-theme](https://github.com/AnnMarieW/dash-bootstrap-templates/assets/72614349/10bd25fc-1e01-4ba9-ac38-d18a14d7ef4f)
+
+<br>
+<br>
 
 
 ## Background
@@ -252,39 +360,50 @@ them available to you. The figure templates are created using the Dash Labs' alg
 you use `load_figure_template()` in your app, it loads the json file, adds it to `plotly.io` and sets it as the default figure template for an app.  See more 
 information about  Plotly figure templates [here](https://plotly.com/python/templates/).
 
+<br>
+<br>
+
 
 ## Available Themes
 
 This library provides a figure template for the following Bootstrap/Bootswatch themes:
 
 templates = [
-"bootstrap",
-"cerulean",
-"cosmo",
-"cyborg",
-"darkly",
-"flatly",
-"journal",
-"litera",
-"lumen",
-"lux",
-"materia",
-"minty",
-"morph",
-"pulse",
-"quartz",
-"sandstone",
-"simplex",
-"sketchy",
-"slate",
-"solar",
-"spacelab",
-"superhero",
-"united",
-"vapor",
-"yeti",
-"zephyr"
+  "bootstrap",
+  "cerulean",
+  "cosmo",
+  "cyborg",
+  "darkly",
+  "flatly",
+  "journal",
+  "litera",
+  "lumen",
+  "lux",
+  "materia",
+  "minty",
+  "morph",
+  "pulse",
+  "quartz",
+  "sandstone",
+  "simplex",
+  "sketchy",
+  "slate",
+  "solar",
+  "spacelab",
+  "superhero",
+  "united",
+  "vapor",
+  "yeti",
+  "zephyr"
 ]
+
+templates_dark = ['bootstrap_dark', 'cerulean_dark', 'cosmo_dark', 'cyborg_dark', 'darkly_dark', 'flatly_dark', 'journal_dark', 'litera_dark', 'lumen_dark', 'lux_dark', 'materia_dark', 'minty_dark', 'morph_dark', 'pulse_dark', 'quartz_dark', 'sandstone_dark', 'simplex_dark', 'sketchy_dark', 'slate_dark', 'solar_dark', 'spacelab_dark', 'superhero_dark', 'united_dark', 'vapor_dark', 'yeti_dark', 'zephyr_dark']
+
+
+
+Note in dark themes ["cyborg", "darkly", "slate", "solar", "superhero", "vapor"], there is not much difference in the figure templates in light or dark color modes.
+
+
 
 ## ThemeChangerAIO Reference
 **ThemeChangerAIO** is an All-in-One component  composed  of a parent `html.Div` with

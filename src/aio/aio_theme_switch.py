@@ -37,6 +37,7 @@ class ThemeSwitchAIO(html.Div):
         icons=None,
         switch_props={},
         aio_id=None,
+        storage_type="session",
     ):
         """ThemeSwitchAIO is an All-in-One component  composed  of a parent `html.Div` with
         the following components as children:
@@ -88,7 +89,7 @@ class ThemeSwitchAIO(html.Div):
                         dbc.Label(className=icons["right"]),
                     ],
                 ),
-                dcc.Store(id=self.ids.store(aio_id), data=themes),
+                dcc.Store(id=self.ids.store(aio_id), data=themes, storage_type=storage_type),
                 html.Div(id=self.ids.dummy_div(aio_id)),
             ]
         )

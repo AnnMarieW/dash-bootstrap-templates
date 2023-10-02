@@ -49,6 +49,11 @@ Defines the .dbc class
   color: var(--bs-body-color);
 }
 
+.dbc .Select-placeholder {
+  color: var(--bs-secondary) !important;
+  background-color: var(--bs-body-bg) !important;
+}
+
 /* dropdown menu options */
 .dbc .VirtualizedSelectOption {
   background-color: var(--bs-body-bg);
@@ -93,7 +98,7 @@ Defines the .dbc class
 
 
 .dbc input::placeholder {
-  color: var(--bs-body-color) !important;
+  color: var(--bs-secondary) !important;
   background-color: var(--bs-body-bg) !important;
 }
 

@@ -1,4 +1,20 @@
 
+## Oct 2, 2023
+
+Fixed placeholder text color. Closes #20
+
+## 1.1.0 Sept 26, 2023
+### New Features
+
+- Added 26 new dark mode figure templates for each of the 26 Bootstrap themed figure templates
+-  Added examples of how to use the Bootstrap Color Modes  switch between dark and light modes in a Dash app
+- Added support for styling Dash AG Grid with a bootstrap theme in the  `dbc.css` file
+-  Added an option to load all figure templates:
+```python
+from dash_bootstrap_templates import load_figure_template
+load_figure_template("all")
+```
+
 
 ## Sept 12, 2023
 

@@ -1,4 +1,10 @@
 
+## Oct 18, 20233
+
+Fixed error in how colorways were created, resulting in a slight changed in the color of the green (Bootstrap Success) color.
+Thanks to @oliverb for PR #22
+
+
 ## Oct 2, 2023
 
 Fixed placeholder text color. Closes #20

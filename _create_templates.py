@@ -321,8 +321,8 @@ def get_role_colors(rule_props):
 
     # Override with role colors for current theme
     for prop, val in rule_props[":root"].items():
-        if prop.startswith("--"):
-            maybe_color = prop.lstrip("--bs-")
+        if prop.startswith("--bs-"):
+            maybe_color = prop[5:]
             if maybe_color in role_colors:
                 role_colors[maybe_color] = val
 

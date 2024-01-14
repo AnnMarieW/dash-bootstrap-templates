@@ -367,7 +367,11 @@ def build_plotly_template_from_bootstrap_css_text(css_text, color_mode):
 
     # Get background color
     plot_bgcolor = rule_props[":root"].get("--bs-body-bg", "#fff")
-    paper_bgcolor = rule_props[".card"].get("background-color", plot_bgcolor)
+    paper_bgcolor = rule_props[".card"].get("--bs-card-bg", plot_bgcolor)
+
+    # The morph theme's card background color does not look good as the paper_bgcolor in dark mode
+    if "Theme: morph" in css_text:
+        paper_bgcolor = plot_bgcolor
 
     blended = maybe_blend(plot_bgcolor, paper_bgcolor)
     if blended is None:

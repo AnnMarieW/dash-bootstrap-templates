@@ -1,5 +1,9 @@
 
-## Oct 18, 20233
+## 1.1.2 Jan 14, 2024
+Fixed regression where figure background did not match theme's card color.  Closes issue #25
+
+
+## 1.1.1 Oct 18, 2023
 
 Fixed error in how colorways were created, resulting in a slight changed in the color of the green (Bootstrap Success) color.
 Thanks to @oliverb for PR #22

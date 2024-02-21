@@ -1,3 +1,11 @@
+
+## Feb 21, 2024
+Fixed dbc.css
+ - use new Bootstrap variables for border width and color  Closes [#6](https://github.com/AnnMarieW/dash-bootstrap-templates/issues/6)
+ - matched dcc date picker input fields to match dcc.Dropdown input fields
+
+
+
 ## Jan 27, 2024
 Fixed dbc.css - ag grid toolip background color
 

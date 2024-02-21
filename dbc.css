@@ -2,7 +2,7 @@
 Defines the .dbc class
   Description: The dbc class improves the style of Dash components when using Bootstrap V5 themes
   Author: @AnnMarieW
-  Updated: 2024-01-27
+  Updated: 2024-02-21
 */
 
 
@@ -37,7 +37,8 @@ Defines the .dbc class
 /* input box */
 .dbc .Select-control {
   background-color: var(--bs-body-bg) !important;
-  border: solid rgba(100, 100, 100, 0.4) 1px !important;
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
+
 }
 
 /* changes the text color of input box */
@@ -71,7 +72,7 @@ Defines the .dbc class
  */
 .dbc .is-focused:not(.is-open) > .Select-control {
   border-color: var(--bs-primary) !important;
-  box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.2);
+  box-shadow: 0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color);
 }
 
 /* primary  this colors the input box text and x  of multi */
@@ -81,13 +82,18 @@ Defines the .dbc class
   border-color: rgba(var(--bs-primary-rgb), 0.6) !important;
 }
 
+
+.Select-menu-outer {
+  border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
 /* ---------------------------------------
  * textarea
  */
 .dbc textarea {
   background-color: var(--bs-body-bg) !important;
   color: var(--bs-body-color) !important;
-  border-color: rgba(100, 100, 100, 0.4) !important;
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
 }
 
 /* Use this classname for dcc.Input */
@@ -153,7 +159,7 @@ Defines the .dbc class
 body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
-  border-color: rgba(100, 100, 100, 0.4) !important;
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
 }
 
 /* on hover highlight entire row
@@ -250,7 +256,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 
 .dbc .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
   border-color: var(--bs-primary);
-  box-shadow: 0 0 0 5px rgba(var(--bs-primary-rgb), 0.25);
+  box-shadow: 0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color);
 }
 
 .dbc .rc-slider-handle-click-focused:focus {
@@ -264,7 +270,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 
 .dbc .rc-slider-handle:active {
   border-color: rgba(var(--bs-primary-rgb), 0.25);
-  box-shadow: 0 0 5px rgba(var(--bs-primary-rgb), 0.25);
+  box-shadow: 0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color);
 }
 
 .dbc .rc-slider-dot-active {
@@ -275,7 +281,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 /* ------------ datepickers -----------------------*/
 
 .dbc .SingleDatePickerInput__withBorder {
-  border-color: rgba(100, 100, 100, 0.4) !important;
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
   background-color: transparent !important;
 }
 
@@ -284,7 +290,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 }
 
 .dbc .DateRangePickerInput__withBorder {
-  border-color: rgba(100, 100, 100, 0.4) !important;
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
 }
 
 .dbc .DateInput_fangStroke {
@@ -311,6 +317,8 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 .dbc .DateInput_input {
   background-color: var(--bs-body-bg);
   font-family: var(--bs-body-font-family);
+  line-height: 34px !important;
+  padding: 0px 10px !important
 }
 
 .dbc .DayPicker {
@@ -318,7 +326,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 }
 
 .dbc .DayPickerNavigation_button {
-  border: border-color: rgba(100, 100, 100, 0.4);
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
   background-color: transparent;
 }
 
@@ -340,7 +348,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 
 .dbc .CalendarDay__default {
   color: var(--bs-body-color);
-  border-color: rgba(100, 100, 100, 0.4) !important;
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
   background-color: var(--bs-body-bg);
 }
 
@@ -426,7 +434,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 *
 */
 .dbc .tab {
-    border-color: rgba(100, 100, 100, 0.4) !important;
+    border: var(--bs-border-width) solid var(--bs-border-color) !important;
     background-color: var(--bs-body-bg) !important;
     color: var(--bs-body-body) !important;
 }
@@ -440,7 +448,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 
 /* ---- styles the checkboxes and radio buttons when row is selectable in the Dash DataTable --- */
 .dbc-row-selectable input[type=checkbox],  .dbc-row-selectable input[type=radio] {
-    border: 1px solid rgb(100, 100, 100);
+    border: var(--bs-border-width) solid var(--bs-border-color) !important;
     color: var(--bs-body-color);
     font-weight: bold;
     background-color: inherit;

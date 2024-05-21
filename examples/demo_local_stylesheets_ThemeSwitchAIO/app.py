@@ -4,18 +4,36 @@ import plotly.express as px
 import dash_bootstrap_components as dbc
 from dash_bootstrap_templates import ThemeSwitchAIO
 
+"""
+ 
+ Note!! - As of Dash Bootstrap Components V1.5.0, we recommend using the Bootstrap Light Dark Color Modes feature 
+ to switch between light and dark versions of a single theme rather than using the ThemeSwitchAIO component.
+
+For more info see https://hellodash.pythonanywhere.com/adding-themes/theme-switch
+
+This example is for dbc <1.5.0
+
+-------------------
+
+Here is how you can download the Bootstrap stylesheets and place them in the assets folder so you can use the
+theme switch component off-line.
+
+
+print("theme1", dbc.themes.SKETCHY)
+print("theme2", dbc.themes.DARKLY)
+
+results in:
+> theme1 https://cdn.jsdelivr.net/npm/bootswatch@5.3.1/dist/sketchy/bootstrap.min.css
+> theme2 https://cdn.jsdelivr.net/npm/bootswatch@5.3.1/dist/darkly/bootstrap.min.css
+
+You can open the link and save the content to files in the assets folder
+
+"""
+
+
 # figure templates
 template_theme1 = "sketchy"
 template_theme2 = "darkly"
-
-# themes
-url_theme1 = dbc.themes.SKETCHY
-url_theme2 = dbc.themes.DARKLY
-
-print("theme1",url_theme1)
-print("theme2",url_theme2)
-
-
 
 dbc_css = "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.min.css"
 #  Note that there are no external stylesheet added here:

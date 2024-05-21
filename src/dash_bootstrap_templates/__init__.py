@@ -26,7 +26,6 @@ except PackageNotFoundError:
     # package is not installed
     pass
 
-
 """
 Use this function to make the bootstrap figure templates available in your Dash app
 """
@@ -64,12 +63,12 @@ dbc_templates = [
 def read_template(theme):
     try:
         with (
-            files("dash_bootstrap_templates") / "templates" / f"{theme}.json"
+                files("dash_bootstrap_templates") / "templates" / f"{theme}.json"
         ).open() as f:
             template = json.load(f)
     except IOError:
         with (
-            files("dash_bootstrap_templates") / "templates" / "bootstrap.json"
+                files("dash_bootstrap_templates") / "templates" / "bootstrap.json"
         ).open() as f:
             template = json.load(f)
     pio.templates[theme] = template
@@ -95,12 +94,13 @@ def load_figure_template(themes="bootstrap"):
     elif themes == "all":
         for theme in dbc_templates:
             read_template(theme)
-            read_template(theme + "_dark")
+            read_template(f"{theme}_dark")
         pio.templates.default = "bootstrap"
 
 
     else:
         read_template(themes)
         pio.templates.default = themes
+
 
 from aio import ThemeSwitchAIO, ThemeChangerAIO, template_from_url

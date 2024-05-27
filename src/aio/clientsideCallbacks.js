@@ -52,7 +52,7 @@ window.dash_clientside.themeSwitch = {
             // toggle between light and dark theme using color mode
             document.documentElement.setAttribute('data-bs-theme', switchOn ? 'light' : 'dark')
         } else {
-            let [currentTheme, newTheme] = switchOn ? themes : themes.toReversed()
+            let [currentTheme, newTheme] = switchOn ? themes.toReversed() : themes
             stylesheet = cleanedStylesheets(themes) // return the stylesheet to use after cleaning
             // update the theme
             stylesheet.setAttribute('href', newTheme)

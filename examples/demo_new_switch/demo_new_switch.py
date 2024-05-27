@@ -10,10 +10,10 @@ from dash_bootstrap_templates import ThemeSwitchAIO
 app = Dash(__name__)
 
 ##### Test dbc themes:
-# themes = (dbc.themes.CYBORG, dbc.themes.BOOTSTRAP)
+# themes = (dbc.themes.BOOTSTRAP, dbc.themes.CYBORG)
 
 ##### Test custom themes and do not apply automatically custom_color_mode_theme.css in assets for this example:
-# themes = ("/assets/custom_dark_theme.css", "/assets/custom_light_theme.css")
+# themes = ("/assets/custom_light_theme.css", "/assets/custom_dark_theme.css")
 # app.config.assets_ignore = 'custom_color_mode_theme.css'
 
 ##### Test color mode, provide only one url as a string:

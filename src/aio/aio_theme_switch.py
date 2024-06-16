@@ -32,7 +32,7 @@ class ThemeSwitchAIO(html.Div):
     def __init__(
             self,
             aio_id: str = str(uuid.uuid4()),
-            themes: tuple[str, str] | str = (dbc.themes.CYBORG, dbc.themes.BOOTSTRAP),
+            themes: tuple[str, str] | list[str] = (dbc.themes.CYBORG, dbc.themes.BOOTSTRAP),
             icons=None,
             switch_props: dict[str, any] = None,
     ):

@@ -1,7 +1,7 @@
-from dash import html, dcc, Input, Output, clientside_callback, MATCH, ClientsideFunction, get_app
+from dash import html, dcc, Input, Output, clientside_callback, MATCH, ClientsideFunction, get_app, State
+from dash_bootstrap_templates import load_figure_template
 import dash_bootstrap_components as dbc
 import uuid
-from dash_bootstrap_templates import load_figure_template
 
 
 class ThemeSwitchAIO(html.Div):
@@ -36,26 +36,28 @@ class ThemeSwitchAIO(html.Div):
             icons=None,
             switch_props: dict[str, any] = None,
     ):
-        """ThemeSwitchAIO is an All-in-One component  composed  of a parent `html.Div` with
+        """ThemeSwitchAIO is an All-in-One component composed of a parent `html.Div` with
         the following components as children:
 
-        - `dbc.Switch` ("`switch`") with icons to the left and right of the switch.
+        - `dbc.Switch` ("`switch`") To switch between two themes.
+        - `dbc.Label` ("`leftIcon` and `rightIcon`") Icons to the left and right of the switch.
         - `dcc.Store` ("`store`") The `themes` are stored in the `data` prop.
-        - `html.Div` is used as the `Output` of the clientside callbacks.
 
         The ThemeSwitchAIO component updates the stylesheet when triggered by changes to the `value` of `switch` or when
-        the themes are updated in the "`store`" component.  The themes in the switch may be updated in a callback
-        by changing the theme urls in the "`store`" component.
+        the themes are updated in the "`store`" component.
 
         - param: `switch_props` A dictionary of properties passed into the dbc.Switch component.
-        - param: `themes` A list of two urls for the external stylesheets or pathnames to files.
+        - param: `themes` A list of two urls for the external stylesheets or file names of stylesheets in
+            'assets_folder' which is 'assets' by default
         - param: `icons`  A dict of the icons to the left and right of the switch. The default is
-          `{"left" :"fa fa-moon", "right" :"fa fa-sun"}`.
+            `{"left" :"fa fa-moon", "right" :"fa fa-sun"}`.
         - param: `aio_id` The All-in-One component ID used to generate components' dictionary IDs.
 
         The All-in-One component dictionary IDs are available as
 
         - ThemeSwitchAIO.ids.switch(aio_id)
+        - ThemeSwitchAIO.ids.leftIcon(aio_id)
+        - ThemeSwitchAIO.ids.rightIcon(aio_id)
         - ThemeSwitchAIO.ids.store(aio_id)
         """
 
@@ -68,23 +70,17 @@ class ThemeSwitchAIO(html.Div):
         switch_props.setdefault("value", True)
         switch_props.setdefault("className", "d-inline-block ms-1")
 
-        # add fontawesome resource for the icons and dbc.css to apply Bootstrap theme to dcc, DataTable and Dash AG Grid
+        # add fontawesome resource for the icons, in first position so that if the user uses another version,
+        # it will override this version
         app = get_app()
-        app.config.external_stylesheets += [
-            "https://use.fontawesome.com/releases/v5.15.4/css/all.css",
-            # "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.min.css"
-        ]
+        app.config.external_stylesheets.insert(0, "https://use.fontawesome.com/releases/v5.15.4/css/all.css")
 
-        # if using custom themes in /assets, filter them out to not be automatically imported by Dash
-        # and let the switch handle them.
-        # append "|" if assets_ignore has already regex rules
-        if app.config.assets_ignore:
-            app.config.assets_ignore += "|"
-        # add the themes to ignore in /assets
-        if isinstance(themes, str):
-            app.config.assets_ignore += f'{themes.replace("/assets/", "")}'
-        else:
-            app.config.assets_ignore += f'{themes[0].replace("/assets/", "")}|{themes[1].replace("/assets/", "")}'
+        # If using custom themes in assets_folder, filter them out to not be automatically imported by Dash
+        # and let the switch handle them. Add "|" if assets_ignore has already regex rules.
+        # Note that if the theme is an external URL, the file name will also be added in assets_ignore,
+        # with no effect as it won't be in assets_folder.
+        for theme in themes:
+            app.config.assets_ignore += f'{"|" if app.config.assets_ignore else ""}{theme.split("/")[-1]}'
 
         # make all dash_bootstrap_templates templates available to plotly figures
         load_figure_template('all')
@@ -98,21 +94,15 @@ class ThemeSwitchAIO(html.Div):
                         dbc.Label(id=self.ids.rightIcon(aio_id), className=icons["right"]),
                     ],
                 ),
-                dcc.Store(id=self.ids.store(aio_id), data=themes)
+                dcc.Store(id=self.ids.store(aio_id), data=themes),
+                dcc.Store(id='assets-url-path-store', data=app.config.assets_url_path)
             ]
         )
-
-    # callback called once, when the switch is created,
-    # to apply the 'dbc' class to the outermost dash app container
-    clientside_callback(
-        ClientsideFunction('themeSwitch', 'applyDbcClass'),
-        Output(ids.switch(MATCH), "id"),
-        Input(ids.switch(MATCH), "id"),
-    )
 
     clientside_callback(
         ClientsideFunction('themeSwitch', 'toggleTheme'),
         Output(ids.store(MATCH), "id"),
         Input(ids.switch(MATCH), "value"),
         Input(ids.store(MATCH), "data"),
+        State("assets-url-path-store", "data"),
     )

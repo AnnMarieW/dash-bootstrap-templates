@@ -17,11 +17,11 @@ app = Dash(
 )
 
 ##### Test dbc themes:
-# themes = (dbc.themes.BOOTSTRAP, dbc.themes.CYBORG)
+themes = (dbc.themes.BOOTSTRAP, dbc.themes.CYBORG)
 
 ##### Test custom themes:
 # Actually, only the name of the file is needed
-themes = ("/server_side_assets/custom_light_theme.css", "custom_dark_theme.css")
+# themes = ("/server_side_assets/custom_light_theme.css", "custom_dark_theme.css")
 
 df = pd.DataFrame(
     {
@@ -82,7 +82,7 @@ app.layout = html.Div(
                 }
             },
             dashGridOptions={"rowSelection": "multiple", "domLayout": "autoHeight"},
-            className='ag-theme-quartz'
+            className='ag-theme-quartz dbc-ag-grid'
         ),
         html.Hr(),
         html.H4('Plotly Figure:'),

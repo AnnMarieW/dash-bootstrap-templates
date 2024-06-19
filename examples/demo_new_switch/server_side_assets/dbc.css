@@ -7,8 +7,10 @@ Defines the .dbc class
 
 
 /* ------------- dash ag grid -------*/
-.dbc [class*=ag-theme-] {
+.dbc-ag-grid [class*=ag-theme-], .dbc-ag-grid[class*=ag-theme-] {
+    --ag-active-color: var(--bs-primary);
     --ag-alpine-active-color: var(--bs-primary);
+    --ag-balham-active-color: var(--bs-primary);
     --ag-selected-row-background-color: rgba(var(--bs-primary-rgb), 0.3);
     --ag-row-hover-color: rgba(var(--bs-primary-rgb), 0.1);
     --ag-column-hover-color: rgba(var(--bs-primary-rgb), 0.1);

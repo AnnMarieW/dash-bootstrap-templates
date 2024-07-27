@@ -1,3 +1,4 @@
+fron typing import Union
 from dash import html, dcc, Input, Output, clientside_callback, MATCH, ClientsideFunction, get_app, State
 from dash_bootstrap_templates import load_figure_template
 import dash_bootstrap_components as dbc
@@ -32,7 +33,7 @@ class ThemeSwitchAIO(html.Div):
     def __init__(
             self,
             aio_id: str = str(uuid.uuid4()),
-            themes: tuple[str, str] | list[str] = (dbc.themes.CYBORG, dbc.themes.BOOTSTRAP),
+            themes: Union[tuple[str, str], list[str]] = (dbc.themes.CYBORG, dbc.themes.BOOTSTRAP),
             icons=None,
             switch_props: dict[str, any] = None,
     ):

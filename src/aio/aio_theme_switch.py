@@ -1,4 +1,4 @@
-fron typing import Union
+from typing import Union
 from dash import html, dcc, Input, Output, clientside_callback, MATCH, ClientsideFunction, get_app, State
 from dash_bootstrap_templates import load_figure_template
 import dash_bootstrap_components as dbc

@@ -87,7 +87,6 @@ def make_figures(template):
         ),
         className="border",
     )
-    print(graph1)
     graph2 = dcc.Graph(
         figure=px.scatter(
             gapminder,

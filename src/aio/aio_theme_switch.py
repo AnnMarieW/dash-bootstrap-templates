@@ -27,6 +27,11 @@ class ThemeSwitchAIO(html.Div):
             "subcomponent": "store",
             "aio_id": aio_id,
         }
+        assetsPath = lambda aio_id: {
+            "component": "ThemeSwitchAIO",
+            "subcomponent": "assetsPath",
+            "aio_id": aio_id,
+        }
 
     ids = ids
 
@@ -96,7 +101,7 @@ class ThemeSwitchAIO(html.Div):
                     ],
                 ),
                 dcc.Store(id=self.ids.store(aio_id), data=themes),
-                dcc.Store(id='assets-url-path-store', data=app.config.assets_url_path)
+                dcc.Store(id=self.ids.assetsPath(aio_id), data=app.config.assets_url_path)
             ]
         )
 
@@ -105,5 +110,5 @@ class ThemeSwitchAIO(html.Div):
         Output(ids.store(MATCH), "id"),
         Input(ids.switch(MATCH), "value"),
         Input(ids.store(MATCH), "data"),
-        State("assets-url-path-store", "data"),
+        State(ids.assetsPath(MATCH), "data"),
     )

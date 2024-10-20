@@ -1,4 +1,5 @@
-from dash import html, dcc, Input, Output, State, callback, clientside_callback, MATCH
+from dash import html, dcc, Input, Output, State, callback, clientside_callback, MATCH, ClientsideFunction, get_app
+from dash_bootstrap_templates import load_figure_template
 import dash_bootstrap_components as dbc
 import uuid
 
@@ -9,7 +10,7 @@ dbc_themes_url = {
 }
 url_dbc_themes = dict(map(reversed, dbc_themes_url.items()))
 dbc_themes_lowercase = [t.lower() for t in dbc_themes_url.keys()]
-dbc_dark_themes = ["cyborg", "darkly", "slate", "solar", "superhero", "vapor"]
+dbc_dark_themes = ["CYBORG", "DARKLY", "SLATE", "SOLAR", "SUPERHERO", "VAPOR"]
 
 
 def template_from_url(url):
@@ -34,16 +35,27 @@ class ThemeChangerAIO(html.Div):
             "subcomponent": "radio",
             "aio_id": aio_id,
         }
-        dummy_div = lambda aio_id: {
+        store = lambda aio_id: {
             "component": "ThemeChangerAIO",
-            "subcomponent": "dummy_div",
+            "subcomponent": "store",
+            "aio_id": aio_id,
+        }
+        assetsPath = lambda aio_id: {
+            "component": "ThemeSwitchAIO",
+            "subcomponent": "assetsPath",
             "aio_id": aio_id,
         }
 
     ids = ids
 
     def __init__(
-        self, radio_props={}, button_props={}, offcanvas_props={}, aio_id=None,
+            self,
+            aio_id: str = str(uuid.uuid4()),
+            custom_themes: dict[str, str] = None,
+            custom_dark_themes: list[str] = None,
+            radio_props: dict[str, any] = None,
+            button_props: dict[str, any] = None,
+            offcanvas_props: dict[str, any] = None,
     ):
 
         """ThemeChangerAIO is an All-in-One component  composed  of a parent `html.Div` with
@@ -53,14 +65,17 @@ class ThemeChangerAIO(html.Div):
         - `dbc.Offcanvas` ("`offcanvas`")
         - `dbc.RadioItems` ("`radio`").  The themes are displayed as RadioItems inside the `dbc.Offcanvas` component.
           The `value` is a url for the theme
-        - `html.Div` is used as the `Output` of the clientside callbacks.
+        - Two `dcc.Store` used as `Input` of the clientside callbacks to provide the theme list and the assets path.
 
         The ThemeChangerAIO component updates the stylesheet  when the `value` of radio changes. (ie the user selects a new theme)
 
-        - param: `radio_props` A dictionary of properties passed into the dbc.RadioItems component. The default `value` is `dbc.themes.BOOTSTRAP`
+        - param: `radio_props` A dictionary of properties passed into the dbc.RadioItems component. The default `value` is `BOOTSTRAP`
         - param: `button_props`  A dictionary of properties passed into the dbc.Button component.
         - param: `offcanvas_props`. A dictionary of properties passed into the dbc.Offcanvas component
         - param: `aio_id` The All-in-One component ID used to generate components' dictionary IDs.
+        - param: `custom_themes` A dictionary of local .css files or external url
+            with the keys being the theme name and the value being the theme path (file name in assets folder or url).
+        - param: `custom_dark_themes` List of custom dark theme name, so that they appear with a black background in the offcanvas list.
 
         The All-in-One component dictionary IDs are available as:
 
@@ -68,127 +83,78 @@ class ThemeChangerAIO(html.Div):
         - ThemeChangerAIO.ids.offcanvas(aio_id)
         - ThemeChangerAIO.ids.button(aio_id)
         """
-        from dash_bootstrap_templates import load_figure_template
-
+        # make all dash_bootstrap_templates templates available to plotly figures
         load_figure_template("all")
 
-        if aio_id is None:
-            aio_id = str(uuid.uuid4())
+        # concat custom themes and bootstrap themes
+        themes_url = (custom_themes | dbc_themes_url) if custom_themes else dbc_themes_url
+        # concat custom dark themes and bootstrap dark themes
+        dark_themes = (dbc_dark_themes + custom_dark_themes) if custom_dark_themes else dbc_dark_themes
 
-        radio_props = radio_props.copy()
-        if "value" not in radio_props:
-            radio_props["value"] = dbc_themes_url["BOOTSTRAP"]
-        if "options" not in radio_props:
-            radio_props["options"] = [
-                {
-                    "label": str(i),
-                    "label_id": "theme-switch-label",
-                    "value": dbc_themes_url[i],
-                }
-                for i in dbc_themes_url
-            ]
-            # assign id to dark themes in order to apply css
-            for option in radio_props["options"]:
-                if option["label"].lower() in dbc_dark_themes:
-                    option["label_id"] = "theme-switch-label-dark"
+        # init button_props
+        if button_props is None:
+            button_props = {}
+        # set default params if they don't exist
+        button_props.setdefault("children", "Change Theme")
+        button_props.setdefault("color", "secondary")
+        button_props.setdefault("outline", True)
+        button_props.setdefault("size", "sm")
 
-        button_props = button_props.copy()
-        if "children" not in button_props:
-            button_props["children"] = "Change Theme"
-        if "color" not in button_props:
-            button_props["color"] = "secondary"
-        if "outline" not in button_props:
-            button_props["outline"] = True
-        if "size" not in button_props:
-            button_props["size"] = "sm"
-
-        offcanvas_props = offcanvas_props.copy()
-        if "children" not in offcanvas_props:
-            offcanvas_props["children"] = [
-                dbc.RadioItems(id=self.ids.radio(aio_id), **radio_props),
-            ]
-        if "title" not in offcanvas_props:
-            offcanvas_props["title"] = "Select a Theme"
-        if "is_open" not in offcanvas_props:
-            offcanvas_props["is_open"] = False
-        if "style" not in offcanvas_props:
-            offcanvas_props["style"] = {"width": 235}
-
-        super().__init__(
-            [
-                dbc.Button(id=self.ids.button(aio_id), **button_props),
-                dbc.Offcanvas(id=self.ids.offcanvas(aio_id), **offcanvas_props),
-                html.Div(
-                    id=self.ids.dummy_div(aio_id),
-                    children=radio_props["value"],
-                    hidden=True,
+        # init radio_props
+        if radio_props is None:
+            radio_props = {}
+        # set default params if they don't exist
+        radio_props.setdefault("options", [{'label': theme, 'value': theme} for theme in themes_url])
+        radio_props.setdefault("value", "BOOTSTRAP")
+        # style the labels
+        radio_props['options'] = [
+            {
+                "label": html.Div(
+                    option["label"],
+                    style={
+                        'background-color': 'black' if option["value"] in dark_themes else 'white',
+                        'color': 'white' if option["value"] in dark_themes else 'black',
+                        'min-width': 100, 'padding': '0px 5px 0px',
+                        'display': 'flex'
+                    }
                 ),
-            ]
-        )
+                "value": option["value"],
+            } for option in radio_props['options']
+        ]
+
+        # init offcanvas_props
+        if offcanvas_props is None:
+            offcanvas_props = {}
+        # set default params if they don't exist
+        offcanvas_props.setdefault("title", "Select a Theme")
+        offcanvas_props.setdefault("is_open", False)
+        offcanvas_props.setdefault("style", {
+            "width": 'unset',  # so that it can grow if there is a long theme label
+            "min-width": 230,
+        })
+        offcanvas_props.setdefault("children", [
+            dbc.RadioItems(id=self.ids.radio(aio_id), **radio_props),
+        ])
+
+        super().__init__([
+            dbc.Button(id=self.ids.button(aio_id), **button_props),
+            dbc.Offcanvas(id=self.ids.offcanvas(aio_id), **offcanvas_props),
+            dcc.Store(id=self.ids.store(aio_id), data=themes_url),
+            dcc.Store(id=self.ids.assetsPath(aio_id), data=get_app().config.assets_url_path)
+        ])
 
     @callback(
         Output(ids.offcanvas(MATCH), "is_open"),
         Input(ids.button(MATCH), "n_clicks"),
-        [State(ids.offcanvas(MATCH), "is_open")],
+        State(ids.offcanvas(MATCH), "is_open"),
     )
     def toggle_theme_offcanvas(n1, is_open):
-        if n1:
-            return not is_open
-        return is_open
+        return not is_open if n1 else is_open
 
     clientside_callback(
-        """
-        function switcher(url) {
-          var stylesheets = document.querySelectorAll(
-            `link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootswatch@5"],
-            link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootstrap@5"]`
-          );
-          // The delay in updating the stylesheet reduces the flash when changing themes
-          stylesheets[stylesheets.length - 1].href = url          
-          setTimeout(function() {
-            for (let i = 0; i < stylesheets.length -1; i++) {
-              stylesheets[i].href = url;
-            }
-          }, 500);            
-        }
-        """,
-        Output(ids.dummy_div(MATCH), "key"),
+        ClientsideFunction('themeChanger', 'toggleTheme'),
+        Output(ids.store(MATCH), "id"),
         Input(ids.radio(MATCH), "value"),
-    )
-
-    # This callback is used to bundle custom CSS with the AIO component
-    # and to add a stylesheet so that the theme switcher will work even if there is a
-    # Bootstrap stylesheet in the assets folder.
-    # This only runs once when the app starts. The clientside function adds the css to a <style>
-    # element and appends it to the <head>.  Dash requires callbacks to have an Output
-    # even if there is nothing to update.
-    #
-    clientside_callback(
-        """
-        function(url) {
-            var style = document.createElement('style')
-            const aio_css = `
-              #theme-switch-label-dark {
-              background-color: black;
-              color: white;
-              width: 100px
-            }            
-            #theme-switch-label {
-              background-color: white;
-              color: black;
-              width: 100px            
-            `            
-            style.innerText = aio_css            
-            document.head.appendChild(style)
-            
-            // initialize theme
-            var link = document.createElement("link");            
-            link.type = "text/css";
-            link.rel = "stylesheet";
-            link.href = url;
-            document.head.appendChild(link);
-        }
-        """,
-        Output(ids.dummy_div(MATCH), "role"),
-        Input(ids.dummy_div(MATCH), "children"),
+        Input(ids.store(MATCH), "data"),
+        State(ids.assetsPath(MATCH), "data")
     )

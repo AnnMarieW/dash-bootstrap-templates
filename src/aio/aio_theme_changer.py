@@ -90,6 +90,7 @@ class ThemeChangerAIO(html.Div):
         themes_url = (custom_themes | dbc_themes_url) if custom_themes else dbc_themes_url
         # concat custom dark themes and bootstrap dark themes
         dark_themes = (dbc_dark_themes + custom_dark_themes) if custom_dark_themes else dbc_dark_themes
+        dark_themes_url = [url for theme, url in themes_url.items() if theme in dark_themes]
 
         # init button_props
         if button_props is None:
@@ -104,16 +105,16 @@ class ThemeChangerAIO(html.Div):
         if radio_props is None:
             radio_props = {}
         # set default params if they don't exist
-        radio_props.setdefault("options", [{'label': theme, 'value': theme} for theme in themes_url])
-        radio_props.setdefault("value", "BOOTSTRAP")
+        radio_props.setdefault("options", [{'label': k, 'value': v} for k, v in themes_url.items()])
+        radio_props.setdefault("value", dbc.themes.BOOTSTRAP)
         # style the labels
         radio_props['options'] = [
             {
                 "label": html.Div(
                     option["label"],
                     style={
-                        'background-color': 'black' if option["value"] in dark_themes else 'white',
-                        'color': 'white' if option["value"] in dark_themes else 'black',
+                        'background-color': 'black' if option["value"] in dark_themes_url else 'white',
+                        'color': 'white' if option["value"] in dark_themes_url else 'black',
                         'min-width': 100, 'padding': '0px 5px 0px',
                         'display': 'flex'
                     }

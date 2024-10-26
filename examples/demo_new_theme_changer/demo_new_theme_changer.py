@@ -28,7 +28,7 @@ app.layout = html.Div(
                 html.H3("ThemeChangerAIO Demo"),
                 ThemeChangerAIO(
                     aio_id="theme",
-                    button_props=dict(outline=False, color="primary"),
+                    button_props={'outline': False},
                     ########## test custom themes ##########
                     custom_themes={
                         'custom-light': 'custom_light_theme.css',
@@ -39,22 +39,22 @@ app.layout = html.Div(
                     ## Note: the value must match the name of the theme
                     # radio_props={
                     #     "options": [
-                    #         {"label": "Cyborg", "value": "CYBORG"},
-                    #         {"label": "My Theme", "value": "custom-light"},
-                    #         {"label": "My Dark Theme", "value": "custom-dark"},
-                    #         {"label": "Spacelab", "value": "SPACELAB"},
-                    #         {"label": "Vapor", "value": "VAPOR"}
+                    #         {"label": "Cyborg", "value": dbc.themes.CYBORG},
+                    #         {"label": "My Theme", "value": "custom_light_theme.css"},
+                    #         {"label": "My Dark Theme", "value": "custom_dark_theme.css"},
+                    #         {"label": "Spacelab", "value": dbc.themes.SPACELAB},
+                    #         {"label": "Vapor", "value": dbc.themes.VAPOR}
                     #     ],
-                    #     "value": "VAPOR",
+                    #     "value": dbc.themes.VAPOR,
                     # },
                     ########## test persistence ##########
                     # radio_props={"persistence": True},
                 ),
-            ], className="sticky-top bg-secondary p-2"
+            ], className="sticky-top bg-primary p-2"
         ),
 
         # test DBC components
-        html.H4('Dash Bootstrap Components:'), html.Img(),
+        html.H4('Dash Bootstrap Components:'),
         html.Div([
             dbc.Button(f"{color}", color=f"{color}", size="sm")
             for color in ["primary", "secondary", "success", "warning", "danger", "info", "light", "dark", "link"]

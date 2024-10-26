@@ -55,11 +55,6 @@ window.dash_clientside.themeChanger = {
             }
         }
 
-        // if local themes are used, modify the path to the clientside path
-        Object.entries(themes).forEach(([theme, url]) => {
-            themes[theme] = isValidHttpUrl(url) ? url : `/${assetsUrlPath}/${url.split('/').at(-1)}`
-        });
-
         // Clean if there are several themes stylesheets applied or create one if no stylesheet is found
         // Find the theme stylesheets
         let stylesheets = []
@@ -80,10 +75,11 @@ window.dash_clientside.themeChanger = {
             document.head.appendChild(stylesheet)
         }
 
-        // Update the theme
-        // let newTheme = switchOn ? themes[0] : themes.toReversed()[0]
-        stylesheet.setAttribute('href', themes[selected_theme])
-
+        // Update the theme, if local themes are used, modify the path to the clientside path
+        stylesheet.setAttribute(
+            'href',
+            isValidHttpUrl(selected_theme) ? selected_theme : `/${assetsUrlPath}/${selected_theme.split('/').at(-1)}`
+        )
         return window.dash_clientside.no_update
     }
 }

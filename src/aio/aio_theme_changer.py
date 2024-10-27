@@ -1,4 +1,6 @@
 from dash import html, dcc, Input, Output, State, callback, clientside_callback, MATCH, ClientsideFunction, get_app
+from typing import Dict, List
+
 from dash_bootstrap_templates import load_figure_template
 import dash_bootstrap_components as dbc
 import uuid
@@ -51,11 +53,11 @@ class ThemeChangerAIO(html.Div):
     def __init__(
             self,
             aio_id: str = str(uuid.uuid4()),
-            custom_themes: dict[str, str] = None,
-            custom_dark_themes: list[str] = None,
-            radio_props: dict[str, any] = None,
-            button_props: dict[str, any] = None,
-            offcanvas_props: dict[str, any] = None,
+            custom_themes: Dict[str, str] = None,
+            custom_dark_themes: List[str] = None,
+            radio_props: Dict[str, any] = None,
+            button_props: Dict[str, any] = None,
+            offcanvas_props: Dict[str, any] = None,
     ):
 
         """ThemeChangerAIO is an All-in-One component  composed  of a parent `html.Div` with
@@ -69,7 +71,7 @@ class ThemeChangerAIO(html.Div):
 
         The ThemeChangerAIO component updates the stylesheet  when the `value` of radio changes. (ie the user selects a new theme)
 
-        - param: `radio_props` A dictionary of properties passed into the dbc.RadioItems component. The default `value` is `BOOTSTRAP`
+        - param: `radio_props` A dictionary of properties passed into the dbc.RadioItems component. The default `value` is `dbc.themes.BOOTSTRAP`
         - param: `button_props`  A dictionary of properties passed into the dbc.Button component.
         - param: `offcanvas_props`. A dictionary of properties passed into the dbc.Offcanvas component
         - param: `aio_id` The All-in-One component ID used to generate components' dictionary IDs.
@@ -87,7 +89,7 @@ class ThemeChangerAIO(html.Div):
         load_figure_template("all")
 
         # concat custom themes and bootstrap themes
-        themes_url = (custom_themes | dbc_themes_url) if custom_themes else dbc_themes_url
+        themes_url = {**custom_themes, **dbc_themes_url} if custom_themes else dbc_themes_url
         # concat custom dark themes and bootstrap dark themes
         dark_themes = (dbc_dark_themes + custom_dark_themes) if custom_dark_themes else dbc_dark_themes
         dark_themes_url = [url for theme, url in themes_url.items() if theme in dark_themes]
@@ -107,22 +109,11 @@ class ThemeChangerAIO(html.Div):
         # set default params if they don't exist
         radio_props.setdefault("options", [{'label': k, 'value': v} for k, v in themes_url.items()])
         radio_props.setdefault("value", dbc.themes.BOOTSTRAP)
-        # style the labels
-        radio_props['options'] = [
-            {
-                "label": html.Div(
-                    option["label"],
-                    style={
-                        'background-color': 'black' if option["value"] in dark_themes_url else 'white',
-                        'color': 'white' if option["value"] in dark_themes_url else 'black',
-                        'min-width': 100, 'padding': '0px 5px 0px',
-                        'display': 'flex'
-                    }
-                ),
-                "value": option["value"],
-            } for option in radio_props['options']
-        ]
-
+        # add label styling to make the difference between light/dark themes
+        for option in radio_props['options']:
+            option.setdefault(
+                "label_id", "theme-switch-label-dark" if option["value"] in dark_themes_url else "theme-switch-label"
+            )
         # init offcanvas_props
         if offcanvas_props is None:
             offcanvas_props = {}
@@ -153,9 +144,75 @@ class ThemeChangerAIO(html.Div):
         return not is_open if n1 else is_open
 
     clientside_callback(
-        ClientsideFunction('themeChanger', 'toggleTheme'),
+        """
+        function (selected_theme, themes, assetsUrlPath) {
+
+            // function to test if the theme is an external or a local theme
+            const isValidHttpUrl = (theme) => {
+                try {
+                    new URL(theme);
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            }
+
+            // Clean if there are several themes stylesheets applied or create one if no stylesheet is found
+            // Find the theme stylesheets
+            let stylesheets = []
+            Object.values(themes).forEach(
+                url => stylesheets.push(...document.querySelectorAll(`link[rel='stylesheet'][href*='${url}']`))
+            );
+
+            // keep the first stylesheet
+            let stylesheet = stylesheets[0]
+            // and clean if more than one stylesheet are found
+            for (let i = 1; i < stylesheets.length; i++) {
+                stylesheets[i].remove()
+            }
+            // or create a new one if no stylesheet found
+            if (!stylesheet) {
+                stylesheet = document.createElement("link")
+                stylesheet.rel = "stylesheet"
+                document.head.appendChild(stylesheet)
+            }
+
+            // Update the theme, if local themes are used, modify the path to the clientside path
+            stylesheet.setAttribute(
+                'href',
+                isValidHttpUrl(selected_theme) ? selected_theme : `/${assetsUrlPath}/${selected_theme.split('/').at(-1)}`
+            )
+            return window.dash_clientside.no_update
+        }
+        """,
         Output(ids.store(MATCH), "id"),
         Input(ids.radio(MATCH), "value"),
         Input(ids.store(MATCH), "data"),
         State(ids.assetsPath(MATCH), "data")
+    )
+
+    # This callback is used to bundle custom CSS with the AIO component. This only runs once when the app starts.
+    # The clientside function adds the css to a <style> element and appends it to the <head>.
+    # Dash requires callbacks to have an Output even if there is nothing to update.
+    clientside_callback(
+        """
+        function(id) {
+            let style = document.createElement('style')
+            style.innerText = `
+                #theme-switch-label-dark {
+                    background-color: black;
+                    color: white;
+                    width: 100px
+                }                
+                #theme-switch-label {
+                    background-color: white;
+                    color: black;
+                    width: 100px
+                }
+            `
+            document.head.appendChild(style)
+        }
+        """,
+        Output(ids.offcanvas(MATCH), "id"),
+        Input(ids.offcanvas(MATCH), "id"),
     )

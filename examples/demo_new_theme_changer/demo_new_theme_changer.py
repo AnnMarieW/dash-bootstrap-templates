@@ -43,7 +43,8 @@ app.layout = html.Div(
                     #         {"label": "My Theme", "value": "custom_light_theme.css"},
                     #         {"label": "My Dark Theme", "value": "custom_dark_theme.css"},
                     #         {"label": "Spacelab", "value": dbc.themes.SPACELAB},
-                    #         {"label": "Vapor", "value": dbc.themes.VAPOR}
+                    #         # test setting label styling (here unset the style)
+                    #         {"label": "Vapor", "value": dbc.themes.VAPOR, "label_id": ""}
                     #     ],
                     #     "value": dbc.themes.VAPOR,
                     # },

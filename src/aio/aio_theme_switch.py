@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, List, Tuple, Dict
 from dash import html, dcc, Input, Output, clientside_callback, MATCH, ClientsideFunction, get_app, State
 from dash_bootstrap_templates import load_figure_template
 import dash_bootstrap_components as dbc
@@ -38,9 +38,9 @@ class ThemeSwitchAIO(html.Div):
     def __init__(
             self,
             aio_id: str = str(uuid.uuid4()),
-            themes: Union[tuple[str, str], list[str]] = (dbc.themes.CYBORG, dbc.themes.BOOTSTRAP),
+            themes: Union[Tuple[str, str], List[str]] = (dbc.themes.CYBORG, dbc.themes.BOOTSTRAP),
             icons=None,
-            switch_props: dict[str, any] = None,
+            switch_props: Dict[str, any] = None,
     ):
         """ThemeSwitchAIO is an All-in-One component composed of a parent `html.Div` with
         the following components as children:
@@ -106,7 +106,47 @@ class ThemeSwitchAIO(html.Div):
         )
 
     clientside_callback(
-        ClientsideFunction('themeSwitch', 'toggleTheme'),
+        """
+        function (switchOn, themes, assetsUrlPath) {
+
+            // function to test if the theme is an external or a local theme
+            const isValidHttpUrl = (theme) => {
+                try {
+                    new URL(theme);
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            }
+
+            // if local themes are used, modify the path to the clientside path
+            themes = themes.map(theme => isValidHttpUrl(theme) ? theme : `/${assetsUrlPath}/${theme.split('/').at(-1)}`)
+
+            // Clean if there are several themes stylesheets applied or create one if no stylesheet is found
+            // Find the stylesheets
+            let stylesheets = []
+            for (const theme of themes) {
+                stylesheets.push(...document.querySelectorAll(`link[rel='stylesheet'][href*='${theme}']`))
+            }
+            // keep the first stylesheet
+            let stylesheet = stylesheets[0]
+            // and clean if more than one stylesheet are found
+            for (let i = 1; i < stylesheets.length; i++) {
+                stylesheets[i].remove()
+            }
+            // or create a new one if no stylesheet found
+            if (!stylesheet) {
+                stylesheet = document.createElement("link")
+                stylesheet.rel = "stylesheet"
+                document.head.appendChild(stylesheet)
+            }
+
+            // Update the theme
+            let newTheme = switchOn ? themes[0] : themes.toReversed()[0]
+            stylesheet.setAttribute('href', newTheme)
+            return window.dash_clientside.no_update
+        }
+        """,
         Output(ids.store(MATCH), "id"),
         Input(ids.switch(MATCH), "value"),
         Input(ids.store(MATCH), "data"),

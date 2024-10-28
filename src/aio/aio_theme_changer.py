@@ -156,32 +156,40 @@ class ThemeChangerAIO(html.Div):
                     return false;
                 }
             }
-
-            // Clean if there are several themes stylesheets applied or create one if no stylesheet is found
+        
+            // We use 2 stylesheets that are updated with a delay of 500ms to reduce the flash when changing themes
             // Find the theme stylesheets
             let stylesheets = []
             Object.values(themes).forEach(
                 url => stylesheets.push(...document.querySelectorAll(`link[rel='stylesheet'][href*='${url}']`))
-            );
-
-            // keep the first stylesheet
-            let stylesheet = stylesheets[0]
-            // and clean if more than one stylesheet are found
-            for (let i = 1; i < stylesheets.length; i++) {
-                stylesheets[i].remove()
+            );        
+        
+            // Clean: add/remove stylesheets to have only 2 stylesheets for the theme
+            if (stylesheets.length < 2) {
+                while (stylesheets.length !== 2) {
+                    let stylesheet = document.createElement("link")
+                    stylesheet.rel = "stylesheet"
+                    document.head.appendChild(stylesheet)
+                    stylesheets.push(stylesheet)
+                }
+            } else if (stylesheets.length > 2) {
+                for (let i = 2; i < stylesheets.length; i++) {
+                    stylesheets[i].remove()
+                }
             }
-            // or create a new one if no stylesheet found
-            if (!stylesheet) {
-                stylesheet = document.createElement("link")
-                stylesheet.rel = "stylesheet"
-                document.head.appendChild(stylesheet)
-            }
-
-            // Update the theme, if local themes are used, modify the path to the clientside path
-            stylesheet.setAttribute(
+        
+            // Update the first stylesheet, if local themes are used, modify the path to the clientside path
+            stylesheets[0].setAttribute(
                 'href',
                 isValidHttpUrl(selected_theme) ? selected_theme : `/${assetsUrlPath}/${selected_theme.split('/').at(-1)}`
             )
+            // update the second stylesheet after 500ms
+            setTimeout(function () {
+                stylesheets[1].setAttribute(
+                    'href',
+                    isValidHttpUrl(selected_theme) ? selected_theme : `/${assetsUrlPath}/${selected_theme.split('/').at(-1)}`
+                )
+            }, 500)
             return window.dash_clientside.no_update
         }
         """,

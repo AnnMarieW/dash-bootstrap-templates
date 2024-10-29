@@ -157,40 +157,31 @@ class ThemeChangerAIO(html.Div):
                 }
             }
         
-            // We use 2 stylesheets that are updated with a delay of 500ms to reduce the flash when changing themes
-            // Find the theme stylesheets
+            // Find the existing theme stylesheets
             let stylesheets = []
             Object.values(themes).forEach(
+
                 url => stylesheets.push(...document.querySelectorAll(`link[rel='stylesheet'][href*='${url}']`))
-            );        
-        
-            // Clean: add/remove stylesheets to have only 2 stylesheets for the theme
-            if (stylesheets.length < 2) {
-                while (stylesheets.length !== 2) {
-                    let stylesheet = document.createElement("link")
-                    stylesheet.rel = "stylesheet"
-                    document.head.appendChild(stylesheet)
-                    stylesheets.push(stylesheet)
-                }
-            } else if (stylesheets.length > 2) {
-                for (let i = 2; i < stylesheets.length; i++) {
-                    stylesheets[i].remove()
-                }
+            );
+
+            // Create a new stylesheet link element
+            let newStylesheet = document.createElement("link");
+            newStylesheet.rel = "stylesheet";
+            newStylesheet.href = isValidHttpUrl(selected_theme)
+                ? selected_theme
+                : `/${assetsUrlPath}/${selected_theme.split('/').at(-1)}`;
+
+
+            // When the new stylesheet is loaded, remove the old ones
+            newStylesheet.onload = function () {
+
+                stylesheets.forEach(s => s.remove());
             }
-        
-            // Update the first stylesheet, if local themes are used, modify the path to the clientside path
-            stylesheets[0].setAttribute(
-                'href',
-                isValidHttpUrl(selected_theme) ? selected_theme : `/${assetsUrlPath}/${selected_theme.split('/').at(-1)}`
-            )
-            // update the second stylesheet after 500ms
-            setTimeout(function () {
-                stylesheets[1].setAttribute(
-                    'href',
-                    isValidHttpUrl(selected_theme) ? selected_theme : `/${assetsUrlPath}/${selected_theme.split('/').at(-1)}`
-                )
-            }, 500)
-            return window.dash_clientside.no_update
+
+            // Append the new stylesheet to the document head
+            document.head.appendChild(newStylesheet);
+
+            return window.dash_clientside.no_update;
         }
         """,
         Output(ids.store(MATCH), "id"),

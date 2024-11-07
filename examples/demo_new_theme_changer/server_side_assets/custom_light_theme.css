@@ -1,0 +1,65 @@
+body {
+    background-color: white;
+    color: black;
+}
+
+.offcanvas {
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    z-index: 1045;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    visibility: hidden;
+    background-color: white;
+    transition: transform 0.3s ease-in-out;
+}
+
+.offcanvas-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: black
+}
+
+.offcanvas-backdrop.fade {
+    opacity: 0
+}
+
+.offcanvas-backdrop.show {
+    opacity: .5
+}
+
+.offcanvas-header {
+    display: flex;
+}
+
+.btn-close {
+    --bs-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+    box-sizing: content-box;
+    width: 1em;
+    height: 1em;
+    padding: .25em .25em;
+    background: transparent var(--bs-btn-close-bg) center/1em auto no-repeat;
+    border: 0;
+    opacity: 0.5
+}
+
+.btn-close:hover {
+    opacity: 0.75
+}
+
+.form-check {
+    display: block;
+    padding-left: 1.5em;
+}
+
+.form-check .form-check-input {
+    float: left;
+    margin-left: -1.5em
+}

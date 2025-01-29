@@ -23,6 +23,9 @@
 
 
 > **Usage Notes**:
+> 
+> Dash Bootstrap Templates V2.0.0 required Plotly >= 6.0  If your project requires Plotly 5, please use Dash Bootstrap Templates V1.3.0
+> 
 >  - The `ThemeChangerAIO` component  and the `dbc.css` stylesheet requires  Dash Bootstrap Components>=V1.0.0.  It will only
 > work with the themes included in Dash Bootstrap Components>=V1.0.0.
 > 

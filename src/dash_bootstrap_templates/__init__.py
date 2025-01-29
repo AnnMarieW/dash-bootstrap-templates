@@ -19,6 +19,17 @@ except ModuleNotFoundError:
         PackageNotFoundError,
         version,
     )
+    
+from packaging import version as packaging_version
+
+min_version = "6.0.0"
+max_version = "7.0.0"
+plotly_version = version("plotly")
+parse_min_version = packaging_version.parse("6.0.0")
+parse_max_version = packaging_version.parse("7.0.0")
+parse_plotly_version = packaging_version.parse(plotly_version)
+if not (parse_min_version <= parse_plotly_version < parse_max_version):
+    raise ImportError(f"Incompatible Plotly version: {plotly_version}. Expected >{min_version}, <{max_version}.\n")
 
 try:
     __version__ = version("dash_bootstrap_templates")

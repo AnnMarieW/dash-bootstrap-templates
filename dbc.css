@@ -38,7 +38,7 @@ Defines the .dbc class
 .dbc .Select-control {
   background-color: var(--bs-body-bg) !important;
   border: var(--bs-border-width) solid var(--bs-border-color) !important;
-
+  border-radius: var(--bs-border-radius);
 }
 
 /* changes the text color of input box */
@@ -246,7 +246,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 /*---- Sliders ----------------- */
 
 .dbc .rc-slider-track {
-  background-color: rgba(var(--bs-primary-rgb), 0.50);
+  background-color: var(--bs-primary-rgb);
 }
 
 .dbc .rc-slider-handle {
@@ -277,6 +277,10 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
   border-color: var(--bs-primary);
 }
 
+.dbc .rc-slider-tooltip-inner {
+  background-color: var(--bs-secondary);
+  border-radius: var(--bs-border-radius);
+}
 
 /* ------------ datepickers -----------------------*/
 

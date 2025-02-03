@@ -1,3 +1,7 @@
+## Feb X, 2025
+Include Vizro Plotly templates after release of [vizro.bootstrap](https://github.com/mckinsey/vizro/pull/970)
+ - Add `vizro_dark.json` and `vizro.json` plotly templates
+ - Minor visual adjustments added to `dbc.css`
 
 ## Jan 29, 2025
 Plotly 6.0 compatibility

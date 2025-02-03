@@ -67,7 +67,8 @@ dbc_templates = [
     "united",
     "vapor",
     "yeti",
-    "zephyr"
+    "zephyr",
+    "vizro"
 ]
 
 

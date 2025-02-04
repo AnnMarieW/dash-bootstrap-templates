@@ -21,14 +21,9 @@ gapminder = px.data.gapminder().query("year==2007")
 load_figure_template(["vizro", "vizro_dark"])
 
 # Create components for the dashboard
-color_mode_switch = html.Span(
-    [
-        dbc.Label(className="fa fa-moon", html_for="switch"),
-        dbc.Switch(id="switch", value=False, className="d-inline-block ms-1", persistence=True),
-        dbc.Label(className="fa fa-sun", html_for="switch"),
-    ]
+color_mode_switch = dbc.Switch(
+    id="switch", value=False, persistence=True, label="Switch between dark and light!", className="mt-4"
 )
-
 scatter = dcc.Graph(
     id="scatter", figure=px.scatter(gapminder, x="gdpPercap", y="lifeExp", size="pop", size_max=60, color="continent")
 )
@@ -50,7 +45,7 @@ app.layout = dbc.Container(
 )
 
 
-# Callbacks to properly switch between dark / light theme
+# Add callbacks to switch between dark / light
 @callback(
     [Output("scatter", "figure"), Output("box", "figure")],
     Input("switch", "value"),

@@ -36,11 +36,11 @@ gapminder = px.data.gapminder().query("year==2007")
 load_figure_template(["vizro", "vizro_dark"])
 
 # Initialize the Dash app
-app = Dash(__name__, external_stylesheets=[vizro.bootstrap])
+app = Dash(__name__, external_stylesheets=[vizro.bootstrap, dbc.icons.FONT_AWESOME])
 
 # Alternatively, you could do:
 # vizro_bootstrap = "https://cdn.jsdelivr.net/gh/mckinsey/vizro@main/vizro-core/src/vizro/static/css/vizro-bootstrap.min.css"
-# app = Dash(__name__, external_stylesheets=[vizro_bootstrap])
+# app = Dash(__name__, external_stylesheets=[vizro_bootstrap, dbc.icons.FONT_AWESOME])
 
 # Create components for the dashboard
 color_mode_switch = html.Span(

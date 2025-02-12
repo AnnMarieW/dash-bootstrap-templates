@@ -21,7 +21,7 @@ underlying CSS file via:
 pip install vizro>=0.1.34
 print(vizro.bootstrap)
 
-vizro_bootstrap = "https://cdn.jsdelivr.net/gh/mckinsey/vizro@0.1.33/vizro-core/src/vizro/static/css/vizro-bootstrap.min.css"
+vizro_bootstrap = "https://cdn.jsdelivr.net/gh/mckinsey/vizro@0.1.34/vizro-core/src/vizro/static/css/vizro-bootstrap.min.css"
 app = Dash(__name__, external_stylesheets=[vizro_bootstrap])
 ```
 """
@@ -40,6 +40,10 @@ load_figure_template(["vizro", "vizro_dark"])
 
 # Initialize the Dash app
 app = Dash(__name__, external_stylesheets=[vizro.bootstrap])
+
+# Alternatively, you could do:
+# vizro_bootstrap = "https://cdn.jsdelivr.net/gh/mckinsey/vizro@0.1.34/vizro-core/src/vizro/static/css/vizro-bootstrap.min.css"
+# app = Dash(__name__, external_stylesheets=[vizro_bootstrap])
 
 # Create components for the dashboard
 color_mode_switch = html.Span(

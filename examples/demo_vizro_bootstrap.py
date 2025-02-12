@@ -6,6 +6,8 @@ Unlike other Bootstrap themes, the `vizro.bootstrap` theme is not included in th
 need to import it directly from the `vizro` module. You can then add it to the external stylesheets of your Dash app:
 
 ```python
+pip install vizro>=0.1.34
+
 import vizro
 from dash import Dash
 
@@ -16,7 +18,7 @@ In case you want to use the Vizro bootstrap theme without having to import vizro
 underlying CSS file via:
 
 ```python
-install vizro
+pip install vizro>=0.1.34
 print(vizro.bootstrap)
 
 vizro_bootstrap = "https://cdn.jsdelivr.net/gh/mckinsey/vizro@0.1.33/vizro-core/src/vizro/static/css/vizro-bootstrap.min.css"
@@ -27,6 +29,7 @@ from dash import Dash, html, dcc, Input, Output, Patch, clientside_callback, cal
 import plotly.express as px
 import plotly.io as pio
 import dash_bootstrap_components as dbc
+# You need to install vizro>=0.1.34
 import vizro
 
 from dash_bootstrap_templates import load_figure_template

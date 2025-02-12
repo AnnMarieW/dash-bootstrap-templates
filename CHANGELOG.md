@@ -1,5 +1,5 @@
 ## Feb 12, 2025
- - Integrated Vizro Plotly templates following the release of [vizro.bootstrap](https://github.com/mckinsey/vizro/pull/970).
+ - Integrated Vizro Plotly templates following the release of [`vizro.bootstrap`](https://github.com/mckinsey/vizro/pull/970).
 Using `vizro.bootstrap` requires `vizro>=0.1.34` to be installed.
  - Added `vizro_dark.json` and `vizro.json` plotly templates from [vizro themes](https://github.com/mckinsey/vizro/tree/main/vizro-core/src/vizro/_themes),
 corresponding to chart templates available in `vizro>=0.1.34`.

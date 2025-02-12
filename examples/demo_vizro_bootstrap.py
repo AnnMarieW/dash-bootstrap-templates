@@ -1,12 +1,27 @@
 """
-This is a demo of the `vizro.bootstrap` theme combined with the load_figure_template(themes) function
-from dash_bootstrap_templates.py
+This script demonstrates the use of the `vizro.bootstrap` theme in combination with the `load_figure_template(themes)`
+function from the `dash_bootstrap_templates.py` module.
 
-Unlike other Bootstrap themes, the `vizro.bootstrap` theme is not included in the `dbc.themes` module and
-must be imported from the `vizro` module.
+Unlike other Bootstrap themes, the `vizro.bootstrap` theme is not included in the `dbc.themes` module. Therefore, you
+need to import it directly from the `vizro` module. You can then add it to the external stylesheets of your Dash app:
 
-The `load_figure_template` function behaves as expected: it loads the Bootstrap theme, adds it to `plotly.io`,
-and sets it as the default.
+```python
+import vizro
+from dash import Dash
+
+app = Dash(__name__, external_stylesheets=[vizro.bootstrap])
+```
+
+In case you want to use the Vizro bootstrap theme without having to import vizro, you can also get the
+underlying CSS file via:
+
+```python
+install vizro
+print(vizro.bootstrap)
+
+vizro_bootstrap = "https://cdn.jsdelivr.net/gh/mckinsey/vizro@0.1.33/vizro-core/src/vizro/static/css/vizro-bootstrap.min.css"
+app = Dash(__name__, external_stylesheets=[vizro_bootstrap])
+```
 """
 from dash import Dash, html, dcc, Input, Output, Patch, clientside_callback, callback
 import plotly.express as px
@@ -20,9 +35,16 @@ from dash_bootstrap_templates import load_figure_template
 gapminder = px.data.gapminder().query("year==2007")
 load_figure_template(["vizro", "vizro_dark"])
 
+# Initialize the Dash app
+app = Dash(__name__, external_stylesheets=[vizro.bootstrap])
+
 # Create components for the dashboard
-color_mode_switch = dbc.Switch(
-    id="switch", value=False, persistence=True, label="Switch between dark and light!", className="mt-4"
+color_mode_switch = html.Span(
+    [
+        dbc.Label(className="fa fa-moon", html_for="switch"),
+        dbc.Switch(id="switch", value=False, className="d-inline-block ms-1"),
+        dbc.Label(className="fa fa-sun", html_for="switch"),
+    ]
 )
 scatter = dcc.Graph(
     id="scatter", figure=px.scatter(gapminder, x="gdpPercap", y="lifeExp", size="pop", size_max=60, color="continent")
@@ -37,8 +59,7 @@ tabs = dbc.Tabs(
     ]
 )
 
-# Initiate app
-app = Dash(__name__, external_stylesheets=[vizro.bootstrap])
+# Create app layout
 app.layout = dbc.Container(
     [html.H1("Vizro Bootstrap Demo", className="bg-primary p-2 mt-4"), color_mode_switch, tabs],
     fluid=True,

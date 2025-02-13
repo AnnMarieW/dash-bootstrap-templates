@@ -7,7 +7,7 @@
 
 - **54 Bootstrap themed Plotly figure templates** 
   - You will find  Plotly templates in light and dark mode for each of the 26 Bootstrap/Bootswatch themes available in the [Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/). 
-  - As of 2.1.0, there is also figure templates based on the [Vizro](https://github.com/mckinsey/vizro) theme.
+  - As of 2.1.0, there are also figure templates based on the [Vizro](https://github.com/mckinsey/vizro) theme.
   - These templates will automatically style your figures with Bootstrap theme colors and fonts.
   - As of V1.1 a dark mode is available for each theme.  This is ideal for use with the [Bootstrap Color Modes](https://getbootstrap.com/docs/5.3/customize/color-modes/) available as of Bootstrap 5.3.0
 

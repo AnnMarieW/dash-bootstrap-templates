@@ -5,13 +5,15 @@
 
 `dash-bootstrap-templates` library provides: 
 
-- **52 Bootstrap themed Plotly figure templates** 
-  - You will find a Plotly template for each of the 26 Bootstrap/Bootswatch themes available in the [Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/). These templates will automatically style your figures with Bootstrap theme colors and fonts.
+- **54 Bootstrap themed Plotly figure templates** 
+  - You will find  Plotly templates in light and dark mode for each of the 26 Bootstrap/Bootswatch themes available in the [Dash Bootstrap Components Library](https://dash-bootstrap-components.opensource.faculty.ai/). 
+  - As of 2.1.0, there is also figure templates based on the [Vizro](https://github.com/mckinsey/vizro) theme.
+  - These templates will automatically style your figures with Bootstrap theme colors and fonts.
   - As of V1.1 a dark mode is available for each theme.  This is ideal for use with the [Bootstrap Color Modes](https://getbootstrap.com/docs/5.3/customize/color-modes/) available as of Bootstrap 5.3.0
 
 
 - **Two  [All-in-One](https://dash.plotly.com/all-in-one-components) components** to change themes in a Dash app.
-  - `ThemeSwitchAIO` toggles between two themes.
+  - `ThemeSwitchAIO` toggles between two themes.  (For use with Bootstrap < 5.3 Otherwise, use Bootstrap Color Modes)
   - `ThemeChangerAIO` select from multiple themes.
   
 - **Examples of a Color Mode Switch** to toggle between a light and dark theme.
@@ -396,11 +398,12 @@ templates = [
   "superhero",
   "united",
   "vapor",
+  "vizro",
   "yeti",
   "zephyr"
 ]
 
-templates_dark = ['bootstrap_dark', 'cerulean_dark', 'cosmo_dark', 'cyborg_dark', 'darkly_dark', 'flatly_dark', 'journal_dark', 'litera_dark', 'lumen_dark', 'lux_dark', 'materia_dark', 'minty_dark', 'morph_dark', 'pulse_dark', 'quartz_dark', 'sandstone_dark', 'simplex_dark', 'sketchy_dark', 'slate_dark', 'solar_dark', 'spacelab_dark', 'superhero_dark', 'united_dark', 'vapor_dark', 'yeti_dark', 'zephyr_dark']
+templates_dark = ['bootstrap_dark', 'cerulean_dark', 'cosmo_dark', 'cyborg_dark', 'darkly_dark', 'flatly_dark', 'journal_dark', 'litera_dark', 'lumen_dark', 'lux_dark', 'materia_dark', 'minty_dark', 'morph_dark', 'pulse_dark', 'quartz_dark', 'sandstone_dark', 'simplex_dark', 'sketchy_dark', 'slate_dark', 'solar_dark', 'spacelab_dark', 'superhero_dark', 'united_dark', 'vapor_dark', 'vizro_dark, 'yeti_dark', 'zephyr_dark']
 
 
 

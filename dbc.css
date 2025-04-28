@@ -2,7 +2,7 @@
 Defines the .dbc class
   Description: The dbc class improves the style of Dash components when using Bootstrap V5 themes
   Author: @AnnMarieW
-  Updated: 2025-02-13
+  Updated: 2025-04-28
 */
 
 
@@ -51,7 +51,7 @@ Defines the .dbc class
 }
 
 .dbc .Select-placeholder {
-  color: var(--bs-secondary) !important;
+  color: var(--bs-secondary-color) !important;
   background-color: var(--bs-body-bg) !important;
 }
 
@@ -104,7 +104,7 @@ Defines the .dbc class
 
 
 .dbc input::placeholder {
-  color: var(--bs-secondary) !important;
+  color: var(--bs-secondary-color) !important;
   background-color: var(--bs-body-bg) !important;
 }
 

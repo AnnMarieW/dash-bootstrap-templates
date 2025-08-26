@@ -246,7 +246,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 /*---- Sliders ----------------- */
 
 .dbc .rc-slider-track {
-  background-color: var(--bs-primary-rgb);
+  background-color: var(--bs-primary);
 }
 
 .dbc .rc-slider-handle {

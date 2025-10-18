@@ -1,3 +1,9 @@
+## Oct 2025
+- updated dbc.css for dcc.Dropdown placeholder border. closes #50
+
+## April 2025
+- updated dbc.css for  dcc.Dropdown placeholder PR #49 by ra99
+
 ## Feb 12, 2025
  - Integrated Vizro Plotly templates following the release of [`vizro.bootstrap`](https://github.com/mckinsey/vizro/pull/970).
 Using `vizro.bootstrap` requires `vizro>=0.1.34` to be installed.

@@ -1,3 +1,7 @@
+## Dec 2025
+- Added Dash 4 DCC style for dash-bootstrap-components
+- Added the dmc class for Dash 4 DCC style for  dash-mantine-components 
+
 ## Oct 2025
 - updated dbc.css for dcc.Dropdown placeholder border. closes #50
 

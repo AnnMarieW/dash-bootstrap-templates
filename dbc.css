@@ -495,49 +495,64 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
 /* ---- end dbc-row-selectable -------------------------*/
 
 /* --- dash 4 for dash-mantine-components and dash-bootstrap-components ------*/
-
 .dmc {
-    --Dash-Spacing: 1px;
-    --Dash-Stroke-Strong: var(--mantine-color-gray-4);
+    --Dash-Stroke-Strong: var(--mantine-color-default-border);
+    --Dash-Stroke-Weak: var(--mantine-color-disabled);
     --Dash-Fill-Interactive-Strong: var(--mantine-primary-color-filled);
     --Dash-Fill-Inverse-Strong: var(--mantine-color-body);
     --Dash-Text-Primary: var(--mantine-color-text);
-    --Dash-Text-Strong: var(--mantine-color-text);
-    --Dash-Text-Disabled:  var(--mantine-color-dimmed)
-    --Dash-Text-Weak: var(--mantine-color-dimmed)
-}
-
-:root[data-mantine-color-scheme="dark"] .dmc {
-    --Dash-Stroke-Strong:  var(--mantine-color-dark-4);
-    --Dash-Stroke-Weak: rgba(255, 255, 255, 0.15);
-    --Dash-Fill-Weak: rgba(255, 255, 255, 0.06);
-    --Dash-Fill-Inverse-Strong: var(--mantine-color-dark-6);
-    --Dash-Fill-Primary-Hover: rgba(255, 255, 255, 0.08);
-    --Dash-Fill-Primary-Active: rgba(255, 255, 255, 0.12);
-    --Dash-Fill-Disabled: rgba(255, 255, 255, 0.2);
-    --Dash-Text-Disabled: rgba(255, 255, 255, 0.3);
+    --Dash-Text-Strong: var(--mantine-color-text)
+    --Dash-Text-Disabled: var(--mantine-color-dimmed);
     --Dash-Text-Weak: var(--mantine-color-dimmed);
 }
 
+:root[data-mantine-color-scheme="dark"] .dmc {
+     --Dash-Fill-Inverse-Strong: var(--mantine-color-dark-6); /*input fields */
+     --Dash-Fill-Weak: rgba(255, 255, 255, 0.06);
+     --Dash-Fill-Primary-Hover: rgba(255, 255, 255, 0.08);
+     --Dash-Fill-Primary-Active: rgba(255, 255, 255, 0.12);
+     --Dash-Fill-Disabled: rgba(255, 255, 255, 0.15);
+     --Dash-Shading-Strong: rgba(0, 0, 0, 0.6);
+     --Dash-Shading-Weak: rgba(0, 0, 0, 0.35);
+}
+
 .dbc {
-    --Dash-Spacing: 4px;
     --Dash-Stroke-Strong: var(--bs-border-color);
     --Dash-Fill-Interactive-Strong: var(--bs-primary);
     --Dash-Fill-Inverse-Strong: var(--bs-body-bg);
     --Dash-Text-Primary: var(--bs-body-color);
     --Dash-Text-Strong: var(--bs-body-color);
-    --Dash-Text-Disabled:  var(--bs-body-color-disabled)
-    --Dash-Text-Weak:  var(--bs-body-color-disabled)
 }
 
 :root[data-bs-theme="dark"] .dbc {
-    --Dash-Stroke-Weak: rgba(255, 255, 255, 0.15);
-    --Dash-Fill-Weak: rgba(255, 255, 255, 0.06);
     --Dash-Fill-Primary-Hover: rgba(255, 255, 255, 0.08);
     --Dash-Fill-Primary-Active: rgba(255, 255, 255, 0.12);
+    --Dash-Fill-Weak: rgba(255, 255, 255, 0.06);
+    --Dash-Stroke-Weak: rgba(255, 255, 255, 0.15);
     --Dash-Fill-Disabled: rgba(255, 255, 255, 0.2);
     --Dash-Text-Disabled: rgba(255, 255, 255, 0.3);
     --Dash-Text-Weak: rgba(255, 255, 255, 0.3);
+    --Dash-Shading-Strong: rgba(0, 0, 0, 0.6);
+    --Dash-Shading-Weak: rgba(0, 0, 0, 0.35);
 }
+
+/* For cyborg, darkly, slate, solar, superhero, vapor themes  (with no color mode switch) */
+.dbc-dark {
+    --Dash-Stroke-Strong: var(--bs-border-color);
+    --Dash-Fill-Interactive-Strong: var(--bs-primary);
+    --Dash-Fill-Inverse-Strong: var(--bs-body-bg);
+    --Dash-Text-Primary: var(--bs-body-color);
+    --Dash-Text-Strong: var(--bs-body-color);
+    --Dash-Fill-Primary-Hover: rgba(255, 255, 255, 0.08);
+    --Dash-Fill-Primary-Active: rgba(255, 255, 255, 0.12);
+    --Dash-Fill-Weak: rgba(255, 255, 255, 0.06);
+    --Dash-Stroke-Weak: rgba(255, 255, 255, 0.15);
+    --Dash-Fill-Disabled: rgba(255, 255, 255, 0.2);
+    --Dash-Text-Disabled: rgba(255, 255, 255, 0.3);
+    --Dash-Text-Weak: rgba(255, 255, 255, 0.3);
+    --Dash-Shading-Strong: rgba(0, 0, 0, 0.6);
+    --Dash-Shading-Weak: rgba(0, 0, 0, 0.35);
+}
+
 
 /* --- dash 4 dcc -----------------------*/

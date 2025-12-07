@@ -536,23 +536,4 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
     --Dash-Shading-Weak: rgba(0, 0, 0, 0.35);
 }
 
-/* For cyborg, darkly, slate, solar, superhero, vapor themes  (with no color mode switch) */
-.dbc-dark {
-    --Dash-Stroke-Strong: var(--bs-border-color);
-    --Dash-Fill-Interactive-Strong: var(--bs-primary);
-    --Dash-Fill-Inverse-Strong: var(--bs-body-bg);
-    --Dash-Text-Primary: var(--bs-body-color);
-    --Dash-Text-Strong: var(--bs-body-color);
-    --Dash-Fill-Primary-Hover: rgba(255, 255, 255, 0.08);
-    --Dash-Fill-Primary-Active: rgba(255, 255, 255, 0.12);
-    --Dash-Fill-Weak: rgba(255, 255, 255, 0.06);
-    --Dash-Stroke-Weak: rgba(255, 255, 255, 0.15);
-    --Dash-Fill-Disabled: rgba(255, 255, 255, 0.2);
-    --Dash-Text-Disabled: rgba(255, 255, 255, 0.3);
-    --Dash-Text-Weak: rgba(255, 255, 255, 0.3);
-    --Dash-Shading-Strong: rgba(0, 0, 0, 0.6);
-    --Dash-Shading-Weak: rgba(0, 0, 0, 0.35);
-}
-
-
 /* --- dash 4 dcc -----------------------*/

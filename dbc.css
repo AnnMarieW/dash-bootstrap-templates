@@ -501,7 +501,7 @@ body .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-in
     --Dash-Fill-Interactive-Strong: var(--mantine-primary-color-filled);
     --Dash-Fill-Inverse-Strong: var(--mantine-color-body);
     --Dash-Text-Primary: var(--mantine-color-text);
-    --Dash-Text-Strong: var(--mantine-color-text)
+    --Dash-Text-Strong: var(--mantine-color-text);
     --Dash-Text-Disabled: var(--mantine-color-dimmed);
     --Dash-Text-Weak: var(--mantine-color-dimmed);
 }

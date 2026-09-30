@@ -21,16 +21,6 @@ import numpy as np
 import dash_bootstrap_components as dbc
 
 
-def patch_asscalar(a):
-    """
-    workaround for using deprecated asscalar in colormath
-    https://github.com/gtaylor/python-colormath/issues/104
-    """
-    return a.item()
-
-setattr(np, "asscalar", patch_asscalar)
-
-
 # The following Bootstrap themes will be generated:
 dbc_themes_url = {
     "BOOTSTRAP": dbc.themes.BOOTSTRAP,
@@ -70,9 +60,6 @@ _colors.py
 
 try:
     import spectra
-    from colormath.density import auto_density
-    from colormath.color_objects import LabColor as LabColor
-    from colormath.color_diff import delta_e_cie1994
 except ImportError:
     msg = (
         "Generating plotly.py figure templates from bootstrap theme files requires\n"
@@ -87,14 +74,31 @@ except ImportError:
 white = spectra.lab(100, 0, 0)
 black = spectra.lab(0, 0, 0)
 
-
-def to_colormath(spectra_color):
-    lab_values = spectra.html(spectra_color.hexcode).to("lab").values
-    return LabColor(*lab_values)
+def to_lab(spectra_color):
+    return np.asarray(spectra.html(spectra_color.hexcode).to("lab").values)
 
 
 def color_distance(clr1, clr2):
-    return delta_e_cie1994(to_colormath(clr1), to_colormath(clr2))
+    lab1 = to_lab(clr1)
+    lab2 = to_lab(clr2)
+
+    l1, a1, b1 = lab1
+    l2, a2, b2 = lab2
+
+    delta_l = l1 - l2
+    c1 = np.hypot(a1, b1)
+    c2 = np.hypot(a2, b2)
+    delta_c = c1 - c2
+
+    delta_a = a1 - a2
+    delta_b = b1 - b2
+    delta_h_squared = max(0, delta_a**2 + delta_b**2 - delta_c**2)
+
+    return np.sqrt(
+        delta_l**2
+        + (delta_c / (1 + 0.045 * c1)) ** 2
+        + delta_h_squared / (1 + 0.015 * c1) ** 2
+    )
 
 
 # Distance matric

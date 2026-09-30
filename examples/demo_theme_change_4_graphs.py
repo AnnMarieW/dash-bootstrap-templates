@@ -1,5 +1,6 @@
 from dash import Dash, dcc, html, Input, Output
 import plotly.express as px
+import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
 from dash_bootstrap_templates import ThemeChangerAIO, template_from_url
 
@@ -12,7 +13,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc_css])
 iris = px.data.iris()
 gapminder = px.data.gapminder()
 tips = px.data.tips()
-carshare = px.data.carshare()
+
 
 figure_templates = [
     "bootstrap_theme",
@@ -87,6 +88,7 @@ def make_figures(template):
         ),
         className="border",
     )
+
     graph2 = dcc.Graph(
         figure=px.scatter(
             gapminder,
@@ -104,6 +106,7 @@ def make_figures(template):
         ),
         className="border",
     )
+
     graph3 = dcc.Graph(
         figure=px.violin(
             tips,
@@ -118,25 +121,26 @@ def make_figures(template):
         ),
         className="border",
     )
-    graph4 = dcc.Graph(
-        figure=px.scatter_mapbox(
-            carshare,
-            lat="centroid_lat",
-            lon="centroid_lon",
-            color="peak_hour",
-            size="car_hours",
-            size_max=15,
-            zoom=10,
-            mapbox_style="carto-positron",
-            title=f"Carshare <br> {template} figure template",
-            template=template,
-        ),
-        className="border",
-    )
+
+    fig4 = go.Figure(go.Scattermap(
+        mode="markers+text+lines",
+        lon=[-75, -80, -50], lat=[45, 20, -20],
+        marker={'size': 20, 'symbol': ["bus", "harbor", "airport"]},
+        text=["Bus", "Harbor", "airport"], textposition="bottom right"))
+
+    fig4.update_layout(
+        map={
+            'style': "dark", 'zoom': 0.7},
+        showlegend=False, template=template,)
+
+    graph4 = dcc.Graph(figure=fig4, className="border")
 
     return [
         dbc.Row([dbc.Col(graph1, lg=6), dbc.Col(graph2, lg=6)]),
-        dbc.Row([dbc.Col(graph3, lg=6), dbc.Col(graph4, lg=6)], className="mt-4"),
+        dbc.Row(
+            [dbc.Col(graph3, lg=6), dbc.Col(graph4, lg=6)],
+            className="mt-4",
+        ),
     ]
 
 
@@ -168,4 +172,4 @@ def update_graph_theme(theme, template):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)

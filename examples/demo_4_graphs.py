@@ -77,4 +77,4 @@ app.layout = dbc.Container(fluid=True, children=[heading, buttons, graphs])
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)
